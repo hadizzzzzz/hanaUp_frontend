@@ -1,4 +1,6 @@
+import PrimaryButton from '../components/PrimaryButton';
+
 const Home = () => {
-  return <div>home</div>;
+  return <div></div>;
 };
 export default Home;
