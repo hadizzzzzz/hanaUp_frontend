@@ -9,8 +9,8 @@ import { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import axios from 'axios';
 import { useRecoilState } from 'recoil';
-import { fundInfoState } from '../../../Recoil/fundInfo';
-import { travelInfo } from '../../../Recoil/travelState';
+import { fundInfoState } from '../../Recoil/fundInfo';
+import { travelInfo } from '../../Recoil/travelState';
 
 // swiper 내부에서 api 호출하여 전역으로 상태 관리
 
@@ -49,7 +49,6 @@ const FundSwiper = () => {
     // const res= await axios.get(`${BASE_URL}/api/main/fund-info?userId=${12345}`);
     // if (res.status===200){
 
-    // 더미데이터
     const data = {
       foreignSavings: {
         totalAmount: 5000,
@@ -81,7 +80,7 @@ const FundSwiper = () => {
         },
       ],
     };
-
+    const processedFundData = await processFundData(data);
     console.log(processedFundData);
     setFundInfo(processedFundData);
     // }
@@ -93,6 +92,7 @@ const FundSwiper = () => {
   };
 
   useEffect(() => {
+    console.log('hi');
     fetchTravelandFundData();
   }, []);
 
@@ -116,7 +116,7 @@ const FundSwiper = () => {
       >
         {fundInfo.map(item => {
           return (
-            <SwiperSlide key={item.moneyAmount}>
+            <SwiperSlide>
               <FundInfoCard {...item}></FundInfoCard>
             </SwiperSlide>
           );

@@ -4,7 +4,7 @@ import { recoilPersist } from 'recoil-persist';
 const { persistAtom } = recoilPersist();
 
 export const fundInfoState = atom({
-  key: 'foodInfoState',
+  key: 'fundInfoState',
   default: [],
   effects_UNSTABLE: [persistAtom],
 });
