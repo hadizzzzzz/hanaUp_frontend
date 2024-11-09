@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import PrimaryButton from '../common/PrimaryButton';
 import styled from 'styled-components';
 import PrimaryHeader from '../common/PrimaryHeader';
-import FundInfoCard from './components/fundInfoCard';
+import FundInfoCard from './components/FundInfoCard';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -28,10 +28,10 @@ const Home = () => {
         trend="up"
         country="Japan"
         currency="JPY"
-        balance="12000"
+        moneyAmount="12000"
         rate="901.28"
       ></FundInfoCard>
-      <FundInfoCard type="foreignSavings" country="USA" currency="USD" totalAmount="5000" rate="1391.5"></FundInfoCard>
+      <FundInfoCard type="foreignSavings" country="USA" currency="USD" moneyAmount="5000" rate="1391.5"></FundInfoCard>
     </Container>
   );
 };

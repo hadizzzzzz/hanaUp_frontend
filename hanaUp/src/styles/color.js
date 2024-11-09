@@ -4,8 +4,9 @@ const color = {
     secondary: '#01BABD',
     bg: '#40A0C9',
     point: '#FFA68D',
-    grad: '#000000',
-    grad30: '#757575',
+    grad: 'linear-gradient(90deg, #46D7C2 0%, #24C9BF 50%, #01BABD 100%)',
+    grad30:
+      ' linear-gradient(90deg, rgba(70, 215, 194, 0.30) 0%, rgba(36, 201, 191, 0.30) 50%, rgba(1, 186, 189, 0.30) 100%)',
     accept: '#FF6363',
   },
   grayscale: {

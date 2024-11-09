@@ -4,16 +4,14 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
     font-family: 'Pretendard';
     font-weight: normal;
-    src: url('/fonts/Pretendard-Medium.ttf');
+    src: url('/fonts/Pretendard-SemiBold.ttf');
   }
 
   *, *::before, *::after {
     box-sizing: border-box;
-    font-family: "pretendard";
   }
 
   body {
-  font-family: "pretendard";
   display: flex;
   flex-direction: column;
   position: relative;
@@ -32,7 +30,6 @@ const GlobalStyle = createGlobalStyle`
   .Home {
     margin-left: auto;
   margin-right: auto;
-  font-family: "pretendard";
   display: flex;
   flex-direction: column;
   position: relative;
