@@ -4,8 +4,10 @@ import color from '../../styles/color';
 import arrowRight from '../assets/arrow-right.png';
 import { LinearGradient } from 'react-text-gradients';
 import menuIcn from '../assets/menu.png';
+import { useEffect } from 'react';
 
 const RootContainer = styled.div`
+  margin-left: 30px;
   display: flex;
   width: 275px;
   padding: 15px;
@@ -198,7 +200,7 @@ const MenuIcn = styled.img`
 // currency // 통화 종류
 // moneyAmount // 남은 돈
 // rate  // 현재 환율 (보유 통화인 경우)
-const FundInfoCard = ({ type, trend, country, currency, moneyAmount, rate }) => {
+const FundInfoCard = ({ type, trend, country, currency, moneyAmount, exchangeRate }) => {
   return (
     <RootContainer type={type}>
       <AbsoluteBannerTitle type={type}>{type === 'foreignSavings' ? '외화적금' : '보유통화'}</AbsoluteBannerTitle>
@@ -235,7 +237,7 @@ const FundInfoCard = ({ type, trend, country, currency, moneyAmount, rate }) => 
         <BtnsContainer>
           <BtnContainer type={type}>환급</BtnContainer>
           <BtnContainer type={type} trend={trend}>
-            {currency} 100 = {rate}원 {trend === 'up' ? '▲' : '▼'}
+            {currency} 100 = {exchangeRate.rate}원 {trend === 'up' ? '▲' : '▼'}
           </BtnContainer>
           <ImgContainer>
             <MenuIcn src={menuIcn}></MenuIcn>
