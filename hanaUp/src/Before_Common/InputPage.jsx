@@ -9,6 +9,8 @@ import InputPage_Dropdown from './InputPage_Dropdown';
 import InputPage_DatePicker from './InputPage_DatePicker';
 import addDays from 'date-fns/addDays';
 import { useEffect } from 'react';
+import axios from 'axios';
+import calculateDateDiff from '../common/calculateDateDiff';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -104,6 +106,50 @@ const Before_InputPage = () => {
     return false;
   };
 
+  const handleTestStart = async () => {
+    try {
+      // var url;
+      // if (type === 'predictAmountResult') url = `${BASE_URL}/api/before-travel/type-test`;
+      // else url = `${BASE_URL}/api/before-travel/estimate-cost`;
+      // const res = axios.post(url, {
+      //   userId: '12345',
+      //   destination: { selectedCountry },
+      //   duration: calculateDateDiff(selectedDate.startDate, selectedDate.endDate),
+      // });
+      // if (res.status === 200)
+
+      // 임시 res 객체
+      const res = {
+        estimatedCost: 1500,
+        currency: 'USD',
+        breakdown: {
+          transport: 300, // 교통비
+          food: 400, // 식비
+          shopping: 300, // 쇼핑비
+          activities: 400, // 활동비
+          medical: 100, // 병원비
+        },
+        averageBreakdown: {
+          transport: 280, // 평균 교통비
+          food: 450, // 평균 식비
+          shopping: 320, // 평균 쇼핑비
+          activities: 380, // 평균 활동비
+          medical: 120, // 평균 병원비
+        },
+      };
+      navigation(`/predictService/${type}Result`, {
+        state: {
+          startDate: selectedDate.startDate,
+          endDate: selectedDate.endDate,
+          country: selectedCountry,
+          res: res,
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container className="testInputPage">
       <PrimaryHeader header_title="여행 기본 정보 입력하기" />
@@ -135,9 +181,7 @@ const Before_InputPage = () => {
         <PrimaryButton
           text="유형테스트 시작하기"
           type={checkAllInput() ? 'active' : 'deactive'}
-          onClick={() => {
-            navigation(`/predictService/${type}Result`);
-          }}
+          onClick={handleTestStart}
         ></PrimaryButton>
         <Horizon />
         <InfoContainer>
