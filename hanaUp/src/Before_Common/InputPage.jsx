@@ -8,6 +8,7 @@ import PrimaryButton from '../common/PrimaryButton';
 import InputPage_Dropdown from './InputPage_Dropdown';
 import InputPage_DatePicker from './InputPage_DatePicker';
 import addDays from 'date-fns/addDays';
+import { useEffect } from 'react';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -78,8 +79,8 @@ const Before_InputPage = () => {
 
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedDate, setSelectedDate] = useState({
-    startDate: new Date(),
-    endDate: addDays(new Date(), 1),
+    startDate: '',
+    endDate: '',
   });
   const [selectedType, setSelectedType] = useState('');
 
@@ -89,9 +90,17 @@ const Before_InputPage = () => {
     { value: 'c', label: 'Option C' },
   ];
 
-  const handleDateSelect = ({ startDate, endDate }) => {
-    console.log(startDate);
-    console.log(endDate);
+  const handleDateSelect = range => {
+    setSelectedDate({
+      startDate: range[0].startDate,
+      endDate: range[0].endDate,
+    });
+  };
+
+  const checkAllInput = () => {
+    if (selectedCountry !== '' && selectedType != '' && selectedDate.startDate != '' && selectedDate.endDate != '')
+      return true;
+    return false;
   };
 
   return (
@@ -122,7 +131,7 @@ const Before_InputPage = () => {
         </InputContainer>
       </MainContainer>
       <BtnContainer>
-        <PrimaryButton text="유형테스트 시작하기"></PrimaryButton>
+        <PrimaryButton text="유형테스트 시작하기" type={checkAllInput() ? 'active' : 'deactive'}></PrimaryButton>
         <Horizon />
         <InfoContainer>
           <div style={{ ...font.caption.cap2M, color: '#757575' }}>

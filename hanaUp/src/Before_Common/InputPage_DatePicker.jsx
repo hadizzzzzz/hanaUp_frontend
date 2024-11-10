@@ -54,35 +54,62 @@ const HeaderText = styled.div`
         `}
 `;
 
+const DatePickerWrapper = styled.div`
+  position: absolute;
+  z-index: 1;
+`;
+
+// 모달을 열기 전
+// 모달을 연 후 - 날짜 1개 선택 (startDate와 endDate가 동일)
+// 모달을 연 후 - 날짜 2개 선택 (startDate와 endDate 전부)
+// 모달을 연 후 - 또 다시 날짜 선택 (초기화 후 startDate)
 const InputPage_DatePicker = ({ onChange }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedValue, setSelectedValue] = useState(''); // 선택된 값
   const dropdownRef = useRef(null); // 드롭다운 영역 참조
+  const [isFirst, setIsFirst] = useState(true); // 초기의 placeholder 관리를 위함
 
   const [range, setRange] = useState([
     {
       startDate: new Date(),
       endDate: addDays(new Date(), 1),
       key: 'selection',
-      cnt: 0,
     },
   ]);
-
-  useEffect(() => {}, [range]);
 
   const toggleDropdown = () => {
     setIsOpen(prev => !prev);
   };
 
   const handleDateClick = item => {
+    if (isFirst) setIsFirst(!isFirst);
     setRange([item.selection]);
-    // setIsOpen(false);
-    // if (onChange) onChange(value);
+
+    if (onChange) onChange([item.selection]);
+  };
+
+  const renderContent = () => {
+    const { startDate, endDate } = range[0];
+
+    if (isFirst) {
+      return <HeaderText type="placeholder">여행 기간을 선택해주세요</HeaderText>;
+    }
+
+    const isSameDay = startDate.toDateString() === endDate.toDateString();
+
+    if (isSameDay) {
+      return <HeaderText>{startDate.toLocaleDateString()}</HeaderText>;
+    }
+
+    return (
+      <HeaderText>
+        {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
+      </HeaderText>
+    );
   };
 
   // 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
-    console.log(range);
     const handleClickOutside = event => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsOpen(false);
@@ -98,28 +125,29 @@ const InputPage_DatePicker = ({ onChange }) => {
   return (
     <Container ref={dropdownRef}>
       <DatePickerHeader onClick={toggleDropdown}>
-        {selectedValue === '' ? (
+        {/* {datePickerCnt === 0 ? (
           <HeaderText type="placeholder">여행 기간을 선택해주세요</HeaderText>
-        ) : (
-          <HeaderText>{selectedValue}</HeaderText>
-        )}
+        ) : {}} */}
+        {renderContent()}
         <IcnContainer src={isOpen ? upArrow : downArrow} />
       </DatePickerHeader>
 
       {isOpen && (
-        <DateRange
-          //   dateDisplayFormat={'yyyy.mm.dd'}
-          monthDisplayFormat="MMM"
-          locale={ko} // 한국어 달력으로
-          showDateDisplay={false}
-          showPreview={false}
-          showMonthAndYearPickers={false}
-          rangeColors={[color.brand.secondary]}
-          editableDateInputs={true}
-          onChange={item => handleDateClick(item)}
-          moveRangeOnFirstSelection={false}
-          ranges={range}
-        />
+        <DatePickerWrapper>
+          <DateRange
+            //   dateDisplayFormat={'yyyy.mm.dd'}
+            monthDisplayFormat="MMM"
+            locale={ko} // 한국어 달력으로
+            showDateDisplay={false}
+            showPreview={false}
+            showMonthAndYearPickers={false}
+            rangeColors={[color.brand.secondary]}
+            editableDateInputs={true}
+            onChange={item => handleDateClick(item)}
+            moveRangeOnFirstSelection={false}
+            ranges={range}
+          />
+        </DatePickerWrapper>
       )}
     </Container>
   );
