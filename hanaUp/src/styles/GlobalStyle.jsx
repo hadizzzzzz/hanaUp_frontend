@@ -27,7 +27,7 @@ const GlobalStyle = createGlobalStyle`
   margin-right: auto;
 } */
 
-  .Home, .predictService, .testInputPage{
+  .Home, .predictService, .testInputPage, .spendTypeTest{
     margin-left: auto;
   margin-right: auto;
   display: flex;

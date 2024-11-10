@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import PrimaryHeader from '../common/PrimaryHeader';
 import font from '../styles/font';
@@ -76,6 +76,7 @@ const InfoContainer = styled.div`
 const Before_InputPage = () => {
   // 사용자의 트래블로그 이용 여부
   const type = useParams().type;
+  const navigation = useNavigate();
 
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedDate, setSelectedDate] = useState({
@@ -131,7 +132,13 @@ const Before_InputPage = () => {
         </InputContainer>
       </MainContainer>
       <BtnContainer>
-        <PrimaryButton text="유형테스트 시작하기" type={checkAllInput() ? 'active' : 'deactive'}></PrimaryButton>
+        <PrimaryButton
+          text="유형테스트 시작하기"
+          type={checkAllInput() ? 'active' : 'deactive'}
+          onClick={() => {
+            navigation(`/predictService/${type}Result`);
+          }}
+        ></PrimaryButton>
         <Horizon />
         <InfoContainer>
           <div style={{ ...font.caption.cap2M, color: '#757575' }}>

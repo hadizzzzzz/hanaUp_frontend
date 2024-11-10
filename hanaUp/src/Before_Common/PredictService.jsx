@@ -5,6 +5,7 @@ import color from '../styles/color';
 import PredictMainImg from './assets/predictMain.jpg';
 import PrimaryButton from '../common/PrimaryButton';
 import { useNavigate } from 'react-router-dom';
+import HighLightText from '../common/HighLightText';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -34,27 +35,6 @@ const TextContainer = styled.div`
   gap: 17px;
 `;
 
-const MainText = styled.div`
-  ${font.header.h1};
-  width: 100%;
-
-  color: #2d2d2d;
-  text-align: center;
-
-  position: relative;
-`;
-
-const MainTextHighLight = styled.div`
-  position: absolute;
-  width: 172px;
-  height: 13px;
-
-  bottom: 8px;
-  margin-left: 109px;
-
-  background: rgba(70, 215, 194, 0.3);
-`;
-
 const SubText = styled.div`
   ${font.caption.cap1R};
   color: ${color.grayscale.gray5};
@@ -82,10 +62,7 @@ const PredictService = () => {
       <PrimaryHeader header_title="여행 경비 예측 서비스" />
       <MainContainer>
         <TextContainer>
-          <MainText>
-            메인 텍스트
-            <MainTextHighLight />
-          </MainText>
+          <HighLightText text="메인 텍스트" />
           <SubText>
             방문하고 싶은 여행지를 선택하면,
             <br /> 예상 경비를 자동으로 예측해드릴게요. <br />
