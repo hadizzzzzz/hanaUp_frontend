@@ -92,7 +92,6 @@ const FundSwiper = () => {
   };
 
   useEffect(() => {
-    console.log('hi');
     fetchTravelandFundData();
   }, []);
 
@@ -121,7 +120,6 @@ const FundSwiper = () => {
             </SwiperSlide>
           );
         })}
-        ;
       </Swiper>
     );
   }

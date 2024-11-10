@@ -2,17 +2,6 @@ import styled, { css } from 'styled-components';
 import color from '../styles/color';
 import font from '../styles/font';
 
-// type: active, hover, inactive
-// text: 버튼의 텍스트
-// onClick: onClick 함수를 prop으로 전달받음
-const PrimaryButton = ({ type, text, onClick }) => {
-  return (
-    <Button type={type}>
-      <BtnText>{text}</BtnText>
-    </Button>
-  );
-};
-
 const Button = styled.div`
   display: flex;
   width: 335px;
@@ -42,6 +31,19 @@ const Button = styled.div`
 `;
 
 const BtnText = styled.div`
-  ${font.button};
+  ${font.button.b1};
+  color: ${color.grayscale.white};
 `;
+
+// type: active, hover, inactive
+// text: 버튼의 텍스트
+// onClick: onClick 함수를 prop으로 전달받음
+const PrimaryButton = ({ type, text, onClick }) => {
+  return (
+    <Button type={type} onClick={onClick}>
+      <BtnText>{text}</BtnText>
+    </Button>
+  );
+};
+
 export default PrimaryButton;

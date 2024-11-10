@@ -10,8 +10,6 @@ import TravelBanner from './components/TravelBanner';
 const Container = styled.div`
   border: 1px solid black;
 
-  /* 미디어 쿼리 적용 */
-  /* pc화면에서 너비를 390로 고정합니다*/
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;
@@ -23,6 +21,8 @@ const FundSwiperContainer = styled.div`
   flex-direction: flex-end;
 
   width: 100%;
+  margin-top: 13px;
+  margin-bottom: 13px;
 `;
 
 const DummyBanner = styled.img`

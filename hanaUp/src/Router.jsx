@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import Home from './Home/Home';
 import PredictAmount from './Before_PredictAmount/PredictAmount';
 import SpendTypeTest from './Before_SpendingTest/SpendTypeTest';
-import DailyReport from './Previous_DailyReport/DailyReport';
+import DailyReport from './During_DailyReport/DailyReport';
 import NewAccount from './After_Account/NewAccount';
-import ATM from './Previous_ATM/ATM';
+import ATM from './During_ATM/ATM';
 import ExTech from './After_ExTech/ExTech';
+import PredictService from './Before_Common/PredictService';
+import Before_InputPage from './Before_Common/InputPage';
 
 const router = createBrowserRouter([
   {
@@ -14,11 +16,19 @@ const router = createBrowserRouter([
     element: <Home></Home>,
   },
   {
-    path: '/predictAmount',
+    path: '/predictService',
+    element: <PredictService></PredictService>,
+  },
+  {
+    path: '/predictService/:type',
+    element: <Before_InputPage></Before_InputPage>,
+  },
+  {
+    path: '/predictService/predictAmountResult',
     element: <PredictAmount></PredictAmount>,
   },
   {
-    path: '/spendTypeTest',
+    path: '/predictService/spendTypeTestResult',
     element: <SpendTypeTest></SpendTypeTest>,
   },
   {

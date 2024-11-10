@@ -33,22 +33,22 @@ const BtnContainer = styled.div`
 
 const TravelBanner = () => {
   const travelState = useRecoilValue(travelInfo);
-  const navigation = useNavigation();
+  const navigate = useNavigate();
 
   const onBeforeBtnHandler = () => {
-    navigation.navigate('/');
+    navigate('/predictService');
   };
 
   const onDuringBtnHandler = () => {
-    navigation.navigate('/dailyReport');
+    navigate('/dailyReport');
   };
 
   const onAfterReportBtnHandler = () => {
-    navigation.navigate('/dailyReport');
+    navigate('/dailyReport');
   };
 
   const onAfterInvestBtnHandler = () => {
-    navigation.navigate('/');
+    navigate('/');
   };
 
   return (
@@ -59,7 +59,13 @@ const TravelBanner = () => {
           text={
             travelState === 'during' ? 'ATM 위치 확인하기' : travelState === 'after' ? '여행 소비 리포트 확인하기' : ''
           }
-          onClick={travelState === 'after' ? onAfterReportBtnHandler : ''}
+          onClick={
+            travelState === 'after'
+              ? () => {
+                  onAfterReportBtnHandler();
+                }
+              : ''
+          }
         ></BannerBtn>
         <BannerBtn
           text={
@@ -68,6 +74,15 @@ const TravelBanner = () => {
               : travelState === 'after'
               ? '여행 후 남은 외화 투자하기'
               : '여행 경비 예측하기'
+          }
+          onClick={
+            travelState === 'before'
+              ? () => {
+                  onBeforeBtnHandler();
+                }
+              : travelState === 'after'
+              ? () => onAfterInvestBtnHandler()
+              : ''
           }
         ></BannerBtn>
       </BtnContainer>
