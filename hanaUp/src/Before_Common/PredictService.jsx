@@ -78,14 +78,15 @@ const PredictService = () => {
           type="active"
           text="트래블로그 이용이 처음이에요"
           onClick={() => {
-            navigate('/predictService/predictAmount');
+            navigate('/predictService/spendTypeTest');
           }}
+          // /predictService/:type 으로 navigate
         />
         <PrimaryButton
           type="active"
           text="트래블로그 이용 경험이 있어요"
           onClick={() => {
-            navigate('/predictService/spendTypeTest');
+            navigate('/predictService/predictAmount');
           }}
         />
       </BtnContainer>

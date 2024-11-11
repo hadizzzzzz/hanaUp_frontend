@@ -4,7 +4,7 @@ import PrimaryHeader from '../common/PrimaryHeader';
 import HighLightText from '../common/HighLightText';
 import font from '../styles/font';
 import color from '../styles/color';
-import loading from './assets/loading_spendTypeTest.jpg';
+import loading from './assets/loading.jpg';
 import { useLocation } from 'react-router-dom';
 import ResultPage from './ResultPage';
 
@@ -77,7 +77,7 @@ const LoadingScreen = () => {
 
 // 여행할 나라
 // startDate
-const SpendTypeTest = () => {
+const PredictAmountPage = () => {
   const [isLoading, setIsLoading] = useState(true); // 로딩 상태 관리
   const location = useLocation();
   const travelInfo = { ...location.state }; // 여행 나라, startDate와 endDate를 담은 객체
@@ -101,4 +101,4 @@ const SpendTypeTest = () => {
   );
 };
 
-export default SpendTypeTest;
+export default PredictAmountPage;

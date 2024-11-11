@@ -8,6 +8,8 @@ import 'react-date-range/dist/styles.css'; // 기본 스타일
 import 'react-date-range/dist/theme/default.css'; // 테마 스타일
 import ko from 'date-fns/locale/ko';
 
+import './styles/datePicker.css';
+
 import upArrow from './assets/upArrow.png';
 import downArrow from './assets/downArrow.png';
 
@@ -57,6 +59,10 @@ const HeaderText = styled.div`
 const DatePickerWrapper = styled.div`
   position: absolute;
   z-index: 1;
+  margin-top: 10px;
+
+  border-radius: 8px;
+  box-shadow: 0px 0px 25px 0px rgba(0, 0, 0, 0.05);
 `;
 
 // 모달을 열기 전

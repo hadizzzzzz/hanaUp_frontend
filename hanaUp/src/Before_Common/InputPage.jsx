@@ -137,12 +137,13 @@ const Before_InputPage = () => {
           medical: 120, // 평균 병원비
         },
       };
-      navigation(`/predictService/${type}Result`, {
+      navigation(`/predictService/${type}/result`, {
         state: {
           startDate: selectedDate.startDate,
           endDate: selectedDate.endDate,
           country: selectedCountry,
           res: res,
+          testDone: false,
         },
       });
     } catch (error) {

@@ -16,6 +16,7 @@
     "react-date-range": "^2.0.1",
     "react-date-range-picker": "^0.5.2",
     "react-dom": "^18.3.1",
+    "react-progressbar": "^15.4.1",
     "react-router-dom": "^6.27.0",
     "react-text-gradients": "^1.0.2",
     "recoil": "^0.7.7",
