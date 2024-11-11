@@ -22,12 +22,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   // 최상위 페이지 컴포넌트에 대해 모바일 웹 환경 구축
-  /* .mainContainer, .total, .map, .home, .community, .assetDetail, .assetEdit, .assetAddNumber, .communityGovern, .community_govern, .community_neighbor, .guideLinePage, .guideLineAct{
-  margin-left: auto;
-  margin-right: auto;
-} */
 
-  .Home, .predictService, .testInputPage, .spendTypeTest, .spendTypeTestPage{
+  .Home, .predictService, .testInputPage, .spendTypeTest, .spendTypeTestPage, .atmPage, .reportPage{
     margin-left: auto;
   margin-right: auto;
   display: flex;
@@ -38,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
   min-height: 100vh;
   background-color: white;
   }
+
 /* {
   margin-left: auto;
   margin-right: auto;

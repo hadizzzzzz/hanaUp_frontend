@@ -58,6 +58,7 @@ const TitleContainer = styled.div`
   ${font.header.h2};
 
   text-align: left;
+  word-break: keep-all;
 `;
 
 const OptionContainer = styled.div`

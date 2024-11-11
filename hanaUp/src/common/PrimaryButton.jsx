@@ -13,17 +13,17 @@ const Button = styled.div`
   line-height: normal;
   border-radius: 12px;
 
-  cursor: pointer;
-
   ${props =>
     props.type === 'active'
       ? css`
           background: linear-gradient(90deg, #46d7c2 0%, #24c9bf 50%, #01babd 100%);
+          cursor: pointer;
         `
       : props.type === 'hover'
       ? css`
           background: linear-gradient(0deg, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0.6) 100%),
             linear-gradient(90deg, #46d7c2 0%, #24c9bf 50%, #01babd 100%);
+          cursor: pointer;
         `
       : css`
           background: ${color.grayscale.gray3};
@@ -39,8 +39,12 @@ const BtnText = styled.div`
 // text: 버튼의 텍스트
 // onClick: onClick 함수를 prop으로 전달받음
 const PrimaryButton = ({ type, text, onClick }) => {
+  const handleOnClick = () => {
+    if (type === 'active') onClick();
+  };
+
   return (
-    <Button type={type} onClick={onClick}>
+    <Button type={type} onClick={handleOnClick}>
       <BtnText>{text}</BtnText>
     </Button>
   );

@@ -75,7 +75,7 @@ const SmallHorizon = styled.div`
 
 const GraphWrapper = styled.div`
   width: 335px;
-  height: 330px;
+  height: 270px;
 
   display: flex;
   padding: 14px 20px;

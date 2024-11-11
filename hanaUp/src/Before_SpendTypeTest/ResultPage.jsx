@@ -6,8 +6,8 @@ import calculateDateDiff from '../common/calculateDateDiff';
 import type1 from './spendTypes/type1.jpg'; // type에 따라 동적 렌더링 필요
 import DollarBox from '../common/DollarBox';
 import PrimaryButton from '../common/PrimaryButton';
-import Msg from '../common/msg';
 import SpendTypeTest_Graph from '../Before_Common/SpendTypeTest_Graph';
+import Msg from '../common/Msg';
 
 // 버튼 컨테이너를 제외한 content만의 컨테이너
 const RootContainer = styled.div`
@@ -83,7 +83,7 @@ const SmallHorizon = styled.div`
 
 const GraphWrapper = styled.div`
   width: 335px;
-  height: 330px;
+  height: 270px;
 
   display: flex;
   padding: 14px 20px;

@@ -62,9 +62,11 @@ const TravelBanner = () => {
           onClick={
             travelState === 'after'
               ? () => {
-                  onAfterReportBtnHandler();
+                  navigate('/report');
                 }
-              : ''
+              : () => {
+                  navigate('/atm');
+                }
           }
         ></BannerBtn>
         <BannerBtn
@@ -78,11 +80,15 @@ const TravelBanner = () => {
           onClick={
             travelState === 'before'
               ? () => {
-                  onBeforeBtnHandler();
+                  navigate('/predictService');
                 }
               : travelState === 'after'
-              ? () => onAfterInvestBtnHandler()
-              : ''
+              ? () => {
+                  navigate('/');
+                }
+              : () => {
+                  navigate('/report');
+                }
           }
         ></BannerBtn>
       </BtnContainer>

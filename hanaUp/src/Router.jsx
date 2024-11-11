@@ -1,15 +1,16 @@
 import { createBrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Home from './Home/Home';
-import DailyReport from './During_DailyReport/DailyReport';
 import NewAccount from './After_Account/NewAccount';
-import ATM from './During_ATM/ATM';
 import ExTech from './After_ExTech/ExTech';
 import PredictService from './Before_Common/PredictService';
 import Before_InputPage from './Before_Common/InputPage';
 import SpendTypeTestPage from './Before_SpendTypeTest/SpendTypeTestMain';
 import PredictAmountPage from './Before_PredictAmount/PredictAmountPage';
 import TestPage from './Before_SpendTypeTest/TestPage';
+import AtmPage from './During/AtmPage';
+import During_ReportPage from './During/During_ReportPage';
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -38,11 +39,11 @@ const router = createBrowserRouter([
   },
   {
     path: '/atm',
-    element: <ATM></ATM>,
+    element: <AtmPage></AtmPage>,
   },
   {
-    path: '/dailyReport',
-    element: <DailyReport></DailyReport>,
+    path: '/report',
+    element: <During_ReportPage />,
   },
   {
     path: '/newAccount',
