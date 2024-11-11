@@ -6,6 +6,7 @@ import calculateDateDiff from '../common/calculateDateDiff';
 import font from '../styles/font';
 import DollarBox from '../common/DollarBox';
 import PrimaryBanner from '../common/PrimaryBanner';
+import SpendTypeTest_Graph from '../Before_Common/SpendTypeTest_Graph';
 
 const RootContainer = styled.div`
   display: flex;
@@ -80,8 +81,9 @@ const GraphWrapper = styled.div`
   padding: 14px 20px;
 
   border-radius: 18px;
-  border: 5px solid ${color.brand.secondary};
-  /* background: var(--white, #fff); */
+  border: 1px solid ${color.grayscale.gray1};
+  background: var(--white, #fff);
+  box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.05);
 `;
 
 // res : api post 결과
@@ -118,7 +120,9 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
           </MainText>
           <SubText>예상 지출 비용의 항목별 지출이에요</SubText>
         </TextContainer>
-        <GraphWrapper>{/* 그래프 영역 */}</GraphWrapper>
+        <GraphWrapper>
+          <SpendTypeTest_Graph />
+        </GraphWrapper>
       </GraphContainer>
     </RootContainer>
   );

@@ -39,7 +39,6 @@ const FundSwiper = () => {
       });
     }
 
-    console.log([foreignSavings, ...countryFunds]);
     return [foreignSavings, ...countryFunds];
   };
 

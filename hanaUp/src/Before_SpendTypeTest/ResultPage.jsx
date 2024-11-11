@@ -7,6 +7,7 @@ import type1 from './spendTypes/type1.jpg'; // type에 따라 동적 렌더링 �
 import DollarBox from '../common/DollarBox';
 import PrimaryButton from '../common/PrimaryButton';
 import Msg from '../common/msg';
+import SpendTypeTest_Graph from '../Before_Common/SpendTypeTest_Graph';
 
 // 버튼 컨테이너를 제외한 content만의 컨테이너
 const RootContainer = styled.div`
@@ -88,8 +89,8 @@ const GraphWrapper = styled.div`
   padding: 14px 20px;
 
   border-radius: 18px;
-  border: 5px solid ${color.brand.secondary};
-  /* background: var(--white, #fff); */
+  border: 1px solid ${color.grayscale.gray1};
+  background: var(--white, #fff);
   box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.05);
 `;
 
@@ -110,12 +111,9 @@ const BtnContainer = styled.div`
 // country
 // res
 const ResultPage = props => {
-  console.log(props);
   const location = useLocation();
   const travelInfo = { ...location.state };
   const testResult = { ...location.res };
-  console.log(travelInfo);
-  console.log(location.res);
 
   // 임의로 넣어둔 값
   const type = '셀피중독형';
@@ -157,7 +155,9 @@ const ResultPage = props => {
             </MainText>
             <SubText>{type} 사람들의 항목별 지출이에요</SubText>
           </TextContainer>
-          <GraphWrapper></GraphWrapper>
+          <GraphWrapper>
+            <SpendTypeTest_Graph />
+          </GraphWrapper>
         </ContentContainer>
       </RootContainer>
       <BtnContainer>

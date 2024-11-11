@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import color from '../../styles/color';
 import font from '../../styles/font';
+import { useState } from 'react';
 
 const Container = styled.div`
   cursor: pointer;
@@ -16,7 +17,7 @@ const Container = styled.div`
   ${font.caption.cap2B};
 
   ${props =>
-    props.type === 'active'
+    props.type
       ? css`
           border: 1px solid ${color.brand.primary};
           background-color: rgba(70, 215, 194, 0.2);
@@ -27,9 +28,10 @@ const Container = styled.div`
         `}
 `;
 
-const QuizBtn = ({ type, text }) => {
+// type: false, true로 관리
+const QuizBtn = ({ type, text, onClick }) => {
   return (
-    <Container type={type}>
+    <Container onClick={onClick} type={type}>
       <div>{text}</div>
     </Container>
   );
