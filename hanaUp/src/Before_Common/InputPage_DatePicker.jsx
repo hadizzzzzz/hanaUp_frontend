@@ -109,7 +109,7 @@ const InputPage_DatePicker = ({ onChange }) => {
 
     return (
       <HeaderText>
-        {startDate.toLocaleDateString()} - {endDate.toLocaleDateString()}
+        {startDate.toLocaleDateString()} ~ {endDate.toLocaleDateString()}
       </HeaderText>
     );
   };

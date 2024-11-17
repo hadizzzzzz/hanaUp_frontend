@@ -87,10 +87,24 @@ const Before_InputPage = () => {
   });
   const [selectedType, setSelectedType] = useState('');
 
-  const options = [
-    { value: 'a', label: 'Option A' },
-    { value: 'b', label: 'Option B' },
-    { value: 'c', label: 'Option C' },
+  const countryOptions = [
+    { label: '일본', value: '일본', selectedCountry: 'Japan' },
+    { label: '태국', value: '태국', selectedCountry: 'Thailand' },
+    { label: '말레이시아', value: '말레이시아', selectedCountry: 'Malaysia' },
+    { label: '중국', value: '중국', selectedCountry: 'China' },
+    { label: '대만', value: '대만', selectedCountry: 'Taiwan' },
+    { label: '미국', value: '미국', selectedCountry: 'USA' },
+    { label: '영국', value: '영국', selectedCountry: 'UK' },
+    { label: '호주', value: '호주', selectedCountry: 'Australia' },
+    { label: '필리핀', value: '필리핀', selectedCountry: 'Philippines' },
+    { label: '유럽', value: '유럽', selectedCountry: 'Europe' },
+  ];
+
+  const typeOptions = [
+    { value: '가족', label: '가족' },
+    { value: '친구', label: '친구' },
+    { value: '비즈니스', label: '비즈니스' },
+    { value: '혼자', label: '혼자' },
   ];
 
   const handleDateSelect = range => {
@@ -107,47 +121,51 @@ const Before_InputPage = () => {
   };
 
   const handleTestStart = async () => {
-    try {
-      // var url;
-      // if (type === 'predictAmountResult') url = `${BASE_URL}/api/before-travel/type-test`;
-      // else url = `${BASE_URL}/api/before-travel/estimate-cost`;
-      // const res = axios.post(url, {
-      //   userId: '12345',
-      //   destination: { selectedCountry },
-      //   duration: calculateDateDiff(selectedDate.startDate, selectedDate.endDate),
-      // });
-      // if (res.status === 200)
+    if (selectedCountry !== 'Japan' || selectedCountry !== 'USA') {
+      try {
+        // var url;
+        // if (type === 'predictAmountResult') url = `${BASE_URL}/api/before-travel/type-test`;
+        // else url = `${BASE_URL}/api/before-travel/estimate-cost`;
+        // const res = axios.post(url, {
+        //   userId: '12345',
+        //   destination: { selectedCountry },
+        //   duration: calculateDateDiff(selectedDate.startDate, selectedDate.endDate),
+        // });
+        // if (res.status === 200){
+        //   // 200일 때에만.
+        // }
 
-      // 임시 res 객체
-      const res = {
-        estimatedCost: 1500,
-        currency: 'USD',
-        breakdown: {
-          transport: 300, // 교통비
-          food: 400, // 식비
-          shopping: 300, // 쇼핑비
-          activities: 400, // 활동비
-          medical: 100, // 병원비
-        },
-        averageBreakdown: {
-          transport: 280, // 평균 교통비
-          food: 450, // 평균 식비
-          shopping: 320, // 평균 쇼핑비
-          activities: 380, // 평균 활동비
-          medical: 120, // 평균 병원비
-        },
-      };
-      navigation(`/predictService/${type}/result`, {
-        state: {
-          startDate: selectedDate.startDate,
-          endDate: selectedDate.endDate,
-          country: selectedCountry,
-          res: res,
-          testDone: false,
-        },
-      });
-    } catch (error) {
-      console.log(error);
+        // 임시 res 객체
+        const res = {
+          estimatedCost: 1500,
+          currency: 'USD',
+          breakdown: {
+            transport: 300, // 교통비
+            food: 400, // 식비
+            shopping: 300, // 쇼핑비
+            activities: 400, // 활동비
+            medical: 100, // 병원비
+          },
+          averageBreakdown: {
+            transport: 280, // 평균 교통비
+            food: 450, // 평균 식비
+            shopping: 320, // 평균 쇼핑비
+            activities: 380, // 평균 활동비
+            medical: 120, // 평균 병원비
+          },
+        };
+        navigation(`/predictService/${type}/result`, {
+          state: {
+            startDate: selectedDate.startDate,
+            endDate: selectedDate.endDate,
+            country: selectedCountry,
+            res: res,
+            testDone: false,
+          },
+        });
+      } catch (error) {
+        console.log(error);
+      }
     }
   };
 
@@ -159,9 +177,11 @@ const Before_InputPage = () => {
           <InputTitle>여행 국가</InputTitle>
           <InputPage_Dropdown
             placeholder="여행 국가를 선택해주세요"
-            options={options}
+            options={countryOptions}
             selectedValue={selectedCountry}
-            onChange={value => setSelectedCountry(value)}
+            onChange={value => {
+              setSelectedCountry(countryOptions.find(item => value === item.value) || {}).selectedCountry || null;
+            }}
           />
         </InputContainer>
         <InputContainer>
@@ -172,7 +192,7 @@ const Before_InputPage = () => {
           <InputTitle>여행 유형</InputTitle>
           <InputPage_Dropdown
             placeholder="여행 유형을 선택해주세요"
-            options={options}
+            options={typeOptions}
             selectedValue={selectedType}
             onChange={value => setSelectedType(value)}
           />
