@@ -88,7 +88,10 @@ const GraphWrapper = styled.div`
 
 // res : api post 결과
 const ResultPage = ({ startDate, endDate, country, res }) => {
-  //   res.currency에 맞게 화폐단위를 표시하는 로직 필요
+  console.log(startDate);
+  console.log(endDate);
+  console.log(country);
+  console.log(res);
 
   return (
     <RootContainer>
@@ -98,7 +101,8 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
           <PrimaryTag text="맞춤형 예측 서비스"></PrimaryTag>
           <MainText>
             <span style={{ color: color.brand.primary }}>{calculateDateDiff(new Date(), startDate)}일</span> 뒤{' '}
-            <span style={{ color: color.brand.primary }}>{country}</span>에서 여행, <br /> 나의 예상 지출 금액이에요
+            <span style={{ color: color.brand.primary }}>{country.value}</span>에서 여행, <br /> 나의 예상 지출
+            금액이에요
           </MainText>
           <SubText>나의 지난 소비 내역을 분석했어요</SubText>
         </TextContainer>
@@ -106,7 +110,7 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
           startDate={startDate}
           endDate={endDate}
           currency={'￥'}
-          country={country}
+          country={country.selectedCountry}
           amount={res.estimatedCost}
         ></DollarBox>
         <SmallHorizon />
