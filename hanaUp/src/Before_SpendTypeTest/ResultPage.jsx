@@ -8,6 +8,8 @@ import DollarBox from '../common/DollarBox';
 import PrimaryButton from '../common/PrimaryButton';
 import SpendTypeTest_Graph from '../Before_Common/SpendTypeTest_Graph';
 import Msg from '../common/Msg';
+import { typeInfo } from '../common/arrays/typeInfo';
+import { useEffect } from 'react';
 
 // 버튼 컨테이너를 제외한 content만의 컨테이너
 const RootContainer = styled.div`
@@ -44,6 +46,14 @@ const TextContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 10px;
+`;
+
+const SubTextContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
 `;
 
 const Horizon = styled.div`
@@ -116,25 +126,31 @@ const ResultPage = props => {
   const testResult = { ...location.res };
 
   // 임의로 넣어둔 값
-  const type = '셀피중독형';
+  const typeInfoSelected = typeInfo.find(item => travelInfo.resultType === item.type_en) || {};
   return (
     <>
       <RootContainer>
         <ContentContainer>
           <MainText>
             <span style={{ color: color.brand.primary }}>{calculateDateDiff(new Date(), travelInfo.startDate)}일</span>{' '}
-            뒤 <span>{travelInfo.country}</span>에서 여행, <br /> 내 소비 유형은
+            뒤 <span style={{ color: color.brand.primary }}>{travelInfo.country.value}</span>에서 여행, <br /> 내 소비
+            유형은
           </MainText>
           {/* 동적 렌더링 필요 */}
           <ImgContainer>
-            <img src={type1} style={{ width: '258px' }}></img>
+            <img src={`/img/travelTypes/${travelInfo.resultType}.jpg`} style={{ width: '258px' }}></img>
           </ImgContainer>
+          <SubTextContainer>
+            <div style={{ ...font.header.h3, color: color.grayscale.gray8 }}>
+              당신은 {typeInfoSelected.type_kr}입니다!
+            </div>
+            <div style={{ ...font.caption.cap2M, color: color.grayscale.gray5 }}>{typeInfoSelected.description}</div>
+          </SubTextContainer>
         </ContentContainer>
         <Horizon />
         <ContentContainer>
           <MainText>
-            <span style={{ color: color.brand.primary }}>셀피중독형</span>
-            {/*  <span>{travelInfo.type}</span> */}
+            <span style={{ color: color.brand.primary }}>{typeInfoSelected.type_kr}</span>
             의 사람들의 <br /> 평균 지출 금액이에요
           </MainText>
           <DollarBox
@@ -153,7 +169,7 @@ const ResultPage = props => {
             <MainText>
               여행 소비 계획을 <br /> 세워보세요
             </MainText>
-            <SubText>{type} 사람들의 항목별 지출이에요</SubText>
+            <SubText>{typeInfoSelected.type_kr} 사람들의 항목별 지출이에요</SubText>
           </TextContainer>
           <GraphWrapper>
             <SpendTypeTest_Graph />

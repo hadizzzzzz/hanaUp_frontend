@@ -10,6 +10,9 @@ import font from '../styles/font';
 import HighLightText from '../common/HighLightText';
 import Loading from './assets/atm.jpg';
 import PrimaryButton from '../common/PrimaryButton';
+import axios from 'axios';
+import { uid } from '../Recoil/uid';
+import { during_travelDetail } from '../Recoil/during_travelDetail';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -81,9 +84,8 @@ const SubText = styled.div`
   color: ${color.grayscale.gray5};
 `;
 
+// 여행 상태가 during인데 최종 소비 레포트에 접근하는 경우
 const WrongDirection = ({ travelState }) => {
-  // travelState가 during일 떄에만 일단 작업
-
   return (
     <>
       {' '}
@@ -105,22 +107,89 @@ const WrongDirection = ({ travelState }) => {
 // travelState에 따라 첫 토글의 상태가 달라야함.
 const During_ReportPage = () => {
   const travelState = useRecoilValue(travelInfo);
+  const uidState = useRecoilValue(uid);
+  const during_travel = useRecoilValue(during_travelDetail);
+  const [day, setDay] = useState(1);
+
   const [toggleState, setToggle] = useState(0);
+  const [reportData, setReportData] = useState({});
 
   /* 여행 후 레포트 버튼 클릭하여 최종 레포트 접근시 최종 레포트를 보임 */
   useEffect(() => {
     if (travelState === 'after') setToggle(1);
+    fetchTravelReportData();
+    // axios 요청
   }, []);
 
   useEffect(() => {
-    // 여행 중인데 최종에 접근시
-    if (travelState === 'during') {
+    fetchTravelReportData();
+  }, [day, toggleState]);
+
+  // 토글 변경 혹은 일자 변경에 따라 다른 data를 요청
+  const fetchTravelReportData = async () => {
+    if (toggleState === 0) {
+      // const res = await axios.get(`${BASE_URL}/api/after-travel/final-report`, {
+      //   userId: uidState,
+      //   day: day, // 1일차, 2일차, 3일차,
+      //   country: during_travel.destination,
+      // });
+      // setReportData(res.data);
+
+      // 더미 데이터 세팅
+      setReportData({
+        day: 1,
+        totalSpent: 120,
+        breakdown: {
+          transport: 20, //교통비
+          food: 50, //식비
+          shopping: 30, //쇼핑비
+          activities: 15, //활동비
+          hospital: 5, //병원비
+        },
+        feeSavings: 5, //절약한 수수료
+      });
+    } else {
+      // 전체 소비 리포트 요청
+      // const res = await axios.get(`${BASE_URL}/api/after-travel/final-report`, {
+      //   userId: uidState,
+      //   country: during_travel.destination,
+      // });
+      // setReportData(res.data);
+      // {
+      //   "totalSpent": 120,
+      //   "breakdown": {
+      //     "transport": 20, //교통비
+      //     "food": 50, //식비
+      //     "shopping": 30, //쇼핑비
+      //     "activities": 15, //활동비
+      //     "hospital": 5 //병원비
+      //   },
+      //   "feeSavings": 5 //절약한 수수료
+      // }
+
+      // 더미 데이터 세팅
+      setReportData({
+        totalSpent: 120,
+        breakdown: {
+          transport: 20, //교통비
+          food: 50, //식비
+          shopping: 30, //쇼핑비
+          activities: 15, //활동비
+          hospital: 5, //병원비
+        },
+        feeSavings: 5, //절약한 수수료
+      });
     }
-    // 여행 후인데 데일리에 접근시
-    if (travelState === 'after') {
-      if (toggleState === 1) return {};
+  };
+
+  // type: subtract, add
+  const setDayState = ({ type }) => {
+    if (type === 'add') {
+      if (day < 3) setDay(prev => prev + 1);
+    } else {
+      if (day > 1) setDay(prev => prev - 1);
     }
-  }, [toggleState]);
+  };
 
   return (
     <Container className="reportPage">
@@ -146,12 +215,11 @@ const During_ReportPage = () => {
         </ToggleElement>
       </ToggleContainer>
       {/* travelState가 during인데 최종에 접근시 */}
-      {(travelState === 'during' && toggleState === 1) || (travelState === 'after' && toggleState === 0) ? (
+      {travelState === 'during' && toggleState === 1 ? (
         <WrongDirection travelState={travelState} />
       ) : (
-        <ReportComponent />
+        <ReportComponent day={day} setDayState={setDayState} reportData={reportData} toggleState={toggleState} />
       )}
-      {/* travelState가 after인데 데일리에 접근시*/}
     </Container>
   );
 };

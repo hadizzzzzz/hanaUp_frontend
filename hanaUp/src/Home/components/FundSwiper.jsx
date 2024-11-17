@@ -19,17 +19,20 @@ const FundSwiper = () => {
   const [travelState, setTravelState] = useRecoilState(travelInfo);
 
   const processFundData = async data => {
-    var foreignSavings = data.foreignSavings; // 무조건 하나?
-    foreignSavings['moneyAmount'] = foreignSavings['totalAmount'];
-    foreignSavings = {
-      ...foreignSavings,
-      type: 'foreignSavings',
-    };
+    if (data.foreignSavings) {
+      var foreignSavings = { ...data.foreignSavings }; // 무조건 하나?
+      foreignSavings['moneyAmount'] = foreignSavings['totalAmount'];
+      foreignSavings = {
+        ...foreignSavings,
+        type: 'foreignSavings',
+      };
+    }
 
+    console.log(data);
     var countryFunds = data.countryFunds; // 무조건 배열로?
     if (countryFunds.length != 0) {
       countryFunds = countryFunds.map(item => {
-        const newItem = {
+        var newItem = {
           ...item,
           type: 'countryFunds',
         };
@@ -46,41 +49,9 @@ const FundSwiper = () => {
     const userId = 12345;
 
     // const res= await axios.get(`${BASE_URL}/api/main/fund-info?userId=${12345}`);
-    // if (res.status===200){
+    // if (res.status===200){}
 
-    const data = {
-      foreignSavings: {
-        totalAmount: 5000,
-        country: 'USA',
-        currency: 'USD',
-        //"lastDate": "2024-12-04" 발표 날로 고정!,
-        exchangeRate: {
-          rate: 1391.5,
-        },
-      },
-      countryFunds: [
-        {
-          country: 'Japan',
-          currency: 'JPY',
-          balance: 12000,
-          exchangeRate: {
-            rate: 901.28,
-            trend: 'up',
-          },
-        },
-        {
-          country: 'China',
-          currency: 'CNH',
-          balance: 500,
-          exchangeRate: {
-            rate: 194.34,
-            trend: 'down',
-          },
-        },
-      ],
-    };
-    const processedFundData = await processFundData(data);
-    console.log(processedFundData);
+    const processedFundData = await processFundData(fundInfo);
     setFundInfo(processedFundData);
     // }
 
@@ -102,7 +73,7 @@ const FundSwiper = () => {
     }
   }, [fundInfo]);
 
-  if (fundInfo.length != 0) {
+  if (fundInfo.length > 1) {
     return (
       <Swiper
         onSwiper={swiper => (swiperRef.current = swiper)}

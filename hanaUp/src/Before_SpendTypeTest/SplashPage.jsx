@@ -6,9 +6,10 @@ import HighLightText from '../common/HighLightText';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 
-import type1 from './spendTypes/type1.jpg';
-import type2 from './spendTypes/type2.jpg';
-import type3 from './spendTypes/type3.jpg';
+import type1 from '/img/travelTypes/IFMEP.jpg';
+import type2 from '/img/travelTypes/ITPHJ.jpg';
+import type3 from '/img/travelTypes/IFPHP.jpg';
+import type4 from '/img/travelTypes/ITMEJ.jpg';
 
 // Import Swiper styles
 import 'swiper/css';
@@ -69,13 +70,13 @@ const SplashPage = () => {
             <ImgContainer src={type3} />
           </SwiperSlide>
           <SwiperSlide>
+            <ImgContainer src={type4} />
+          </SwiperSlide>
+          <SwiperSlide>
             <ImgContainer src={type1} />
           </SwiperSlide>
           <SwiperSlide>
             <ImgContainer src={type2} />
-          </SwiperSlide>
-          <SwiperSlide>
-            <ImgContainer src={type3} />
           </SwiperSlide>
         </Swiper>
       </SwiperContainer>

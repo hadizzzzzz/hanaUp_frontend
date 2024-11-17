@@ -5,6 +5,7 @@ import arrowRight from '../assets/arrow-right.png';
 import { LinearGradient } from 'react-text-gradients';
 import menuIcn from '../assets/menu.png';
 import { useEffect } from 'react';
+import countryInfo from '../../common/arrays/countryInfo';
 
 const RootContainer = styled.div`
   margin-left: 30px;
@@ -52,6 +53,11 @@ const AbsoluteBannerTitle = styled.div`
           background: ${color.brand.grad};
           color: ${color.grayscale.gray1};
         `}
+`;
+
+const CountryIconContainer = styled.img`
+  object-fit: cover;
+  width: 20px;
 `;
 
 const CountryContainer = styled.div`
@@ -201,16 +207,19 @@ const MenuIcn = styled.img`
 // moneyAmount // 남은 돈
 // rate  // 현재 환율 (보유 통화인 경우)
 const FundInfoCard = ({ type, trend, country, currency, moneyAmount, exchangeRate }) => {
+  console.log('country', country);
   return (
     <RootContainer type={type}>
       <AbsoluteBannerTitle type={type}>{type === 'foreignSavings' ? '외화적금' : '보유통화'}</AbsoluteBannerTitle>
       {/* column 방향 레이아웃*/}
       <CountryContainer>
+        <CountryIconContainer src={`/img/countryIcons/${country}.png`} />
         <CurrencyTitle>{currency}</CurrencyTitle>
       </CountryContainer>
       {/* 잔고와 충전 버튼 */}
       <CurrencyContainer>
         <CurrencyDetailContainer>
+          {countryInfo.find(item => item.country_en == country).currency_symbol}
           <div>{moneyAmount}</div>
           <IconContainer src={arrowRight}></IconContainer>
         </CurrencyDetailContainer>
