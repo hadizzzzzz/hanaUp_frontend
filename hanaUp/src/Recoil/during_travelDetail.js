@@ -9,8 +9,8 @@ export const during_travelDetail = atom({
   key: 'during_travelDetail',
   default: {
     destination: 'Japan',
-    startDate: '',
-    endDate: '',
+    startDate: new Date(),
+    endDate: new Date(),
     duration: 3, // 총 n일
     type: '', // 소비 유형 테스트시
   },

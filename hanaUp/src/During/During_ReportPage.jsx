@@ -51,7 +51,7 @@ const ToggleElement = styled.div`
   text-align: center;
 
   ${props =>
-    props.active
+    props.$isactive === 'true'
       ? css`
           border-color: ${color.brand.primary};
           color: ${color.brand.primary};
@@ -85,7 +85,7 @@ const SubText = styled.div`
 `;
 
 // 여행 상태가 during인데 최종 소비 레포트에 접근하는 경우
-const WrongDirection = ({ travelState }) => {
+const WrongDirection = () => {
   return (
     <>
       {' '}
@@ -123,6 +123,7 @@ const During_ReportPage = () => {
 
   useEffect(() => {
     fetchTravelReportData();
+    console.log('새로운 여행 레포트 데이터 fetch');
   }, [day, toggleState]);
 
   // 토글 변경 혹은 일자 변경에 따라 다른 data를 요청
@@ -198,7 +199,7 @@ const During_ReportPage = () => {
       {/* tab bar의 상태에 따라 레포트에 렌더링되는 데이터가 달라짐 */}
       <ToggleContainer>
         <ToggleElement
-          active={toggleState === 0}
+          $isactive={toggleState === 0 ? 'true' : 'false'}
           onClick={() => {
             setToggle(0);
           }}
@@ -206,7 +207,7 @@ const During_ReportPage = () => {
           데일리
         </ToggleElement>
         <ToggleElement
-          active={toggleState === 1}
+          $isactive={toggleState === 1 ? 'true' : 'false'}
           onClick={() => {
             setToggle(1);
           }}
@@ -218,7 +219,13 @@ const During_ReportPage = () => {
       {travelState === 'during' && toggleState === 1 ? (
         <WrongDirection travelState={travelState} />
       ) : (
-        <ReportComponent day={day} setDayState={setDayState} reportData={reportData} toggleState={toggleState} />
+        <ReportComponent
+          country={during_travel.destination}
+          day={day}
+          setDayState={setDayState}
+          reportData={reportData}
+          toggleState={toggleState}
+        />
       )}
     </Container>
   );

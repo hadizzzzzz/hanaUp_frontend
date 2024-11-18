@@ -18,11 +18,7 @@ const Container = styled.div`
 
 const MoneyAmountInteger = styled.div`
   color: ${color.grayscale.black};
-  font-family: Pretendard;
-  font-size: 36px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+  ${font.header.h1};
   letter-spacing: -1.08px;
   position: relative;
 `;
@@ -49,14 +45,13 @@ const DollarBox = ({ type, startDate, endDate, currency, country, amount }) => {
   return (
     <Container>
       <MoneyAmountInteger>
-        {currency}
-        {amount}
+        {currency} {amount}
         <IcnContainer src={`/img/countryIcons/${country}.png`} />
       </MoneyAmountInteger>
-      {/* country에 따라 Icn을 띄워야함 */}
       <SubText>
-        {type === 'single' ? startDate.toLocaleDateString() : startDate.toLocaleDateString()}~
-        {endDate.toLocaleDateString()}의 여행
+        {type == 'single'
+          ? `${startDate.getFullYear()}년 ${startDate.getMonth() + 1}월 ${startDate.getDate() + 1}일`
+          : `${startDate.toLocaleDateString()}~${endDate.toLocaleDateString()}의 여행`}
       </SubText>
     </Container>
   );

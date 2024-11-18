@@ -25,13 +25,23 @@ const CustomTooltip = ({ active, payload, total }) => {
   return null;
 };
 
-const ReportComponent_Graph = ({ totalValue, reportColumn }) => {
+const ReportComponent_Graph = ({ totalValue, processedReportData }) => {
   return (
     <PieChart width={200} height={200} margin={0}>
-      <Pie data={reportColumn} dataKey="value" outerRadius={100} innerRadius={80} cornerRadius={30} fill="#8884d8">
+      <Pie
+        data={processedReportData}
+        dataKey="value"
+        outerRadius={100}
+        innerRadius={80}
+        cornerRadius={30}
+        fill="#8884d8"
+      >
         {/* Cell 컴포넌트를 사용하여 각 Pie의 색상을 지정 */}
-        {reportColumn.map((entry, index) => (
-          <Cell key={`cell-${index}`} fill={reportCOLORS[index % reportCOLORS.length]} />
+        {processedReportData.map((entry, index) => {
+          console.log(entry, index);
+        })}
+        {processedReportData.map((entry, index) => (
+          <Cell key={`cell-${index}`} fill={entry.color} />
         ))}
       </Pie>
       <Tooltip
