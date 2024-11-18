@@ -42,6 +42,8 @@ const SubText = styled.div`
 // 소수점을 받으면 처리해야됨
 // country 영어로 받아야
 const DollarBox = ({ type, startDate, endDate, currency, country, amount }) => {
+  console.log(country);
+
   return (
     <Container>
       <MoneyAmountInteger>

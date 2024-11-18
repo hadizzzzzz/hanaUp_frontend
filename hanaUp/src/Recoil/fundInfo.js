@@ -1,4 +1,7 @@
 import { atom } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist();
 
 export const fundInfoState = atom({
   key: 'fundInfoState',
@@ -33,6 +36,7 @@ export const fundInfoState = atom({
       },
     ],
   },
+  effects_UNSTABLE: [persistAtom],
 });
 
 // {

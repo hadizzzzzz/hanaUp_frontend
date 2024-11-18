@@ -88,10 +88,10 @@ const GraphWrapper = styled.div`
 
 // res : api post 결과
 const ResultPage = ({ startDate, endDate, country, res }) => {
-  console.log(startDate);
-  console.log(endDate);
-  console.log(country);
-  console.log(res);
+  // console.log(startDate);
+  // console.log(endDate);
+  // console.log(country);
+  // console.log(res);
 
   return (
     <RootContainer>
@@ -114,7 +114,11 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
           amount={res.estimatedCost}
         ></DollarBox>
         <SmallHorizon />
-        <PrimaryBanner caption="예상된 금액을 바로 환전해보세요" text="환전 유도할까 소액투자 광고할까 뭐하지 뭐하지" />
+        <PrimaryBanner
+          caption="예상된 금액을 바로 환전해보세요"
+          text="하나머니와 함께하는 여행, 더 즐겁게 즐겨요!"
+          btnText="환전하기"
+        />
       </ExpenseResultContainer>
       <Horizon />
       <GraphContainer>

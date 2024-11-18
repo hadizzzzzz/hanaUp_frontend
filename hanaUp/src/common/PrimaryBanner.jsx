@@ -53,7 +53,7 @@ const Btn = styled.div`
 `;
 
 // caption , text
-const PrimaryBanner = ({ caption, text }) => {
+const PrimaryBanner = ({ caption, text, btnText }) => {
   return (
     <Container>
       <TextContainer>
@@ -62,7 +62,7 @@ const PrimaryBanner = ({ caption, text }) => {
           <Text>{text}</Text>
         </LinearGradient>
       </TextContainer>
-      <Btn>환전하기</Btn>
+      <Btn>{btnText}</Btn>
     </Container>
   );
 };

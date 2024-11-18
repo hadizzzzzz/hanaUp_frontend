@@ -157,7 +157,7 @@ const ResultPage = props => {
             startDate={travelInfo.startDate}
             endDate={travelInfo.endDate}
             currency={'￥'}
-            country={travelInfo.country}
+            country={travelInfo.country.selectedCountry}
             amount={12345}
             // amount={res.estimatedCost}
           />

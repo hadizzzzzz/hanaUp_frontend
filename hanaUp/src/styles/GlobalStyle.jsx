@@ -23,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
 
   // 최상위 페이지 컴포넌트에 대해 모바일 웹 환경 구축
 
-  .Home, .predictService, .testInputPage, .spendTypeTest, .spendTypeTestPage, .atmPage, .reportPage{
+  .Home, .predictService, .testInputPage, .spendTypeTest, .spendTypeTestPage, .atmPage, .reportPage, .investIntro, .investIntroResult, .newAccount, .exTech{
     margin-left: auto;
   margin-right: auto;
   display: flex;

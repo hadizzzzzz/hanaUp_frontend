@@ -8,7 +8,7 @@ const { persistAtom } = recoilPersist();
 export const during_travelDetail = atom({
   key: 'during_travelDetail',
   default: {
-    destination: 'Japan',
+    destination: 'UK',
     startDate: new Date(),
     endDate: new Date(),
     duration: 3, // 총 n일
