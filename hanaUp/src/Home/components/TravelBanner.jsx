@@ -84,7 +84,7 @@ const TravelBanner = () => {
                 }
               : travelState === 'after'
               ? () => {
-                  navigate('/');
+                  navigate('/InvestIntro');
                 }
               : () => {
                   navigate('/report');

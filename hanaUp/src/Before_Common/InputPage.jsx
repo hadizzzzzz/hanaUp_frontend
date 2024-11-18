@@ -200,7 +200,7 @@ const Before_InputPage = () => {
       </MainContainer>
       <BtnContainer>
         <PrimaryButton
-          text="유형테스트 시작하기"
+          text={type === 'predictAmountResult' ? '유형테스트 시작하기' : '경비 예측 시작하기'}
           type={checkAllInput() ? 'active' : 'deactive'}
           onClick={handleTestStart}
         ></PrimaryButton>
