@@ -4,13 +4,14 @@ import font from '../styles/font';
 import countryInfo from '../common/arrays/countryInfo';
 
 const Container = styled.div`
+  width: 260px;
   display: flex;
   padding: 20px 0px;
+  margin: 5px 5px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 5px;
-  align-self: stretch;
 
   border-radius: 10px;
   background: ${color.grayscale.gray1};
@@ -39,11 +40,8 @@ const SubText = styled.div`
 
 // type: single, entire (여행 날짜가 단일인지, duration인지)
 // startDate, endDate, currency(화폐 단위), country(나라명), amount(예상치)
-// 소수점을 받으면 처리해야됨
 // country 영어로 받아야
 const DollarBox = ({ type, startDate, endDate, currency, country, amount }) => {
-  console.log(country);
-
   return (
     <Container>
       <MoneyAmountInteger>

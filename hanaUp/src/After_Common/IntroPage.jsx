@@ -16,10 +16,10 @@ import { useEffect } from 'react';
 import CheckFund_Item from './components/CheckFund_Item';
 import { useRecoilValue } from 'recoil';
 import countryInfo from '../common/arrays/countryInfo';
+import Result_DollarBoxSwiper from './components/Result_DollarBoxSwiper';
 
 const Container = styled.div`
   border: 1px solid black;
-
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;
@@ -37,7 +37,6 @@ const ContentContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
-  padding: 30px 20px 20px 20px;
 
   z-index: 1;
 `;
@@ -48,6 +47,8 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 20px;
+
+  padding: 30px 20px 20px 20px;
 `;
 
 const TitleText = styled.div`
@@ -72,16 +73,38 @@ const BtnContainer = styled.div`
 `;
 
 const ImgContainer = styled.img`
-  width: 100%;
+  width: 335px;
   object-fit: cover;
 `;
 
-const DollarBoxContainer = styled.div`
+const BottomContainer = styled.div`
   display: flex;
   padding-bottom: 6px;
   flex-direction: column;
   align-items: flex-start;
   gap: 15px;
+
+  overflow: hidden;
+
+  max-width: 390px;
+`;
+
+const DollarBoxInfoContainer = styled.div`
+  padding: 0px 0px 0px 20px;
+  text-align: left;
+  color: ${color.grayscale.black};
+  ${font.header.h3};
+`;
+
+const DollarBoxContainer = styled.div`
+  margin-bottom: 13px;
+  width: 100%;
+  max-width: 385px; /* 원하는 크기로 제한 */
+  height: auto;
+
+  overflow: hidden;
+
+  padding-left: 5px;
 `;
 
 const CheckFund_ContentContainer = styled.div`
@@ -139,14 +162,14 @@ const IntroBeforeCheckFunds = ({ countryFunds }) => {
         </TitleText>
       </TitleContainer>
       <ImgContainer src={Coin} />
-      <DollarBoxContainer>
-        <div style={{ ...font.header.h3, color: color.grayscale.black }}>
+      <BottomContainer>
+        <DollarBoxInfoContainer>
           유병재님은 <span style={{ color: color.brand.primary }}>{countryFunds.length}개의 통화</span>를 가지고 있어요
-        </div>
-        {/* 달러 박스 Swiper */}
-        <DollarBox type="entire" startDate={new Date()} endDate={new Date()} currency="$" country="USA" amount="1200" />
-        {/*  type, startDate, endDate, currency, country(영어), amount */}
-      </DollarBoxContainer>
+        </DollarBoxInfoContainer>
+        <DollarBoxContainer>
+          <Result_DollarBoxSwiper countryFunds={countryFunds} />
+        </DollarBoxContainer>
+      </BottomContainer>
     </ContentContainer>
   );
 };

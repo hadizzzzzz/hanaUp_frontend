@@ -1,0 +1,25 @@
+  
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-container {
+    overflow: hidden; /* Swiper 영역 밖의 콘텐츠 숨김 */
+    position: relative; /* overflow가 작동하려면 position 설정 필요 */
+    width: 100%;
+  }
+  
+  
+  .swiper-slide {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+  
+    color: #111;
+
+    width: 100%;
+    height: auto;
+  }
+  

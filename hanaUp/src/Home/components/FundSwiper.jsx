@@ -15,7 +15,6 @@ import { travelInfo } from '../../Recoil/travelState';
 // swiper 내부에서 api 호출하여 전역으로 상태 관리
 
 const FundSwiper = () => {
-  let processedFundInfo;
   const [fundInfo, setFundInfo] = useRecoilState(fundInfoState);
   const [travelState, setTravelState] = useRecoilState(travelInfo);
 
@@ -29,7 +28,6 @@ const FundSwiper = () => {
       };
     }
 
-    console.log(data);
     var countryFunds = data.countryFunds; // 무조건 배열로?
     if (countryFunds.length != 0) {
       countryFunds = countryFunds.map(item => {

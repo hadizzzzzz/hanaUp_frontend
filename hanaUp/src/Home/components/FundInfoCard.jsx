@@ -207,7 +207,6 @@ const MenuIcn = styled.img`
 // moneyAmount // 남은 돈
 // rate  // 현재 환율 (보유 통화인 경우)
 const FundInfoCard = ({ type, trend, country, currency, moneyAmount, exchangeRate }) => {
-  console.log('country', country);
   return (
     <RootContainer type={type}>
       <AbsoluteBannerTitle type={type}>{type === 'foreignSavings' ? '외화적금' : '보유통화'}</AbsoluteBannerTitle>
