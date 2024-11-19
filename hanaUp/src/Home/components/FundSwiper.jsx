@@ -84,8 +84,8 @@ const FundSwiper = () => {
       >
         {fundInfo.map(item => {
           return (
-            <SwiperSlide>
-              <FundInfoCard {...item}></FundInfoCard>
+            <SwiperSlide key={item.country}>
+              <FundInfoCard key={item.country} {...item}></FundInfoCard>
             </SwiperSlide>
           );
         })}

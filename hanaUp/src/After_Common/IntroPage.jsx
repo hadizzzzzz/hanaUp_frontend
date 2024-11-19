@@ -17,6 +17,8 @@ import CheckFund_Item from './components/CheckFund_Item';
 import { useRecoilValue } from 'recoil';
 import countryInfo from '../common/arrays/countryInfo';
 import Result_DollarBoxSwiper from './components/Result_DollarBoxSwiper';
+import axios from 'axios';
+import AddTravelDateToFund from './AddTravelDateToFund';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -47,6 +49,19 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 20px;
+
+  padding-top: 30px;
+  padding-left: 20px;
+`;
+
+const SmallTitleContainer = styled(TitleContainer)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  padding-top: 0px;
+  padding-left: 0px;
 `;
 
 const TitleText = styled.div`
@@ -71,7 +86,9 @@ const BtnContainer = styled.div`
 `;
 
 const ImgContainer = styled.img`
-  width: 335px;
+  width: 100%;
+  padding-left: 30px;
+  padding-right: 30px;
   object-fit: cover;
 `;
 
@@ -80,7 +97,7 @@ const BottomContainer = styled.div`
   padding-bottom: 6px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 15px;
+  gap: 5px;
 
   overflow: hidden;
 
@@ -110,7 +127,7 @@ const CheckFund_ContentContainer = styled.div`
   padding: 20px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 40px;
+  gap: 20px;
   flex: 1 0 0;
 `;
 
@@ -149,6 +166,7 @@ const Overlay = styled.div`
   top: 0;
 `;
 
+// 1. 초기화면
 const IntroBeforeCheckFunds = ({ countryFunds }) => {
   return (
     <ContentContainer>
@@ -172,16 +190,15 @@ const IntroBeforeCheckFunds = ({ countryFunds }) => {
   );
 };
 
-const CheckFunds = ({ countryFunds }) => {
-  const [radioClickedState, setRadioClickedState] = useState(0);
-
+// 2. 보유 원화 확인 화면
+const CheckFunds = ({ countryFunds, radioClickedState, setRadioClickedState }) => {
   const handleRadioBtnClick = index => {
     setRadioClickedState(index);
   };
 
   return (
     <CheckFund_ContentContainer style={{ gap: '40px' }}>
-      <TitleContainer>
+      <SmallTitleContainer>
         <div style={{ ...font.header.h2, color: color.grayscale.black, textAlign: 'left' }}>
           <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>유병재님</LinearGradient>은
           <br />{' '}
@@ -191,14 +208,14 @@ const CheckFunds = ({ countryFunds }) => {
           를 <br />
           보유하고 있어요
         </div>
-      </TitleContainer>
+      </SmallTitleContainer>
       <CheckFund_Scrollable>
         <RadioFundsContainer>
           {countryFunds.map((item, index) => (
             <CheckFund_Item
               countryFund={item}
               countryInfo={countryInfo.find(info => info.country_en === item.country)}
-              onClick={handleRadioBtnClick}
+              onClick={() => handleRadioBtnClick(index)}
               isClicked={index === radioClickedState}
               index={index}
             />
@@ -215,8 +232,10 @@ const CheckFunds = ({ countryFunds }) => {
   );
 };
 
+// 1번 화면 -> 모달 -> 2번 화면 렌더링
 const IntroPage = () => {
   const [countryFunds, setCountryFunds] = useState([]);
+  const [radioClickedState, setRadioClickedState] = useState(0);
 
   const navigation = useNavigate();
   const [modalState, setModal] = useState(false);
@@ -231,63 +250,87 @@ const IntroPage = () => {
     setCheckFundsState(true);
   };
 
+  // 투자 방식 추천으로 넘어가기 위한 함수
   const handleCustomInvestment = () => {
+    // radioClickedState에 맞는 countryFunds를 가져와서
+    // countryInfo와 함께 navigate시 전달,
+    // 환테크 시작하기 버튼을 누르면 바로 투자 방식 추천 api 요청
     // 나라에 맞게 newAccount 혹은 exTech로 navigate
-    navigation(`/InvestIntro/newAccount`, {
-      state: {},
-    });
+
+    const clickedFund = countryFunds[radioClickedState];
+    try {
+      // const res = await axios.get(`${BASE_URL}/api/after-travel/investment-info?userId=${}&country=${clickedFund.country}`);
+      // const investMethodInfo= res.data;
+      const investMethodInfo = {
+        balance: 1500.0,
+        country: 'Japan',
+        interestRate: 3.5, // 일본 금리 (한국 금리는 3.25로 그냥 고정해서 사용하면 될 것 같아)
+        investmentType: '외화 예금', // "외화 예금" 도 가능
+      };
+      if (investMethodInfo.investmentType === '환테크')
+        navigation(`/InvestIntro/exTech`, {
+          state: {
+            selectedFundInfo: clickedFund, // 기본 자금 정보
+            investMethodInfo: investMethodInfo,
+            countryInfo: countryInfo.find(info => info.country_en === countryFunds[radioClickedState].country),
+          },
+        });
+      else {
+        navigation(`/InvestIntro/newAccount`, {
+          state: {
+            selectedFundInfo: clickedFund, // 기본 자금 정보
+            investMethodInfo: investMethodInfo,
+            countryInfo: countryInfo.find(info => info.country_en === countryFunds[radioClickedState].country),
+          },
+        });
+      }
+    } catch (error) {
+      console.log('투자 방식 추천 error', error);
+    }
   };
 
-  // 여기서 새롭게 fund data를 받아서 props로 넘겨 총 3가지 screen에서 사용
+  // fund data를 새롭게 받아와 intro page에서 사용
+  // addTravelDateToFund를 사용해 임의의 날짜를 추가함
   const fetchFundData = () => {
-    // const {data} = axios.get()
-    // setFundInfo(data.countryFunds);
-    setCountryFunds([
-      {
-        country: 'Japan',
-        currency: 'JPY',
-        balance: 12000,
-        exchangeRate: {
-          rate: 901.28,
-          trend: 'up',
+    // const {data} = axios.get(`${BASE_URL}/api/main/fund-info?userId=12345`)
+    // const processedCountryFunds = addTravelDateToFund(res.data.countryFunds);
+
+    setCountryFunds(
+      AddTravelDateToFund([
+        {
+          country: 'Japan',
+          currency: 'JPY',
+          balance: 12000,
+          exchangeRate: {
+            rate: 901.28,
+            trend: 'up',
+          },
         },
-      },
-      {
-        country: 'China',
-        currency: 'CNH',
-        balance: 500,
-        exchangeRate: {
-          rate: 194.34,
-          trend: 'down',
+        {
+          country: 'China',
+          currency: 'CNH',
+          balance: 500,
+          exchangeRate: {
+            rate: 194.34,
+            trend: 'down',
+          },
         },
-      },
-      {
-        country: 'Europe',
-        currency: 'EUR',
-        balance: 1470,
-        exchangeRate: {
-          rate: 901.28,
-          trend: 'up',
+        {
+          country: 'Europe',
+          currency: 'EUR',
+          balance: 1470,
+          exchangeRate: {
+            rate: 901.28,
+            trend: 'up',
+          },
         },
-      },
-    ]);
+      ]),
+    );
   };
 
   useEffect(() => {
     fetchFundData();
   }, []);
-
-  // balance
-  // 12000
-  // country
-  // "Japan"
-  // currency
-  // "JPY"
-  // exchangeRate:
-  // rate
-  //   901.28
-  // trend
-  //   "up"
 
   return (
     <Container className="investIntro">
@@ -295,7 +338,11 @@ const IntroPage = () => {
       {!checkFundsState ? (
         <IntroBeforeCheckFunds countryFunds={countryFunds} />
       ) : (
-        <CheckFunds countryFunds={countryFunds} />
+        <CheckFunds
+          countryFunds={countryFunds}
+          radioClickedState={radioClickedState}
+          setRadioClickedState={setRadioClickedState}
+        />
       )}
       <BtnContainer>
         <PrimaryButton

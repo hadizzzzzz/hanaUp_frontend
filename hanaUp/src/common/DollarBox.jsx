@@ -4,7 +4,6 @@ import font from '../styles/font';
 import countryInfo from '../common/arrays/countryInfo';
 
 const Container = styled.div`
-  width: 260px;
   display: flex;
   padding: 20px 0px;
   margin: 5px 5px;
@@ -15,6 +14,15 @@ const Container = styled.div`
 
   border-radius: 10px;
   background: ${color.grayscale.gray1};
+
+  ${props =>
+    props.isSwiper === true
+      ? css`
+          width: 260px;
+        `
+      : css`
+          width: 100%;
+        `}
 `;
 
 const MoneyAmountInteger = styled.div`
@@ -41,9 +49,9 @@ const SubText = styled.div`
 // type: single, entire (여행 날짜가 단일인지, duration인지)
 // startDate, endDate, currency(화폐 단위), country(나라명), amount(예상치)
 // country 영어로 받아야
-const DollarBox = ({ type, startDate, endDate, currency, country, amount }) => {
+const DollarBox = ({ type, isSwiper, startDate, endDate, currency, country, amount }) => {
   return (
-    <Container>
+    <Container isSwiper={isSwiper}>
       <MoneyAmountInteger>
         {currency} {amount}
         <IcnContainer src={`/img/countryIcons/${country}.png`} />

@@ -14,15 +14,6 @@ import '../styles/swiperStyles.css';
 import 'swiper/css';
 import 'swiper/css/pagination';
 
-const DollarBoxSwiperContainer = styled.div`
-  display: flex;
-  flex-direction: flex-end;
-
-  width: 100%;
-  margin-top: 13px;
-  margin-bottom: 13px;
-`;
-
 const Result_DollarBoxSwiper = ({ countryFunds }) => {
   const swiperRef = useRef(null);
 
@@ -45,9 +36,10 @@ const Result_DollarBoxSwiper = ({ countryFunds }) => {
         {countryFunds.map((item, index) => (
           <SwiperSlide>
             <DollarBox
+              isSwiper={true}
               type="entire"
-              startDate={new Date(2024, index, index * 3)}
-              endDate={new Date(2024, index, (index + 1) * (3 + index))}
+              startDate={item.startDate}
+              endDate={item.endDate}
               currency={countryInfo.find(info => info.country_en === item.country).currency_symbol}
               country={item.country}
               amount={item.balance}
