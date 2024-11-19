@@ -47,8 +47,6 @@ const TitleContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   gap: 20px;
-
-  padding: 30px 20px 20px 20px;
 `;
 
 const TitleText = styled.div`
@@ -261,6 +259,15 @@ const IntroPage = () => {
         exchangeRate: {
           rate: 194.34,
           trend: 'down',
+        },
+      },
+      {
+        country: 'Europe',
+        currency: 'EUR',
+        balance: 1470,
+        exchangeRate: {
+          rate: 901.28,
+          trend: 'up',
         },
       },
     ]);

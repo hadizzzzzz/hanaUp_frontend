@@ -42,12 +42,12 @@ const Result_DollarBoxSwiper = ({ countryFunds }) => {
         centeredSlides={false}
         className="mySwiper"
       >
-        {countryFunds.map(item => (
+        {countryFunds.map((item, index) => (
           <SwiperSlide>
             <DollarBox
               type="entire"
-              startDate={new Date(2024, 0, 10)}
-              endDate={new Date(2024, 0, 14)}
+              startDate={new Date(2024, index, index * 3)}
+              endDate={new Date(2024, index, (index + 1) * (3 + index))}
               currency={countryInfo.find(info => info.country_en === item.country).currency_symbol}
               country={item.country}
               amount={item.balance}
