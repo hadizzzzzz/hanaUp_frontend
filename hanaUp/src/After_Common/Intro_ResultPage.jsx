@@ -142,7 +142,8 @@ const AnalyzeTextContainer = styled.div`
   gap: 10px;
   align-self: stretch;
 
-  color: ${color.grayscale.gray7} ${font.header.h5R};
+  color: ${color.grayscale.gray7};
+  ${font.header.h5R};
   text-align: start;
 `;
 
@@ -396,7 +397,7 @@ const Intro_ResultPage = () => {
             <PrimaryButton
               type="active"
               text={`${investMethodInfo.investmentType} 시작하기`}
-              onClick={() => navigation(`/{${investMethodInfo}=='환테크' ? 'exTech' :'newAccount' }`)}
+              onClick={() => navigation(`/${investMethodInfo === '환테크' ? 'exTech' : 'newAccount'}`)}
             ></PrimaryButton>
           </FixedBtnContainer>
         </>
