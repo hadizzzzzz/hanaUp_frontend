@@ -180,7 +180,7 @@ const IntroBeforeCheckFunds = ({ countryFunds }) => {
       <ImgContainer src={Coin} />
       <BottomContainer>
         <DollarBoxInfoContainer>
-          유병재님은 <span style={{ color: color.brand.primary }}>{countryFunds.length}개의 통화</span>를 가지고 있어요
+          하디즈님은 <span style={{ color: color.brand.primary }}>{countryFunds.length}개의 통화</span>를 가지고 있어요
         </DollarBoxInfoContainer>
         <DollarBoxContainer>
           <Result_DollarBoxSwiper countryFunds={countryFunds} />
@@ -200,7 +200,7 @@ const CheckFunds = ({ countryFunds, radioClickedState, setRadioClickedState }) =
     <CheckFund_ContentContainer style={{ gap: '40px' }}>
       <SmallTitleContainer>
         <div style={{ ...font.header.h2, color: color.grayscale.black, textAlign: 'left' }}>
-          <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>유병재님</LinearGradient>은
+          <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>하디즈님</LinearGradient>은
           <br />{' '}
           <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
             {countryFunds.length}개 국가의 통화
@@ -265,7 +265,7 @@ const IntroPage = () => {
         balance: 1500.0,
         country: 'Japan',
         interestRate: 3.5, // 일본 금리 (한국 금리는 3.25로 그냥 고정해서 사용하면 될 것 같아)
-        investmentType: '환테크', // "외화 예금" 도 가능
+        investmentType: '외화 예금', // "외화 예금" 도 가능
       };
       if (investMethodInfo.investmentType === '환테크')
         navigation(`/InvestIntro/exTech`, {

@@ -139,12 +139,12 @@ const Intro_BottomModal = ({ closeModal, changeToCheckFunds, countryFunds }) => 
     <EntireContainer>
       <NoneContainer onClick={closeModal}>
         <ProfileContainer onClick={() => {}}>
-          <img src={profile} style={{ objectFit: 'cover', width: '200px' }}></img>
+          <img src={profile} style={{ objectFit: 'cover', width: '100px' }}></img>
         </ProfileContainer>
       </NoneContainer>
       <Container>
         <NameProfileContainer>
-          <div style={{ ...font.header.h2, color: color.grayscale.black }}>유병재</div>
+          <div style={{ ...font.header.h2, color: color.grayscale.black }}>하디즈</div>
           <div style={{ borderRadius: '100px', border: '1px solid #46D7C2', padding: '3px' }}>
             <PrimaryTag text="트래블로그 혜택을 받을 수 있어요" />
           </div>

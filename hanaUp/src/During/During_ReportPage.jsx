@@ -90,7 +90,7 @@ const WrongDirection = () => {
     <>
       {' '}
       <ContentContainer>
-        <HighLightText text="아직 여행중이에요" />
+        <HighLightText text="아직 여행중이에요" type="long" />
         <SubText>
           여행이 끝나면 <br /> 최종 소비 리포트를 확인할 수 있어요
         </SubText>

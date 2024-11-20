@@ -62,7 +62,7 @@ const PredictService = () => {
       <PrimaryHeader header_title="여행 경비 예측 서비스" />
       <MainContainer>
         <TextContainer>
-          <HighLightText text="메인 텍스트" />
+          <HighLightText text="여행을 계획 중인가요?" type="long" />
           <SubText>
             방문하고 싶은 여행지를 선택하면,
             <br /> 예상 경비를 자동으로 예측해드릴게요. <br />

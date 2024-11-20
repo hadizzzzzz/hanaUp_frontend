@@ -42,7 +42,7 @@ const SwiperContainer = styled.div`
   margin-bottom: 30px;
 `;
 
-const SplashPage = () => {
+const SplashPage = ({ type }) => {
   return (
     <Container>
       <div style={{ display: 'flex', flexDirection: 'column' }}>

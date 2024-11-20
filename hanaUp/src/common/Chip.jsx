@@ -25,8 +25,6 @@ const Container = styled.div`
 
 const Text = styled.div`
   ${font.header.h5B};
-  width: 59px;
-  height: 15px;
   text-align: center;
   line-height: 14px;
 `;

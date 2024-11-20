@@ -47,7 +47,7 @@ const MainTextHighLight = styled.div`
   ${props =>
     props.type === 'long'
       ? css`
-          width: 225px;
+          width: 260px;
         `
       : css``}
 `;

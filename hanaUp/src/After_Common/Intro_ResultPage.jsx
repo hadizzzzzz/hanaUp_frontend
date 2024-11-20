@@ -397,7 +397,26 @@ const Intro_ResultPage = () => {
             <PrimaryButton
               type="active"
               text={`${investMethodInfo.investmentType} 시작하기`}
-              onClick={() => navigation(`/${investMethodInfo === '환테크' ? 'exTech' : 'newAccount'}`)}
+              onClick={() => {
+                if (investMethodInfo === '환테크')
+                  navigation('/exTech', {
+                    state: {
+                      selectedFundInfo: selectedFundInfo,
+                      investMethodInfo: investMethodInfo,
+                      countryInfo: countryInfo,
+                    },
+                  });
+                else {
+                  console.log('navigation');
+                  navigation('/newAccount', {
+                    state: {
+                      selectedFundInfo: selectedFundInfo,
+                      investMethodInfo: investMethodInfo,
+                      countryInfo: countryInfo,
+                    },
+                  });
+                }
+              }}
             ></PrimaryButton>
           </FixedBtnContainer>
         </>
