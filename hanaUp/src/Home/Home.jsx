@@ -7,7 +7,7 @@ import FundSwiper from './components/FundSwiper';
 import banner from './assets/banner.jpg';
 import bottomDummy from './assets/bottomDummy.jpg';
 import TravelBanner from './components/TravelBanner';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Toast from '../common/Toast';
 
 const Container = styled.div`
@@ -48,6 +48,7 @@ const DummyBottom = styled.img`
 const Home = () => {
   const location = useLocation();
   const [toasts, setToasts] = useState([]);
+  const navigation = useNavigate();
 
   const showToast = message => {
     const id = Date.now(); // 고유 ID 생성
@@ -55,6 +56,7 @@ const Home = () => {
 
     setTimeout(() => {
       setToasts(prevToasts => prevToasts.filter(toast => toast.id !== id));
+      navigation(location.pathname, { replace: true, state: null });
     }, 3300); // Toast의 총 지속 시간 + 애니메이션 시간
   };
 

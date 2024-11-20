@@ -55,9 +55,9 @@ const DropDownLi = styled.div`
   width: 100%;
   display: flex;
   padding: 6px 18px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
   gap: 8px;
   align-self: stretch;
   cursor: pointer;
@@ -75,7 +75,7 @@ const IcnContainer = styled.img`
   height: 24px;
 `;
 
-const InputPage_Dropdown = ({ options, placeholder, onChange }) => {
+const InputPage_Dropdown = ({ type, options, placeholder, onChange }) => {
   const [isOpen, setIsOpen] = useState(false); // 드롭다운 열림/닫힘 상태
   const [selectedValue, setSelectedValue] = useState(''); // 선택된 값
   const dropdownRef = useRef(null); // 드롭다운 영역 참조
@@ -104,44 +104,60 @@ const InputPage_Dropdown = ({ options, placeholder, onChange }) => {
     };
   }, []);
 
-  return (
-    <Container ref={dropdownRef}>
-      {/* 드롭다운 헤더 */}
-      <DropdownHeader onClick={toggleDropdown}>
-        {/* 텍스트 */}
-        {selectedValue === '' ? (
-          <HeaderText type="placeholder">{placeholder}</HeaderText>
-        ) : (
-          <HeaderText>{selectedValue}</HeaderText>
-        )}
-        <IcnContainer src={isOpen ? upArrow : downArrow} />
-      </DropdownHeader>
+  if (type === 'selected') {
+    return (
+      <Container>
+        {/* 드롭다운 헤더 */}
+        <DropdownHeader>
+          {/* 텍스트 */}
+          <HeaderText>하나머니 사용하기</HeaderText>
+        </DropdownHeader>
+      </Container>
+    );
+  } else
+    return (
+      <Container ref={dropdownRef}>
+        {/* 드롭다운 헤더 */}
+        <DropdownHeader onClick={toggleDropdown}>
+          {/* 텍스트 */}
+          {selectedValue === '' ? (
+            <HeaderText type="placeholder">{placeholder}</HeaderText>
+          ) : (
+            <HeaderText>{selectedValue}</HeaderText>
+          )}
+          <IcnContainer src={isOpen ? upArrow : downArrow} />
+        </DropdownHeader>
 
-      {/* 드롭다운 리스트 */}
-      {isOpen && (
-        <DropDownUl
-          style={{
-            position: 'absolute',
-            top: '100%',
-            left: 0,
-            right: 0,
-            background: '#fff',
-            border: '1px solid #ccc',
-            borderRadius: '8px',
-            listStyle: 'none',
-            zIndex: 10,
-            marginTop: '5px',
-          }}
-        >
-          {options.map((option, index) => (
-            <DropDownLi key={index} onClick={() => handleOptionClick(option.value)}>
-              {option.label}
-            </DropDownLi>
-          ))}
-        </DropDownUl>
-      )}
-    </Container>
-  );
+        {/* 드롭다운 리스트 */}
+        {isOpen && (
+          <DropDownUl
+            style={{
+              position: 'absolute',
+              top: '100%',
+              left: 0,
+              right: 0,
+              background: '#fff',
+              border: '1px solid #ccc',
+              borderRadius: '8px',
+              listStyle: 'none',
+              zIndex: 10,
+              marginTop: '5px',
+            }}
+          >
+            {options.map((option, index) => (
+              <DropDownLi key={index} onClick={() => handleOptionClick(option.value)}>
+                {option.label}{' '}
+                {option.sublabel ? (
+                  <span style={{ ...font.caption.cap2R, color: color.grayscale.gray8 }}>{option.sublabel}</span>
+                ) : (
+                  <></>
+                )}
+              </DropDownLi>
+            ))}
+          </DropDownUl>
+        )}
+      </Container>
+    );
 };
 
 export default InputPage_Dropdown;

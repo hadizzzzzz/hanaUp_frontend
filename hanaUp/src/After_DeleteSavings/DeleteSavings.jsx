@@ -13,6 +13,7 @@ import countryInfo from '../common/arrays/countryInfo';
 import DeleteDone from './assets/deleteDone.jpg';
 import { useNavigate } from 'react-router-dom';
 import BackCard from './assets/backToBeforeCard.jpg';
+import axios from 'axios';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -115,9 +116,26 @@ const DeleteSavings = () => {
   const navigation = useNavigate();
 
   const [deleteDone, setDeleteDone] = useState(false);
+
+  // POST 외화 예금 해지
+  // const postDeleteSavings = async () => {
+  //   const uid = 123;
+  //   try {
+  //     const res = axios.post(`${BASE_URL}/api/after-travel/deletesavings`, {
+  //       userId: uid,
+  //       country: savings.country,
+  //     });
+  //     console.log('해지', res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const handleDeleteBtn = () => {
-    if (!deleteDone) setDeleteDone(true);
-    else navigation('/', { replace: true });
+    if (!deleteDone) {
+      // postDeleteSavings();
+      setDeleteDone(true);
+    } else navigation('/', { replace: true });
   };
 
   const currencySymbol = countryInfo.find(item => item.country_en === savings.country).currency_symbol;

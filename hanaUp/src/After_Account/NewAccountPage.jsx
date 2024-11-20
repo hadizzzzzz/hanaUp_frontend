@@ -226,6 +226,7 @@ const NewAccount = () => {
 
   // 예금 상품 가입시 받은 res를 저장하여 전역 관리
   const [newAccountInfo, setNewAccountInfo] = useRecoilState(after_newAccountInfo);
+
   // 금리 정보 관리
   const [interestRate, setInterestRate] = useState({});
 

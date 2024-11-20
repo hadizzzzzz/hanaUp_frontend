@@ -8,8 +8,8 @@ function Toast({ message, onClose }) {
     setVisible(true); // Toast 표시
     const timer = setTimeout(() => {
       setVisible(false); // Toast 숨김 애니메이션 시작
-      setTimeout(onClose, 300000000); // 애니메이션 종료 후 컴포넌트 제거
-    }, 30000000); // 3초 동안 표시
+      setTimeout(onClose, 3000); // 애니메이션 종료 후 컴포넌트 제거
+    }, 3000); // 3초 동안 표시
 
     return () => clearTimeout(timer); // 클린업
   }, [onClose]);
@@ -20,7 +20,7 @@ function Toast({ message, onClose }) {
         width: '335px',
         height: '53px',
         position: 'absolute',
-        bottom: '70px',
+        bottom: '80px',
         right: '29px',
         padding: '9px 19px',
         display: 'flex',

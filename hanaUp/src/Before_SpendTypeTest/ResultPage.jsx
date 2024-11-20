@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom';
+import { replace, useLocation, useNavigate } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import color from '../styles/color';
 import font from '../styles/font';
@@ -124,6 +124,8 @@ const ResultPage = props => {
   const travelInfo = { ...location.state };
   const testResult = { ...location.res };
 
+  const navigation = useNavigate();
+
   // 임의로 넣어둔 값
   const typeInfoSelected = typeInfo.find(item => travelInfo.resultType === item.type_en) || {};
   return (
@@ -176,7 +178,7 @@ const ResultPage = props => {
         </ContentContainer>
       </RootContainer>
       <BtnContainer>
-        <PrimaryButton text="환전하기" type="active" />
+        <PrimaryButton text="환전하기" type="active" onClick={() => navigation('/', { replace: true })} />
       </BtnContainer>
     </>
   );

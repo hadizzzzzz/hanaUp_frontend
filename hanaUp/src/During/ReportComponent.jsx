@@ -137,9 +137,9 @@ const ReportComponent = ({ country, day, reportData, setDayState, toggleState })
             </LinearGradient>
             {toggleState === 0 ? '에서 ' : '의 '}
             <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
-              {toggleState === 0 ? `${day}일 차` : `${countryInfoSelected.country_kr}여행`}
+              {toggleState === 0 ? `${day}일 차` : `${countryInfoSelected.country_kr}`}
             </LinearGradient>
-            , <br />내 소비는 어땠나요 ?
+            {toggleState === 1 && '여행'}, <br />내 소비는 어땠나요 ?
           </TitleText>
           {toggleState === 0 ? (
             <ArrowsContainer>

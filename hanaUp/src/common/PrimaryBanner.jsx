@@ -53,7 +53,7 @@ const Btn = styled.div`
 `;
 
 // caption , text
-const PrimaryBanner = ({ caption, text, btnText }) => {
+const PrimaryBanner = ({ caption, text, btnText, onBtnClick }) => {
   return (
     <Container>
       <TextContainer>
@@ -62,7 +62,7 @@ const PrimaryBanner = ({ caption, text, btnText }) => {
           <Text>{text}</Text>
         </LinearGradient>
       </TextContainer>
-      <Btn>{btnText}</Btn>
+      <Btn onClick={onBtnClick && onBtnClick}>{btnText}</Btn>
     </Container>
   );
 };

@@ -398,7 +398,7 @@ const Intro_ResultPage = () => {
               type="active"
               text={`${investMethodInfo.investmentType} 시작하기`}
               onClick={() => {
-                if (investMethodInfo === '환테크')
+                if (investMethodInfo.investmentType === '환테크')
                   navigation('/exTech', {
                     state: {
                       selectedFundInfo: selectedFundInfo,

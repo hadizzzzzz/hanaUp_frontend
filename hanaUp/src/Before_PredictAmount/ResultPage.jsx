@@ -7,6 +7,7 @@ import font from '../styles/font';
 import DollarBox from '../common/DollarBox';
 import PrimaryBanner from '../common/PrimaryBanner';
 import SpendTypeTest_Graph from '../Before_Common/SpendTypeTest_Graph';
+import { useNavigate } from 'react-router-dom';
 
 const RootContainer = styled.div`
   display: flex;

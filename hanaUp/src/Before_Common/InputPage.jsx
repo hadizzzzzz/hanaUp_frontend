@@ -88,12 +88,12 @@ const Before_InputPage = () => {
   const [selectedType, setSelectedType] = useState('');
 
   const countryOptions = [
-    { label: '일본', value: '일본', selectedCountry: 'Japan' },
+    // { label: '일본', value: '일본', selectedCountry: 'Japan' },
     { label: '태국', value: '태국', selectedCountry: 'Thailand' },
     { label: '말레이시아', value: '말레이시아', selectedCountry: 'Malaysia' },
     { label: '중국', value: '중국', selectedCountry: 'China' },
     { label: '대만', value: '대만', selectedCountry: 'Taiwan' },
-    { label: '미국', value: '미국', selectedCountry: 'USA' },
+    // { label: '미국', value: '미국', selectedCountry: 'USA' },
     { label: '영국', value: '영국', selectedCountry: 'UK' },
     { label: '호주', value: '호주', selectedCountry: 'Australia' },
     { label: '필리핀', value: '필리핀', selectedCountry: 'Philippines' },

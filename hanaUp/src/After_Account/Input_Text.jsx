@@ -40,20 +40,15 @@ const InnerInput = styled.input`
   line-height: 24px; /* 150% */
 `;
 
-const TransparentInput = styled.span`
-  height: 100%;
-  text-decoration: none;
-  border: none;
-  outline: none;
-`;
-
 const Input_Text = ({ placeholder, currency_code, onInput }) => {
   const inputRef = useRef();
   const spanRef = useRef();
   const [value, setValue] = useState('');
 
   const handleInput = e => {
-    const input = e.target.value.replace(/[^0-9]/g, '');
+    // 숫자만 받고, 숫자 3개마다 콤마
+    var input = e.target.value.replace(/[^0-9]/g, '');
+    input = Number(input).toLocaleString();
     spanRef.current.textContent = `${input}${currency_code}`;
     setValue(`${input} ${currency_code}`);
     const spanWidth = spanRef.current.offsetWidth;
