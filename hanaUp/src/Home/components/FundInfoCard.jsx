@@ -6,6 +6,7 @@ import { LinearGradient } from 'react-text-gradients';
 import menuIcn from '../assets/menu.png';
 import { useEffect } from 'react';
 import countryInfo from '../../common/arrays/countryInfo';
+import { useNavigate } from 'react-router-dom';
 
 const RootContainer = styled.div`
   margin-left: 30px;
@@ -207,6 +208,13 @@ const MenuIcn = styled.img`
 // moneyAmount // 남은 돈
 // rate  // 현재 환율 (보유 통화인 경우)
 const FundInfoCard = ({ type, trend, country, currency, moneyAmount, exchangeRate }) => {
+  const navigation = useNavigate();
+
+  const handleDeleteSavings = e => {
+    e.stopPropagation(); // 이벤트 전파 방지
+    navigation('/deleteSavings');
+  };
+
   return (
     <RootContainer type={type}>
       <AbsoluteBannerTitle type={type}>{type === 'foreignSavings' ? '외화적금' : '보유통화'}</AbsoluteBannerTitle>
@@ -235,7 +243,9 @@ const FundInfoCard = ({ type, trend, country, currency, moneyAmount, exchangeRat
       {/* 외화적금이라면 -> 버튼 컨테이너 */}
       {type === 'foreignSavings' ? (
         <BtnsContainer>
-          <BtnContainer type={type}>해지하기</BtnContainer>
+          <BtnContainer type={type} onClick={handleDeleteSavings}>
+            해지하기
+          </BtnContainer>
           <BtnContainer type={type}>거래 내역</BtnContainer>
           <ImgContainer>
             <MenuIcn src={menuIcn}></MenuIcn>

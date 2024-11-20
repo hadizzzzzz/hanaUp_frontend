@@ -8,8 +8,6 @@ import ImgSrc from './assets/newAccountImg.jpg';
 import InputPage_Dropdown from '../Before_Common/InputPage_Dropdown';
 import Icn_Coins from './assets/icn_coins.png';
 import Icn_Calendar from './assets/icn_calendar.png';
-import Toast from '../common/Toast';
-import { toast } from 'react-toastify';
 import Input_Text from './Input_Text';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
@@ -17,6 +15,7 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { after_newAccountInfo } from '../Recoil/after_newAccountInfo';
 import color from '../styles/color';
+import NewAccount_DoneModal from './NewAccount_DoneModal';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -203,6 +202,24 @@ const TextInputContainer = styled.div`
   align-self: stretch;
 `;
 
+// 모달
+const Overlay = styled.div`
+  @media (hover: hover) {
+    width: 390px;
+    margin: 0 auto;
+  }
+
+  height: 100vh;
+  width: 100%;
+  margin: 0 auto;
+
+  background-color: rgb(0, 0, 0, 0.3);
+  z-index: 3;
+
+  position: absolute;
+  top: 0;
+`;
+
 const NewAccount = () => {
   const location = useLocation();
   const { selectedFundInfo, investMethodInfo, countryInfo } = location.state;
@@ -214,7 +231,15 @@ const NewAccount = () => {
 
   // 외화 예금 가입 프로세스를 0,1,2 인덱스로 관리
   const [process, setProcess] = useState(0);
-  const [modal, setModal] = useState(false);
+
+  // 모달 관리
+  const [modalState, setModalState] = useState(false);
+  const closeModal = () => {
+    setModalState(false);
+  };
+  const openModal = () => {
+    setModalState(true);
+  };
 
   // 3번 process에서의 3가지 input을 관리
   // 1, 6, 12
@@ -274,6 +299,7 @@ const NewAccount = () => {
     if (process < 2) setProcess(prev => prev + 1);
     else {
       postNewSavings();
+      openModal();
     }
   };
 
@@ -356,7 +382,6 @@ const NewAccount = () => {
             </RegisterDurationGridContainer>
           </div>
         </RegisterDurationContainer>
-        <Toast />
       </ContentContainer>
     );
   }
@@ -388,6 +413,14 @@ const NewAccount = () => {
     <Container className="newAccount">
       <PrimaryHeader header_title="외화 예금" />
       {content}
+      {modalState && (
+        <Overlay
+          onClick={() => {
+            closeModal();
+          }}
+        />
+      )}
+      {modalState && <NewAccount_DoneModal closeModal={closeModal} month={month} interestRate={interestRate[month]} />}
       <BtnContainer>
         <PrimaryButton
           type={process != 2 || (month != '' && amount != '' && settings != '') ? 'active' : 'inactive'} // input 관리에 따라 달라져야 함

@@ -45,6 +45,7 @@ const FundSwiper = () => {
   };
 
   const fetchTravelandFundData = async () => {
+    console.log('fetch');
     const userId = 12345;
 
     // const res= await axios.get(`${BASE_URL}/api/main/fund-info?userId=${12345}`);

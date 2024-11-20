@@ -12,6 +12,7 @@ import AtmPage from './During/AtmPage';
 import During_ReportPage from './During/During_ReportPage';
 import IntroPage from './After_Common/IntroPage';
 import Intro_ResultPage from './After_Common/Intro_ResultPage';
+import DeleteSavings from './After_DeleteSavings/DeleteSavings';
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
   {
     path: '/exTech',
     element: <ExTechPage></ExTechPage>,
+  },
+  {
+    path: '/deleteSavings',
+    element: <DeleteSavings />,
   },
 ]);
 

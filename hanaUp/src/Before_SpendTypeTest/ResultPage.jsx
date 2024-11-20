@@ -23,7 +23,6 @@ const RootContainer = styled.div`
   gap: 40px;
 `;
 
-// pa
 const ContentContainer = styled.div`
   width: 100%;
   padding: 0px 20px 0px 20px;

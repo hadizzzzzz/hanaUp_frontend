@@ -27,6 +27,7 @@ const InnerInput = styled.input`
   text-decoration: none;
   border: none;
   outline: none;
+  background-color: transparent;
   border-radius: 8px;
   min-width: 5px;
 

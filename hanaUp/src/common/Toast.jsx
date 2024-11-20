@@ -1,20 +1,45 @@
-import { ToastContainer } from 'react-toastify';
+import { useState, useEffect } from 'react';
+import font from '../styles/font';
 
-const Toast = () => {
+function Toast({ message, onClose }) {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    setVisible(true); // Toast 표시
+    const timer = setTimeout(() => {
+      setVisible(false); // Toast 숨김 애니메이션 시작
+      setTimeout(onClose, 300000000); // 애니메이션 종료 후 컴포넌트 제거
+    }, 30000000); // 3초 동안 표시
+
+    return () => clearTimeout(timer); // 클린업
+  }, [onClose]);
+
   return (
-    <ToastContainer
-      position="top-right" // 알람 위치 지정
-      autoClose={3000} // 자동 off 시간
-      hideProgressBar={false} // 진행시간바 숨김
-      closeOnClick // 클릭으로 알람 닫기
-      rtl={false} // 알림 좌우 반전
-      pauseOnFocusLoss // 화면을 벗어나면 알람 정지
-      draggable // 드래그 가능
-      pauseOnHover // 마우스를 올리면 알람 정지
-      theme="light"
-      // limit={1} // 알람 개수 제한
-    ></ToastContainer>
+    <div
+      style={{
+        width: '335px',
+        height: '53px',
+        position: 'absolute',
+        bottom: '70px',
+        right: '29px',
+        padding: '9px 19px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#333',
+        color: '#fff',
+        borderRadius: '8px',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(20px)',
+        transition: 'opacity 0.3s, transform 0.3s',
+        ...font.caption.cap2R,
+        whiteSpace: 'pre-wrap', // 줄바꿈 문자 렌더링
+      }}
+    >
+      {message}
+    </div>
   );
-};
+}
 
 export default Toast;
