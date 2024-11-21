@@ -17,7 +17,6 @@ import ExTech_ChargeItem from './ExTech_ChargeItem';
 import Toast from '../common/Toast';
 
 const Container = styled.div`
-  border: 1px solid black;
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;
@@ -26,7 +25,6 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
 `;
 
 const ContentContainer = styled.div`
@@ -144,15 +142,20 @@ const ExTech = () => {
         <ContentContainer>
           <TextInputContainer>
             <SmallTitle>{countryInfo.currency_code}1 기준 환율(매매기준율)</SmallTitle>
-            <Input_Text currency_code="원" onInput={setBasisRate} />
+            <InputPage_Dropdown
+              placeholder={`${countryExchangeInfo[countryInfo.country_en][1].value}원 이하일 때`}
+              options={countryExchangeInfo[countryInfo.country_en]}
+              onChange={setBasisRate}
+            />
           </TextInputContainer>
           <TextInputContainer>
             <SmallTitle>자동으로</SmallTitle>
             <InputPage_Dropdown
-              placeholder="하나머니 금액만큼"
-              options={countryExchangeInfo[countryInfo.country_en]}
+              placeholder={`하나머니 금액만큼`}
+              options={[{ label: '하나머니 금액만큼', value: '하나머니 금액만큼' }]}
               onChange={setAmount}
             />
+            {/* <Input_Text currency_code="원" onInput={setBasisRate} /> */}
           </TextInputContainer>
           <TextInputContainer>
             <SmallTitle>기간 선택</SmallTitle>
@@ -183,7 +186,13 @@ const ExTech = () => {
             }}
           />
         )}
-        {modalState && <ExTech_RateModal closeModal={closeModal} country={countryInfo.country_en} />}
+        {modalState && (
+          <ExTech_RateModal
+            closeModal={closeModal}
+            country={countryInfo.country_en}
+            currency_symbol={countryInfo.currency_symbol}
+          />
+        )}
       </Container>
     );
   else {

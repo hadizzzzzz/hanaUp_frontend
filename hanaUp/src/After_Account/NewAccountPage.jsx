@@ -332,6 +332,7 @@ const NewAccount = () => {
   }
   // input 입력 받기
   else if (process === 1) {
+    const today = new Date();
     content = (
       <ContentContainer process={process}>
         <RegisterContentContainer>
@@ -365,7 +366,7 @@ const NewAccount = () => {
           <SmallTitle>가입 기간</SmallTitle>
           <div style={{ display: 'flex', gap: '10px', flexDirection: 'column', width: '100%' }}>
             <div style={{ width: '100%', ...font.caption.cap2R, color: '#2d2d2d', textAlign: 'right' }}>
-              2024년 10월 8일 기준, 연이율 세전
+              {today.getFullYear()}년 {today.getMonth() + 1}월 {today.getDate()}일 기준, 연이율 세전
             </div>
             <RegisterDurationGridContainer>
               <GridItem titleItem={true}>거주자 구분</GridItem>
