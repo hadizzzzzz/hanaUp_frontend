@@ -10,6 +10,7 @@ import SpendTypeTest_Graph from '../Before_Common/SpendTypeTest_Graph';
 import Msg from '../common/Msg';
 import { typeInfo } from '../common/arrays/typeInfo';
 import { useEffect } from 'react';
+import countryInfo from '../common/arrays/countryInfo';
 
 // 버튼 컨테이너를 제외한 content만의 컨테이너
 const RootContainer = styled.div`
@@ -110,7 +111,6 @@ const BtnContainer = styled.div`
   align-items: center;
   padding: 20px;
 `;
-// props
 // resultType : 어떤 타입인지 문자열로
 // testDone (사용 X)
 
@@ -119,10 +119,12 @@ const BtnContainer = styled.div`
 // endDate
 // country
 // res
-const ResultPage = props => {
+const ResultPage = () => {
   const location = useLocation();
   const travelInfo = { ...location.state };
-  const testResult = { ...location.res };
+  const testResult = { ...location.state.res };
+
+  console.log(travelInfo);
 
   const navigation = useNavigate();
 
@@ -134,8 +136,11 @@ const ResultPage = props => {
         <ContentContainer>
           <MainText>
             <span style={{ color: color.brand.primary }}>{calculateDateDiff(new Date(), travelInfo.startDate)}일</span>{' '}
-            뒤 <span style={{ color: color.brand.primary }}>{travelInfo.country.value}</span>에서 여행, <br /> 내 소비
-            유형은
+            뒤{' '}
+            <span style={{ color: color.brand.primary }}>
+              {countryInfo.find(item => item.country_en === travelInfo.country).country_kr}
+            </span>
+            에서 여행, <br /> 내 소비 유형은
           </MainText>
           {/* 동적 렌더링 필요 */}
           <ImgContainer>
@@ -157,8 +162,8 @@ const ResultPage = props => {
           <DollarBox
             startDate={travelInfo.startDate}
             endDate={travelInfo.endDate}
-            currency={'￥'}
-            country={travelInfo.country.selectedCountry}
+            currency={countryInfo.find(item => item.country_en === travelInfo.country).currency_symbol}
+            country={travelInfo.country}
             amount={12345}
             // amount={res.estimatedCost}
           />

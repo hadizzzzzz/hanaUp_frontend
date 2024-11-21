@@ -9,6 +9,7 @@ import PrimaryHeader from '../common/PrimaryHeader';
 import color from '../styles/color';
 import CustomProgressBar from './components/CustomProgressBar';
 import { useEffect } from 'react';
+import countryInfo from '../common/arrays/countryInfo';
 
 const RootContainer = styled.div`
   width: 100%;
@@ -80,7 +81,10 @@ const BtnContainer = styled.div`
 
 // props
 // api 호출 후 결과를 담아 navigation을 수행
-const TestPage = props => {
+const TestPage = () => {
+  const navigation = useNavigate();
+  const location = useLocation();
+
   const [answerSelected, setAnswerSelected] = useState(''); // 클릭 상태를 관리
 
   const [questionType, setQuestionType] = useState(0); // n
@@ -150,27 +154,40 @@ const TestPage = props => {
     ['J', 'P'],
   ];
 
-  const navigation = useNavigate();
-  const location = useLocation();
-
-  const handleTestDone = () => {
+  const handleTestDone = updatedAnswers => {
     // answers에서 마지막 답변이 저장되지 않는 이슈가 있으니 유의할 것
-    console.log(answers);
-    console.log(location.state);
-    // const res = axios.post
-    const res = 'res example';
+    // 인자로 넘기는 방식을 사용하여 해결함
+    try {
+      // const userId = 123;
+      // const currency = countryInfo.find(item => item.country_en === country.selectedCountry).currency_code;
+      // const duration = endDate.getDate() - startDate.getDate();
+      const res = 'res example';
+      navigation(
+        '/predictService/spendTypeTest/result',
+        {
+          state: {
+            ...location.state,
+            // resultType: res.data.resultType,
+            testDone: true,
+            resultType: 'ITMEP',
+            res: res,
+          },
+        },
+        {
+          replace: true,
+        },
+      );
 
-    navigation(`/predictService/spendTypeTest/result`, {
-      state: {
-        ...location.state,
-        // resultType: res.data.resultType,
-        testDone: true,
-        resultType: 'ITMEP',
-      },
-      res: {
-        res,
-      },
-    });
+      // const res = axios.post(`${BASE_URL}/api/before-travel/type-test`, {
+      //   userId: userId,
+      //   destination: country.selectedCountry,
+      //   currency: currency,
+      //   duration: duration,
+      //   answers: updatedAnswers,
+      // });
+      // const data = res.data;
+      // // data를 state에 넣으면 됨
+    } catch (error) {}
   };
 
   const handleTestNext = () => {
@@ -188,7 +205,7 @@ const TestPage = props => {
     // 마지막 질문이면 저장 후 완료 처리
     if (answerCount + 1 === 12) {
       // setAnswers가 완료된 후 handleTestDone을 호출
-      setTimeout(() => handleTestDone(updatedAnswers), 2000);
+      handleTestDone(updatedAnswers);
       return;
     }
 

@@ -27,15 +27,15 @@ const router = createBrowserRouter([
     path: '/predictService/:type',
     element: <Before_InputPage></Before_InputPage>,
   },
-
-  {
-    path: '/predictService/predictAmount/result',
-    element: <PredictAmountPage></PredictAmountPage>,
-  },
   {
     path: '/predictService/spendTypeTest/test',
     element: <TestPage></TestPage>,
   },
+  {
+    path: '/predictService/predictAmount/result',
+    element: <PredictAmountPage></PredictAmountPage>,
+  },
+
   {
     path: '/predictService/spendTypeTest/result',
     element: <SpendTypeTestPage></SpendTypeTestPage>,

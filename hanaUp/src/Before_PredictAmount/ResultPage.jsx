@@ -8,6 +8,7 @@ import DollarBox from '../common/DollarBox';
 import PrimaryBanner from '../common/PrimaryBanner';
 import SpendTypeTest_Graph from '../Before_Common/SpendTypeTest_Graph';
 import { useNavigate } from 'react-router-dom';
+import countryInfo from '../common/arrays/countryInfo';
 
 const RootContainer = styled.div`
   display: flex;
@@ -102,16 +103,18 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
           <PrimaryTag text="맞춤형 예측 서비스"></PrimaryTag>
           <MainText>
             <span style={{ color: color.brand.primary }}>{calculateDateDiff(new Date(), startDate)}일</span> 뒤{' '}
-            <span style={{ color: color.brand.primary }}>{country.value}</span>에서 여행, <br /> 나의 예상 지출
-            금액이에요
+            <span style={{ color: color.brand.primary }}>
+              {countryInfo.find(item => item.country_en === country).country_kr}
+            </span>
+            에서 여행, <br /> 나의 예상 지출 금액이에요
           </MainText>
           <SubText>나의 지난 소비 내역을 분석했어요</SubText>
         </TextContainer>
         <DollarBox
           startDate={startDate}
           endDate={endDate}
-          currency={'￥'}
-          country={country.selectedCountry}
+          currency={countryInfo.find(item => item.country_en === country).currency_symbol}
+          country={country}
           amount={res.estimatedCost}
         ></DollarBox>
         <SmallHorizon />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import { replace, useNavigate, useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import PrimaryHeader from '../common/PrimaryHeader';
 import font from '../styles/font';
@@ -11,6 +11,8 @@ import addDays from 'date-fns/addDays';
 import { useEffect } from 'react';
 import axios from 'axios';
 import calculateDateDiff from '../common/calculateDateDiff';
+import { useRecoilState } from 'recoil';
+import { during_travelDetail } from '../Recoil/during_travelDetail';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -76,6 +78,9 @@ const InfoContainer = styled.div`
 
 // 두가지 종류의 예측 서비스에 공통으로 들어가는 페이지
 const Before_InputPage = () => {
+  // 여행 정보를 받자마자 전역으로 관리하도록 함
+  const [travelDetail, setTravelDetail] = useRecoilState(during_travelDetail);
+
   // 사용자의 트래블로그 이용 여부
   const type = useParams().type;
   const navigation = useNavigate();
@@ -88,16 +93,16 @@ const Before_InputPage = () => {
   const [selectedType, setSelectedType] = useState('');
 
   const countryOptions = [
-    // { label: '일본', value: '일본', selectedCountry: 'Japan' },
-    { label: '태국', value: '태국', selectedCountry: 'Thailand' },
-    { label: '말레이시아', value: '말레이시아', selectedCountry: 'Malaysia' },
-    { label: '중국', value: '중국', selectedCountry: 'China' },
-    { label: '대만', value: '대만', selectedCountry: 'Taiwan' },
-    // { label: '미국', value: '미국', selectedCountry: 'USA' },
-    { label: '영국', value: '영국', selectedCountry: 'UK' },
-    { label: '호주', value: '호주', selectedCountry: 'Australia' },
-    { label: '필리핀', value: '필리핀', selectedCountry: 'Philippines' },
-    { label: '유럽', value: '유럽', selectedCountry: 'Europe' },
+    // { label: '일본', value: '일본', selectedOptionCountry: 'Japan' }, // 일본 비활성화
+    { label: '태국', value: '태국', selectedOptionCountry: 'Thailand' },
+    { label: '말레이시아', value: '말레이시아', selectedOptionCountry: 'Malaysia' },
+    { label: '중국', value: '중국', selectedOptionCountry: 'China' },
+    { label: '대만', value: '대만', selectedOptionCountry: 'Taiwan' },
+    // { label: '미국', value: '미국', selectedOptionCountry: 'USA' }, // 미국 비활성화
+    { label: '영국', value: '영국', selectedOptionCountry: 'UK' },
+    { label: '호주', value: '호주', selectedOptionCountry: 'Australia' },
+    { label: '필리핀', value: '필리핀', selectedOptionCountry: 'Philippines' },
+    { label: '유럽', value: '유럽', selectedOptionCountry: 'Europe' },
   ];
 
   const typeOptions = [
@@ -122,6 +127,13 @@ const Before_InputPage = () => {
 
   const handleTestStart = async () => {
     if (selectedCountry !== 'Japan' || selectedCountry !== 'USA') {
+      setTravelDetail({
+        destination: selectedCountry,
+        startDate: selectedDate.startDate,
+        endDate: selectedDate.endDate,
+        duration: 3, // 고정해야 함
+        // type:
+      });
       try {
         // var url;
         // if (type === 'predictAmountResult') url = `${BASE_URL}/api/before-travel/type-test`;
@@ -154,15 +166,21 @@ const Before_InputPage = () => {
             medical: 120, // 평균 병원비
           },
         };
-        navigation(`/predictService/${type}/result`, {
-          state: {
-            startDate: selectedDate.startDate,
-            endDate: selectedDate.endDate,
-            country: selectedCountry,
-            res: res,
-            testDone: false,
+        navigation(
+          `/predictService/${type}/result`,
+          {
+            state: {
+              startDate: selectedDate.startDate,
+              endDate: selectedDate.endDate,
+              country: selectedCountry,
+              res: res,
+              testDone: false,
+            },
           },
-        });
+          {
+            replace: true,
+          },
+        );
       } catch (error) {
         console.log(error);
       }
@@ -180,7 +198,7 @@ const Before_InputPage = () => {
             options={countryOptions}
             selectedValue={selectedCountry}
             onChange={value => {
-              setSelectedCountry(countryOptions.find(item => value === item.value) || {}).selectedCountry || null;
+              setSelectedCountry(countryOptions.find(item => value === item.value).selectedOptionCountry);
             }}
           />
         </InputContainer>
