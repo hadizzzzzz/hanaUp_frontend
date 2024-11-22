@@ -11,12 +11,15 @@ import axios from 'axios';
 import { useRecoilState } from 'recoil';
 import { fundInfoState } from '../../Recoil/fundInfo';
 import { travelInfo } from '../../Recoil/travelState';
+import { useRecoilValue } from 'recoil';
+import { uid } from '../../Recoil/uid';
 
 // swiper 내부에서 api 호출하여 전역으로 상태 관리
 
 const FundSwiper = () => {
   const [fundInfo, setFundInfo] = useRecoilState(fundInfoState);
   const [travelState, setTravelState] = useRecoilState(travelInfo);
+  const userId = useRecoilValue(uid);
 
   const processFundData = async data => {
     if (data.foreignSavings) {
@@ -46,10 +49,8 @@ const FundSwiper = () => {
 
   const fetchTravelandFundData = async () => {
     console.log('fetch');
-    const userId = 12345;
 
-    // const res= await axios.get(`${BASE_URL}/api/main/fund-info?userId=${12345}`);
-    // if (res.status===200){}
+    // const res= await axios.get(`${BASE_URL}/api/main/fund-info?userId=${uid}`);
 
     const processedFundData = await processFundData(fundInfo);
     console.log(processedFundData);

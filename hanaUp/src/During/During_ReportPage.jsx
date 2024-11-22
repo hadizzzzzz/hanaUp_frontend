@@ -107,7 +107,7 @@ const WrongDirection = () => {
 // travelState에 따라 첫 토글의 상태가 달라야함.
 const During_ReportPage = () => {
   const travelState = useRecoilValue(travelInfo);
-  const uidState = useRecoilValue(uid);
+  const userId = useRecoilValue(uid);
   const during_travel = useRecoilValue(during_travelDetail);
   const [day, setDay] = useState(1);
 
@@ -118,7 +118,11 @@ const During_ReportPage = () => {
   useEffect(() => {
     if (travelState === 'after') setToggle(1);
     fetchTravelReportData();
-    // axios 요청
+    // const res = await axios.get(`${BASE_URL}/api/after-travel/final-report`, {
+    //   userId: userId,
+    //   country: during_travel.destination,
+    // });
+    // setReportData(res.data);
   }, []);
 
   useEffect(() => {
@@ -129,8 +133,13 @@ const During_ReportPage = () => {
   // 토글 변경 혹은 일자 변경에 따라 다른 data를 요청
   const fetchTravelReportData = async () => {
     if (toggleState === 0) {
-      // const res = await axios.get(`${BASE_URL}/api/after-travel/final-report`, {
-      //   userId: uidState,
+      console.log({
+        userId: userId,
+        day: day, // 1일차, 2일차, 3일차,
+        country: during_travel.destination,
+      });
+      // const res = await axios.get(`${BASE_URL}/api/after-travel/daily-report`, {
+      //   userId: userId,
       //   day: day, // 1일차, 2일차, 3일차,
       //   country: during_travel.destination,
       // });

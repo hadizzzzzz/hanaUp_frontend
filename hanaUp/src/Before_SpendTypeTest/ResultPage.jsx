@@ -124,12 +124,57 @@ const ResultPage = () => {
   const travelInfo = { ...location.state };
   const testResult = { ...location.state.res };
 
-  console.log(travelInfo);
-
   const navigation = useNavigate();
 
-  // 임의로 넣어둔 값
-  const typeInfoSelected = typeInfo.find(item => travelInfo.resultType === item.type_en) || {};
+  var breakdown = [0.326, 0.264, 0.148, 0.2, 0.054];
+  var averageBreakdown = [0.326, 0.264, 0.148, 0.2, 0.054];
+
+  const getProcessedBreakdown = () => {
+    breakdown = [0.226, 0.264, 0.148, 0.2, 0.154];
+    averageBreakdown = [0.226, 0.264, 0.148, 0.2, 0.154];
+    for (let i = 0; i < 5; i++) {
+      breakdown[i] = breakdown[i] * testResult.estimatedCost;
+      averageBreakdown[i] = averageBreakdown[i] * testResult.estimatedCost;
+    }
+    if (testResult.resultType) {
+      if (testResult.resultType[0] === 'E') {
+        // 외향 활동비*110%
+        breakdown[3] = breakdown[3] * 1.1; // 활동비 * 1.1
+        breakdown[4] = breakdown[4] * 0.9; // 숙박비 *0.9;
+
+        averageBreakdown[3] = averageBreakdown[3] * 1.3;
+        averageBreakdown[4] = averageBreakdown[4] * 0.7;
+      }
+      if (testResult.resultType[1] === 'F') {
+        // + 맛집 식비*110%
+        breakdown[4] = breakdown[4] * 0.8; // 숙박비 * 0.8;
+        breakdown[1] = breakdown[1] * 1.1; // 식비 * 1.1
+        breakdown[0] = breakdown[0] * 1.1; // 교통비 *1.1;
+
+        averageBreakdown[4] = averageBreakdown[4] * 0.7; // 숙박비 * 0.8;
+        averageBreakdown[1] = averageBreakdown[1] * 1.4; // 식비 * 1.1
+        averageBreakdown[0] = averageBreakdown[0] * 1.3; // 교통비 *1.1;
+      }
+      if (testResult.resultType.substr(2, 2) === 'ME') {
+        // + 추억 교통비*110%
+        breakdown[1] = breakdown[1] * 1.1; // 식비 * 1.2;
+        breakdown[0] = breakdown[0] * 1.1; // 교통비 *1.1;
+
+        averageBreakdown[1] = averageBreakdown[1] * 1.4; // 식비 * 1.1
+        averageBreakdown[0] = averageBreakdown[0] * 1.3; // 교통비 *1.5;
+      }
+      return [breakdown, averageBreakdown];
+    }
+  };
+
+  useEffect(() => {
+    getProcessedBreakdown();
+  }, [testResult]);
+
+  useEffect(() => {}, [breakdown, averageBreakdown]);
+
+  const typeInfoSelected = typeInfo.find(item => testResult.resultType === item.type_en) || {};
+
   return (
     <>
       <RootContainer>
@@ -144,7 +189,7 @@ const ResultPage = () => {
           </MainText>
           {/* 동적 렌더링 필요 */}
           <ImgContainer>
-            <img src={`/img/travelTypes/${travelInfo.resultType}.jpg`} style={{ width: '258px' }}></img>
+            <img src={`/img/travelTypes/${typeInfoSelected.type_en}.jpg`} style={{ width: '258px' }}></img>
           </ImgContainer>
           <SubTextContainer>
             <div style={{ ...font.header.h3, color: color.grayscale.gray8 }}>
@@ -164,8 +209,7 @@ const ResultPage = () => {
             endDate={travelInfo.endDate}
             currency={countryInfo.find(item => item.country_en === travelInfo.country).currency_symbol}
             country={travelInfo.country}
-            amount={12345}
-            // amount={res.estimatedCost}
+            amount={testResult.estimatedCost}
           />
           <Msg type="positive" text="트래블로그와 함께 수수료 15,230원 절약했어요" />
         </ContentContainer>
@@ -178,7 +222,11 @@ const ResultPage = () => {
             <SubText>{typeInfoSelected.type_kr} 사람들의 항목별 지출이에요</SubText>
           </TextContainer>
           <GraphWrapper>
-            <SpendTypeTest_Graph />
+            <SpendTypeTest_Graph
+              currency={countryInfo.find(item => item.country_en === travelInfo.country).currency_symbol}
+              breakdown={getProcessedBreakdown()[0]}
+              averageBreakdown={getProcessedBreakdown()[1]}
+            />
           </GraphWrapper>
         </ContentContainer>
       </RootContainer>

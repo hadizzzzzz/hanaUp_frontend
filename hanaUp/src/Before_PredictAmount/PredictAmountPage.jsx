@@ -82,7 +82,6 @@ const PredictAmountPage = () => {
   const location = useLocation();
   const travelInfo = { ...location.state }; // 여행 나라, startDate와 endDate를 담은 객체
 
-  console.log(travelInfo);
   // 2초 로딩
   useEffect(() => {
     const timer = setTimeout(() => {

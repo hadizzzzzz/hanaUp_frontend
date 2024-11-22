@@ -54,7 +54,7 @@ const SpendTypeTestPage = () => {
     return (
       <Container className="spendTypeTest">
         <PrimaryHeader header_title="여행 소비 유형 테스트" />
-        <LoadingScreen state={travelInfo.testDone} />;
+        <LoadingScreen state={travelInfo.testDone} />
       </Container>
     );
   } else if (travelInfo.testDone) {

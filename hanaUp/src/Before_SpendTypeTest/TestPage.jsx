@@ -10,6 +10,9 @@ import color from '../styles/color';
 import CustomProgressBar from './components/CustomProgressBar';
 import { useEffect } from 'react';
 import countryInfo from '../common/arrays/countryInfo';
+import { useRecoilValue } from 'recoil';
+import { uid } from '../Recoil/uid';
+import calculateDateDiff from '../common/calculateDateDiff';
 
 const RootContainer = styled.div`
   width: 100%;
@@ -84,6 +87,7 @@ const BtnContainer = styled.div`
 const TestPage = () => {
   const navigation = useNavigate();
   const location = useLocation();
+  const userId = useRecoilValue(uid);
 
   const [answerSelected, setAnswerSelected] = useState(''); // 클릭 상태를 관리
 
@@ -158,18 +162,28 @@ const TestPage = () => {
     // answers에서 마지막 답변이 저장되지 않는 이슈가 있으니 유의할 것
     // 인자로 넘기는 방식을 사용하여 해결함
     try {
-      // const userId = 123;
-      // const currency = countryInfo.find(item => item.country_en === country.selectedCountry).currency_code;
-      // const duration = endDate.getDate() - startDate.getDate();
-      const res = 'res example';
+      const currency = countryInfo.find(item => item.country_en === location.state.country).currency_code;
+      const duration = calculateDateDiff(location.state.endDate, location.state.startDate) + 1;
+      const res = {
+        resultType: 'ETMEJ', // 최종 결과 유형
+        estimatedCost: 1500,
+        currency: 'USD',
+      };
+
+      // console.log({
+      //   userId: userId,
+      //   destination: location.state.country,
+      //   currency: `${currency}(100)`,
+      //   duration: duration,
+      //   answers: updatedAnswers,
+      // });
+
       navigation(
         '/predictService/spendTypeTest/result',
         {
           state: {
             ...location.state,
-            // resultType: res.data.resultType,
             testDone: true,
-            resultType: 'ITMEP',
             res: res,
           },
         },

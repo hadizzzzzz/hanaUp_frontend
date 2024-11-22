@@ -11,30 +11,28 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 //     "food": 400,        // 식비
 //     "shopping": 300,    // 쇼핑비
 //     "activities": 400,  // 활동비
-//     "medical": 100      // 병원비
+//     "hotel": 5,  // 숙박비
 //   },
-//   "averageBreakdown": {
+//   "averageData": {
 //     "transport": 280,   // 평균 교통비
 //     "food": 450,        // 평균 식비
 //     "shopping": 320,    // 평균 쇼핑비
 //     "activities": 380,  // 평균 활동비
-//     "medical": 120      // 평균 병원비
+//     "hotel": 5,  // 평균 숙박비
 //   }
 
-// breakdown, averageBreakdown을 props로 받아
+// breakdown, averageData을 props로 받아
 //  각각 line 형태, bar 형태의 그래프를 그리는 공통 컴포넌트
 
-const SpendTypeTest_Graph = ({ breakdown, averageBreakdown }) => {
-  const personalData = [300, 400, 300, 400, 100];
-  const averageData = [280, 450, 320, 380, 120];
-
+const SpendTypeTest_Graph = ({ breakdown, averageBreakdown, currency }) => {
+  console.log(averageBreakdown, breakdown);
   const mixedData = {
-    labels: ['교통비', '식비', '쇼핑비', '활동비', '병원비'],
+    labels: ['교통비', '식비', '숙박비', '쇼핑비', '활동비'],
     datasets: [
       {
         label: '내 예상 금액',
         type: 'line',
-        data: personalData,
+        data: breakdown,
         backgroundColor: function (context) {
           const { chart } = context;
           const { ctx, chartArea } = chart;
@@ -57,7 +55,7 @@ const SpendTypeTest_Graph = ({ breakdown, averageBreakdown }) => {
       {
         label: '평균',
         type: 'bar',
-        data: averageData,
+        data: averageBreakdown,
         backgroundColor: color.grayscale.gray2,
         borderRadius: 10,
         barThickness: 28,
@@ -82,6 +80,11 @@ const SpendTypeTest_Graph = ({ breakdown, averageBreakdown }) => {
         },
       },
       y: {
+        ticks: {
+          callback: function (value) {
+            return `${currency} ` + value; // 결과: "1000 원"
+          },
+        },
         display: true,
         grid: {
           display: true,

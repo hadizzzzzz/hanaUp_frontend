@@ -6,6 +6,6 @@ const { persistAtom } = recoilPersist();
 // before, during, after
 export const travelInfo = atom({
   key: 'travelInfo',
-  default: 'after',
+  default: 'before',
   effects_UNSTABLE: [persistAtom],
 });

@@ -83,16 +83,6 @@ const InputPage_Dropdown = ({ type, options, placeholder, onChange, basisRate })
   const option = { value: 'THB 1,500' }; // or another test case
   const newBasisRate = '333,8.73';
 
-  // 디버깅
-  console.log('Original value:', option.value);
-  console.log('Extracted number:', option.value.replace(/[^0-9,.]/g, ''));
-  console.log('Basis rate:', newBasisRate);
-  console.log('Parsed basis rate:', Number(newBasisRate));
-
-  // 최종 결과
-  const result = Number(option.value.replace(/[^0-9]/g, '')) * Number(newBasisRate);
-  console.log('Final result:', result);
-
   const toggleDropdown = () => {
     setIsOpen(prev => !prev);
   };

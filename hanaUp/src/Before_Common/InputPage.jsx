@@ -13,6 +13,9 @@ import axios from 'axios';
 import calculateDateDiff from '../common/calculateDateDiff';
 import { useRecoilState } from 'recoil';
 import { during_travelDetail } from '../Recoil/during_travelDetail';
+import { useRecoilValue } from 'recoil';
+import { uid } from '../Recoil/uid';
+import countryInfo from '../common/arrays/countryInfo';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -80,6 +83,7 @@ const InfoContainer = styled.div`
 const Before_InputPage = () => {
   // 여행 정보를 받자마자 전역으로 관리하도록 함
   const [travelDetail, setTravelDetail] = useRecoilState(during_travelDetail);
+  const [userId, setUserId] = useRecoilValue(uid);
 
   // 사용자의 트래블로그 이용 여부
   const type = useParams().type;
@@ -127,45 +131,56 @@ const Before_InputPage = () => {
 
   const handleTestStart = async () => {
     if (selectedCountry !== 'Japan' || selectedCountry !== 'USA') {
+      // 전역 상태로 입력된 여행 정보를 관리하여 여행 중에서 사용함.
       setTravelDetail({
         destination: selectedCountry,
         startDate: selectedDate.startDate,
         endDate: selectedDate.endDate,
-        duration: 3, // 고정해야 함
+        duration: 3,
         // type:
       });
       try {
-        // var url;
-        // if (type === 'predictAmountResult') url = `${BASE_URL}/api/before-travel/type-test`;
-        // else url = `${BASE_URL}/api/before-travel/estimate-cost`;
-        // const res = axios.post(url, {
-        //   userId: '12345',
-        //   destination: { selectedCountry },
-        //   duration: calculateDateDiff(selectedDate.startDate, selectedDate.endDate),
-        // });
-        // if (res.status === 200){
-        //   // 200일 때에만.
-        // }
+        console.log({
+          userId: userId,
+          destination: selectedCountry,
+          duration: (selectedDate.endDate - selectedDate.startDate) / (1000 * 60 * 60 * 24) + 1,
+          currency: `${countryInfo.find(item => item.country_en === selectedCountry).currency_code}(100)`,
+        });
 
-        // 임시 res 객체
-        const res = {
-          estimatedCost: 1500,
-          currency: 'USD',
-          breakdown: {
-            transport: 300, // 교통비
-            food: 400, // 식비
-            shopping: 300, // 쇼핑비
-            activities: 400, // 활동비
-            medical: 100, // 병원비
-          },
-          averageBreakdown: {
-            transport: 280, // 평균 교통비
-            food: 450, // 평균 식비
-            shopping: 320, // 평균 쇼핑비
-            activities: 380, // 평균 활동비
-            medical: 120, // 평균 병원비
-          },
-        };
+        var url;
+        var res;
+
+        // predict amount result일 때 => 바로 post하고 결과 페이지로 이동
+        if (type === 'predictAmount') {
+          // url = `${BASE_URL}/api/before-travel/type-test`;
+
+          // const res = axios.post(url, {
+          //   userId: userId,
+          //   destination: selectedCountry,
+          //   duration: (selectedDate.endDate - selectedDate.startDate) / (1000 * 60 * 60 * 24) + 1,
+          //   currency: `${countryInfo.find(item => item.country_en === selectedCountry).currency_code}(100)`,
+          // });
+          // 임시 res 객체
+          res = {
+            estimatedCost: 1500,
+            currency: 'USD',
+            breakdown: {
+              transport: 300, // 교통비
+              food: 400, // 식비
+              shopping: 300, // 쇼핑비
+              activities: 400, // 활동비
+              medical: 100, // 병원비
+            },
+            averageBreakdown: {
+              transport: 280, // 평균 교통비
+              food: 450, // 평균 식비
+              shopping: 320, // 평균 쇼핑비
+              activities: 380, // 평균 활동비
+              medical: 120, // 평균 병원비
+            },
+          };
+        }
+
         navigation(
           `/predictService/${type}/result`,
           {

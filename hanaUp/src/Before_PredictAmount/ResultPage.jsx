@@ -93,7 +93,22 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
   // console.log(startDate);
   // console.log(endDate);
   // console.log(country);
-  // console.log(res);
+  console.log(res.estimatedCost);
+  const averageBreakdown = [
+    res.estimatedCost * 0.25, // 교통비
+    res.estimatedCost * 0.25, // 식비
+    res.estimatedCost * 0.2, // 숙박비
+    res.estimatedCost * 0.2, // 쇼핑비
+    res.estimatedCost * 0.1, // 병원비
+  ];
+
+  const breakdown = [
+    res.estimatedCost * 0.2, // 교통비
+    res.estimatedCost * 0.18, // 식비
+    res.estimatedCost * 0.25, // 숙박비
+    res.estimatedCost * 0.21, // 쇼핑비
+    res.estimatedCost * 0.07, // 병원비
+  ];
 
   return (
     <RootContainer>
@@ -133,7 +148,11 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
           <SubText>예상 지출 비용의 항목별 지출이에요</SubText>
         </TextContainer>
         <GraphWrapper>
-          <SpendTypeTest_Graph />
+          <SpendTypeTest_Graph
+            currency={countryInfo.find(item => item.country_en === country).currency_symbol}
+            breakdown={breakdown}
+            averageBreakdown={averageBreakdown}
+          />
         </GraphWrapper>
       </GraphContainer>
     </RootContainer>

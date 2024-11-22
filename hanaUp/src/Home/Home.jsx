@@ -9,6 +9,10 @@ import bottomDummy from './assets/bottomDummy.jpg';
 import TravelBanner from './components/TravelBanner';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Toast from '../common/Toast';
+import axios from 'axios';
+import { useRecoilState } from 'recoil';
+import { uid } from '../Recoil/uid';
+import { travelInfo } from '../Recoil/travelState';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -45,10 +49,14 @@ const DummyBottom = styled.img`
   width: 100%;
   object-fit: cover;
 `;
+
 const Home = () => {
   const location = useLocation();
   const [toasts, setToasts] = useState([]);
   const navigation = useNavigate();
+
+  const [userId, setUserId] = useRecoilState(uid);
+  const [travelState, setTravelState] = useRecoilState(travelInfo);
 
   const showToast = message => {
     const id = Date.now(); // 고유 ID 생성
@@ -67,11 +75,27 @@ const Home = () => {
     }
   }, []);
 
+  // 최초 렌더링시 travelState와 uid를 받아옴 ()
+  // uid가 빈 값이면 파라미터 없이 요청을 보내서 새로 받아옴
+  // useEffect(() => {
+  //   const fetchTravelStatus = async () => {
+  //     try {
+  //       const res = axios.get(`${BASE_URL}/api/main/travel-status?userId=${uid}`);
+  //       console.log(res.data);
+  //       if (!uid) setUserId(res.data.uid);
+  //       setTravelState(res.data.travelStatus);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
+  // }, []);
+
   return (
     <Container className="Home">
       <PrimaryHeader header_title="하나 트래블로그"></PrimaryHeader>
       {/* 초기 띄우는 모달 */}
       <FundSwiperContainer>
+        {/* fundSwiper에서 초기 여행 상태값 */}
         <FundSwiper />
       </FundSwiperContainer>
       <DummyBanner src={banner} />

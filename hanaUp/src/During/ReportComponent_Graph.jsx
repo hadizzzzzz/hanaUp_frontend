@@ -4,7 +4,6 @@ import reportCOLORS from '../common/arrays/reportColumnsColors';
 
 const CustomTooltip = ({ active, payload, total }) => {
   if (active && payload && payload.length) {
-    console.log(payload);
     const { name, value } = payload[0];
     const percentage = ((value / total) * 100).toFixed(0); // 퍼센트 계산
 
@@ -37,9 +36,7 @@ const ReportComponent_Graph = ({ totalValue, processedReportData }) => {
         fill="#8884d8"
       >
         {/* Cell 컴포넌트를 사용하여 각 Pie의 색상을 지정 */}
-        {processedReportData.map((entry, index) => {
-          console.log(entry, index);
-        })}
+        {processedReportData.map((entry, index) => {})}
         {processedReportData.map((entry, index) => (
           <Cell key={`cell-${index}`} fill={entry.color} />
         ))}
