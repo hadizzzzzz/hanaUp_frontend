@@ -75,13 +75,10 @@ const IcnContainer = styled.img`
   height: 24px;
 `;
 
-const InputPage_Dropdown = ({ type, options, placeholder, onChange, basisRate }) => {
+const InputPage_Dropdown = ({ type, options, placeholder, onChange, basisRate, country }) => {
   const [isOpen, setIsOpen] = useState(false); // 드롭다운 열림/닫힘 상태
   const [selectedValue, setSelectedValue] = useState(''); // 선택된 값
   const dropdownRef = useRef(null); // 드롭다운 영역 참조
-
-  const option = { value: 'THB 1,500' }; // or another test case
-  const newBasisRate = '333,8.73';
 
   const toggleDropdown = () => {
     setIsOpen(prev => !prev);

@@ -8,6 +8,8 @@ import ArrowUp from './assets/arrowUp.png';
 import axios from 'axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import { useRecoilValue } from 'recoil';
+import { uid } from '../Recoil/uid';
 
 const Container = styled.div`
   background-color: ${color.grayscale.white};
@@ -102,6 +104,8 @@ const BtnContainer = styled.div`
 `;
 
 const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
+  const userId = useRecoilValue(uid);
+
   // 오늘을 기준으로 -5일 평일 날짜를 YYYYMMDD 형태로 저장한 배열
   const [last5Days, setLast5Days] = useState([]);
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
@@ -168,7 +172,6 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
   // GET: 환율 정보 get
   const fetchExRate = async () => {
     try {
-      const uid = 123;
       // 대만과 필리핀의 경우
       if (country === 'Taiwan') {
         setExRate({
@@ -197,7 +200,7 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
           },
         });
       } else {
-        // const res = axios.get(`${BASE_URL}api/after-travel/exchange-rate?userId=${uid}&country=${country}`);
+        // const res = axios.get(`${BASE_URL}api/after-travel/exchange-rate?userId=${userId}&country=${country}`);
         // setExRateRate(res);
         setExRate({
           week1: {

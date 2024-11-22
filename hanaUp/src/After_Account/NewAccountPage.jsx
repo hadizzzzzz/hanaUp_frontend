@@ -16,6 +16,7 @@ import { useRecoilState } from 'recoil';
 import { after_newAccountInfo } from '../Recoil/after_newAccountInfo';
 import color from '../styles/color';
 import NewAccount_DoneModal from './NewAccount_DoneModal';
+import { uid } from '../Recoil/uid';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -221,6 +222,7 @@ const Overlay = styled.div`
 `;
 
 const NewAccount = () => {
+  const [userId, setUserId] = useRecoilState(uid);
   const location = useLocation();
   const { selectedFundInfo, investMethodInfo, countryInfo } = location.state;
 
@@ -265,7 +267,7 @@ const NewAccount = () => {
   const fetchInterestRate = async () => {
     try {
       const id = 123;
-      // const res = axios.get(`${BASE_URL}/api/after-travel/interest-rate?userId=${id}&country=${countryInfo.country_en}`);
+      // const res = axios.get(`${BASE_URL}/api/after-travel/interest-rate?userId=${userId}&country=${countryInfo.country_en}`);
       setInterestRate({ country: 'Europe', '1개월': 2.27, '6개월': 3.79, '1년': 5 });
     } catch (error) {
       console.log(error);
@@ -276,8 +278,14 @@ const NewAccount = () => {
   const postNewSavings = async () => {
     try {
       const numMonth = month === '1개월' ? 1 : month === '6개월' ? 6 : 12;
+      console.log({
+        // "userId" : userId,
+        country: countryInfo.country_en, // 나라 정보
+        amount: amount, // 예금하고 싶은 금액,
+        month: numMonth, // 6, 12 도 가능
+      });
       // const res = axios.post(`${BASE_URL}/api/after-travel/makesavings`,{
-      //   // "userId" : ,
+      //   // "userId" : userId,
       //   "country": countryInfo.country_en, // 나라 정보
       //   "amount": amount, // 예금하고 싶은 금액,
       //   "month" : numMonth, // 6, 12 도 가능
@@ -427,7 +435,7 @@ const NewAccount = () => {
         <PrimaryButton
           type={process != 2 || (month != '' && amount != '' && settings != '') ? 'active' : 'inactive'} // input 관리에 따라 달라져야 함
           text={process === 0 ? '외화 예금 시작하기' : process === 2 ? '가입하기' : '다음'}
-          onClick={handleAddProcess}
+          onClick={() => handleAddProcess()}
         ></PrimaryButton>
       </BtnContainer>
     </Container>

@@ -44,59 +44,61 @@ const ExTech_RateGraph = ({ last5DaysRate, currency_symbol }) => {
 
   useEffect(() => {
     parseToDate('20241104');
+    console.log(last5DaysRate);
   }, [last5DaysRate]);
 
-  return (
-    <ResponsiveContainer width="100%" height={200}>
-      <LineChart data={last5DaysRate} margin={{ top: 20, right: 30, left: 20, bottom: 0 }}>
-        {/* X축 */}
-        <XAxis
-          dataKey="date"
-          tickFormatter={date => {
-            return `${date.substr(4, 2)}/${date.substr(6).replace(/^0+/, '')}`; // 월/일 형식
-          }}
-          padding={{ left: 20, right: 20, top: 20 }}
-          tick={{
-            fill: '#83848B',
-            textAnchor: 'middle', // 텍스트 정렬
-            fontFamily: 'Pretendard-Bold',
-            fontSize: 12,
-            fontStyle: 'normal',
-            fontWeight: 700,
-            lineHeight: 'normal',
-            letterSpacing: '1px',
-          }}
-          axisLine={false}
-        />
-        <YAxis hide domain={[dataMin => dataMin - dataMin * 0.003, dataMax => dataMax]} />
+  if (last5DaysRate.length != 0)
+    return (
+      <ResponsiveContainer width="100%" height={200}>
+        <LineChart data={last5DaysRate} margin={{ top: 20, right: 30, left: 20, bottom: 0 }}>
+          {/* X축 */}
+          <XAxis
+            dataKey="date"
+            tickFormatter={date => {
+              return `${date.substr(4, 2)}/${date.substr(6).replace(/^0+/, '')}`; // 월/일 형식
+            }}
+            padding={{ left: 20, right: 20, top: 20 }}
+            tick={{
+              fill: '#83848B',
+              textAnchor: 'middle', // 텍스트 정렬
+              fontFamily: 'Pretendard-Bold',
+              fontSize: 12,
+              fontStyle: 'normal',
+              fontWeight: 700,
+              lineHeight: 'normal',
+              letterSpacing: '1px',
+            }}
+            axisLine={false}
+          />
+          <YAxis hide domain={[dataMin => dataMin - dataMin * 0.003, dataMax => dataMax]} />
 
-        {/* 배경 격자선 */}
-        <CartesianGrid
-          strokeDasharray="3 3"
-          vertical={false} // 세로선 숨김
-          strokeOpacity={0.3}
-        />
+          {/* 배경 격자선 */}
+          <CartesianGrid
+            strokeDasharray="3 3"
+            vertical={false} // 세로선 숨김
+            strokeOpacity={0.3}
+          />
 
-        {/* 커스텀 툴팁 */}
-        <Tooltip content={<CustomTooltip currency_symbol={currency_symbol} />} />
+          {/* 커스텀 툴팁 */}
+          <Tooltip content={<CustomTooltip currency_symbol={currency_symbol} />} />
 
-        {/* 선 */}
-        <Line
-          type="linear"
-          dataKey="rate"
-          stroke="#46D7C2"
-          strokeWidth={2}
-          dot={false} // 기본 점 숨김
-          activeDot={{
-            r: 8,
-            fill: 'white', // 내부 흰색
-            stroke: '#46D7C2', // 외곽선 색상
-            strokeWidth: 3,
-          }}
-        />
-      </LineChart>
-    </ResponsiveContainer>
-  );
+          {/* 선 */}
+          <Line
+            type="linear"
+            dataKey="rate"
+            stroke="#46D7C2"
+            strokeWidth={2}
+            dot={false} // 기본 점 숨김
+            activeDot={{
+              r: 8,
+              fill: 'white', // 내부 흰색
+              stroke: '#46D7C2', // 외곽선 색상
+              strokeWidth: 3,
+            }}
+          />
+        </LineChart>
+      </ResponsiveContainer>
+    );
 };
 
 export default ExTech_RateGraph;

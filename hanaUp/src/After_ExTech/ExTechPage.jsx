@@ -16,6 +16,7 @@ import axios from 'axios';
 import ExTech_ChargeItem from './ExTech_ChargeItem';
 import Toast from '../common/Toast';
 import countryChargeOptions from '../common/arrays/countryChargeOptions';
+import { uid } from '../Recoil/uid';
 
 const Container = styled.div`
   @media (hover: hover) {
@@ -86,6 +87,7 @@ const ExTech = () => {
   const navigation = useNavigate();
   const location = useLocation();
   const { selectedFundInfo, investMethodInfo, countryInfo } = location.state;
+  const [userId, setUserId] = useRecoilState(uid);
 
   const [chargeDone, setChargeDone] = useState(false);
 
@@ -142,7 +144,10 @@ const ExTech = () => {
         <PrimaryHeader header_title="목표 환율 자동 충전" />
         <ContentContainer>
           <TextInputContainer>
-            <SmallTitle>{countryInfo.currency_code}1 기준 환율(매매기준율)</SmallTitle>
+            <SmallTitle>
+              {countryInfo.currency_code}
+              {countryInfo.country_en !== 'Japan' ? '1' : ''} 기준 환율(매매기준율)
+            </SmallTitle>
             <InputPage_Dropdown
               placeholder={`${countryExchangeInfo[countryInfo.country_en][0].value}원 이하일 때`}
               options={countryExchangeInfo[countryInfo.country_en]}
@@ -155,7 +160,11 @@ const ExTech = () => {
               placeholder={`하나머니 금액만큼`}
               options={countryChargeOptions[countryInfo.country_en]}
               onChange={setAmount}
-              basisRate={basisRate || countryExchangeInfo[countryInfo.country_en][0].value}
+              basisRate={
+                countryInfo.country_en !== 'Japan'
+                  ? basisRate || countryExchangeInfo[countryInfo.country_en][0].value
+                  : ''
+              }
             />
             {/* <Input_Text currency_code="원" onInput={setBasisRate} /> */}
           </TextInputContainer>
@@ -214,6 +223,8 @@ const ExTech = () => {
             text="완료"
             type="active"
             onClick={() => {
+              // uid 초기화
+              setUserId('');
               navigation(
                 '/',
                 {

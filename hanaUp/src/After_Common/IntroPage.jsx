@@ -19,6 +19,7 @@ import countryInfo from '../common/arrays/countryInfo';
 import Result_DollarBoxSwiper from './components/Result_DollarBoxSwiper';
 import axios from 'axios';
 import AddTravelDateToFund from './AddTravelDateToFund';
+import { uid } from '../Recoil/uid';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -241,6 +242,8 @@ const IntroPage = () => {
   const [modalState, setModal] = useState(false);
   const [checkFundsState, setCheckFundsState] = useState(false);
 
+  const userId = useRecoilValue(uid);
+
   const closeModal = () => {
     setModal(false);
   };
@@ -259,18 +262,18 @@ const IntroPage = () => {
 
     const clickedFund = countryFunds[radioClickedState];
     try {
-      // const res = await axios.get(`${BASE_URL}/api/after-travel/investment-info?userId=${}&country=${clickedFund.country}`);
+      // const res = await axios.get(`${BASE_URL}/api/after-travel/investment-info?userId=${userId}&country=${countryFunds[radioClickedState].country}`);
       // const investMethodInfo= res.data;
       const investMethodInfo = {
         balance: 1500.0,
         country: 'Japan',
         interestRate: 3.5, // 일본 금리 (한국 금리는 3.25로 그냥 고정해서 사용하면 될 것 같아)
-        investmentType: '환테크', // "외화 예금" or 환테크
+        investmentType: '외화 예금', // "외화 예금" or 환테크
       };
       if (investMethodInfo.investmentType === '환테크')
         navigation(`/InvestIntro/exTech`, {
           state: {
-            selectedFundInfo: clickedFund, // 기본 자금 정보
+            selectedFundInfo: clickedFund, // 선택된 자금 정보
             investMethodInfo: investMethodInfo,
             countryInfo: countryInfo.find(info => info.country_en === countryFunds[radioClickedState].country),
           },
@@ -292,7 +295,7 @@ const IntroPage = () => {
   // fund data를 새롭게 받아와 intro page에서 사용
   // addTravelDateToFund를 사용해 임의의 날짜를 추가함
   const fetchFundData = () => {
-    // const {data} = axios.get(`${BASE_URL}/api/main/fund-info?userId=12345`)
+    // const {data} = axios.get(`${BASE_URL}/api/main/fund-info?userId={userId}`)
     // const processedCountryFunds = addTravelDateToFund(res.data.countryFunds);
 
     setCountryFunds(

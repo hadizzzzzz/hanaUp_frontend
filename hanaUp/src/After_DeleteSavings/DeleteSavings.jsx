@@ -14,6 +14,7 @@ import DeleteDone from './assets/deleteDone.jpg';
 import { useNavigate } from 'react-router-dom';
 import BackCard from './assets/backToBeforeCard.jpg';
 import axios from 'axios';
+import { uid } from '../Recoil/uid';
 
 const Container = styled.div`
   border: 1px solid black;
@@ -112,6 +113,7 @@ const ImgAndAlertContainer = styled.div`
 // 해지할 외화 예금은 오직 하나라는 가정하에 처리
 // 외화 예금 정보는 after_newAccountInfo 전역으로 관리함
 const DeleteSavings = () => {
+  const [userId, setUserId] = useRecoilState(uid);
   const [savings, setSavings] = useRecoilState(after_newAccountInfo);
   const navigation = useNavigate();
 
@@ -135,7 +137,10 @@ const DeleteSavings = () => {
     if (!deleteDone) {
       // postDeleteSavings();
       setDeleteDone(true);
-    } else navigation('/', { replace: true });
+    } else {
+      setUserId(''); // uid 초기화
+      navigation('/', { replace: true });
+    }
   };
 
   const currencySymbol = countryInfo.find(item => item.country_en === savings.country).currency_symbol;

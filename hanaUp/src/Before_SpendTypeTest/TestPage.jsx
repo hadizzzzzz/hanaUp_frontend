@@ -173,7 +173,7 @@ const TestPage = () => {
       // console.log({
       //   userId: userId,
       //   destination: location.state.country,
-      //   currency: `${currency}(100)`,
+      //   currency: `${currency}`,
       //   duration: duration,
       //   answers: updatedAnswers,
       // });

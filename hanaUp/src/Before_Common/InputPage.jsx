@@ -144,7 +144,7 @@ const Before_InputPage = () => {
           userId: userId,
           destination: selectedCountry,
           duration: (selectedDate.endDate - selectedDate.startDate) / (1000 * 60 * 60 * 24) + 1,
-          currency: `${countryInfo.find(item => item.country_en === selectedCountry).currency_code}(100)`,
+          currency: `${countryInfo.find(item => item.country_en === selectedCountry).currency_code}`,
         });
 
         var url;
@@ -158,7 +158,7 @@ const Before_InputPage = () => {
           //   userId: userId,
           //   destination: selectedCountry,
           //   duration: (selectedDate.endDate - selectedDate.startDate) / (1000 * 60 * 60 * 24) + 1,
-          //   currency: `${countryInfo.find(item => item.country_en === selectedCountry).currency_code}(100)`,
+          //   currency: `${countryInfo.find(item => item.country_en === selectedCountry).currency_code}`,
           // });
           // 임시 res 객체
           res = {

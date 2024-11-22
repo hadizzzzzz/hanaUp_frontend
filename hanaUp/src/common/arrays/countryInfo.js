@@ -1,5 +1,5 @@
 const countryInfo = [
-  { country_kr: '일본', country_en: 'Japan', currency_code: 'JPY', currency_symbol: '¥' },
+  { country_kr: '일본', country_en: 'Japan', currency_code: 'JPY(100)', currency_symbol: '¥' },
   { country_kr: '태국', country_en: 'Thailand', currency_code: 'THB', currency_symbol: '฿' },
   { country_kr: '말레이시아', country_en: 'Malaysia', currency_code: 'MYR', currency_symbol: 'RM' },
   { country_kr: '중국', country_en: 'China', currency_code: 'CNH', currency_symbol: '¥' },

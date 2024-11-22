@@ -251,7 +251,7 @@ const During_ReportPage = () => {
           country={during_travel.destination}
           day={day}
           setDayState={setDayState}
-          reportData={reportData[day - 1]}
+          reportData={travelState === 'during' || toggleState === 0 ? reportData[day - 1] : reportData}
           toggleState={toggleState}
         />
       )}
