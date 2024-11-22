@@ -75,10 +75,23 @@ const IcnContainer = styled.img`
   height: 24px;
 `;
 
-const InputPage_Dropdown = ({ type, options, placeholder, onChange }) => {
+const InputPage_Dropdown = ({ type, options, placeholder, onChange, basisRate }) => {
   const [isOpen, setIsOpen] = useState(false); // 드롭다운 열림/닫힘 상태
   const [selectedValue, setSelectedValue] = useState(''); // 선택된 값
   const dropdownRef = useRef(null); // 드롭다운 영역 참조
+
+  const option = { value: 'THB 1,500' }; // or another test case
+  const newBasisRate = '333,8.73';
+
+  // 디버깅
+  console.log('Original value:', option.value);
+  console.log('Extracted number:', option.value.replace(/[^0-9,.]/g, ''));
+  console.log('Basis rate:', newBasisRate);
+  console.log('Parsed basis rate:', Number(newBasisRate));
+
+  // 최종 결과
+  const result = Number(option.value.replace(/[^0-9]/g, '')) * Number(newBasisRate);
+  console.log('Final result:', result);
 
   const toggleDropdown = () => {
     setIsOpen(prev => !prev);
@@ -149,6 +162,16 @@ const InputPage_Dropdown = ({ type, options, placeholder, onChange }) => {
                 {option.label}{' '}
                 {option.sublabel ? (
                   <span style={{ ...font.caption.cap2R, color: color.grayscale.gray8 }}>{option.sublabel}</span>
+                ) : (
+                  <></>
+                )}
+                {basisRate && option.value != '하나머니 금액만큼' ? (
+                  <span style={{ ...font.caption.cap2R, color: color.grayscale.gray8 }}>
+                    {(
+                      Number(option.value.replace(/[^0-9]/g, '')) * Number(basisRate.replace(/,/g, ''))
+                    ).toLocaleString()}
+                    원
+                  </span>
                 ) : (
                   <></>
                 )}

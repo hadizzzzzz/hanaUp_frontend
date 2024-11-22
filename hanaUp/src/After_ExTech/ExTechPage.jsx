@@ -15,6 +15,7 @@ import { after_exTechCharges } from '../Recoil/after_exTechCharges';
 import axios from 'axios';
 import ExTech_ChargeItem from './ExTech_ChargeItem';
 import Toast from '../common/Toast';
+import countryChargeOptions from '../common/arrays/countryChargeOptions';
 
 const Container = styled.div`
   @media (hover: hover) {
@@ -143,7 +144,7 @@ const ExTech = () => {
           <TextInputContainer>
             <SmallTitle>{countryInfo.currency_code}1 기준 환율(매매기준율)</SmallTitle>
             <InputPage_Dropdown
-              placeholder={`${countryExchangeInfo[countryInfo.country_en][1].value}원 이하일 때`}
+              placeholder={`${countryExchangeInfo[countryInfo.country_en][0].value}원 이하일 때`}
               options={countryExchangeInfo[countryInfo.country_en]}
               onChange={setBasisRate}
             />
@@ -152,8 +153,9 @@ const ExTech = () => {
             <SmallTitle>자동으로</SmallTitle>
             <InputPage_Dropdown
               placeholder={`하나머니 금액만큼`}
-              options={[{ label: '하나머니 금액만큼', value: '하나머니 금액만큼' }]}
+              options={countryChargeOptions[countryInfo.country_en]}
               onChange={setAmount}
+              basisRate={basisRate || countryExchangeInfo[countryInfo.country_en][0].value}
             />
             {/* <Input_Text currency_code="원" onInput={setBasisRate} /> */}
           </TextInputContainer>

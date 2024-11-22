@@ -52,6 +52,7 @@ const FundSwiper = () => {
     // if (res.status===200){}
 
     const processedFundData = await processFundData(fundInfo);
+    console.log(processedFundData);
     setFundInfo(processedFundData);
     // }
 

@@ -330,7 +330,7 @@ const NewAccount = () => {
       </ContentContainer>
     );
   }
-  // input 입력 받기
+  // 각종 정보 고지
   else if (process === 1) {
     const today = new Date();
     content = (
@@ -387,7 +387,7 @@ const NewAccount = () => {
       </ContentContainer>
     );
   }
-  // 가입 내용과 가입 기간
+  // input 받기
   else {
     content = (
       <ContentContainer process={process}>

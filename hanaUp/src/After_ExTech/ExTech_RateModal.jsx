@@ -273,8 +273,8 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
           <BasisContainer>
             {new Date().getFullYear()}. {new Date().getMonth() + 1}. {/* 11시 기준 */}
             {new Date().getHours() >= 11
-              ? `${new Date().getDate()} ${new Date().getHours()}:${new Date().getMinutes()} 기준`
-              : `${new Date(new Date().getTime() - 24 * 60 * 60 * 1000).getDate()} 11:59 기준`}
+              ? `${new Date().getDate()} 11:00 기준`
+              : `${new Date(new Date().getTime() - 24 * 60 * 60 * 1000).getDate()} 11:00 기준`}
           </BasisContainer>
         </ContentContainer>
       </div>
