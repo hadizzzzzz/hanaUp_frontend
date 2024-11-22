@@ -123,10 +123,10 @@ const ReportComponent = ({ country, day, reportData, setDayState, toggleState })
   // if (reportData) processedData = mapExpenses(reportData.breakdown, totalValue);
   // console.log(processedData);
 
-  // 전체 합계 계산
-  const { processedReportData, totalValue } = processReportData(reportData);
+  if (reportData) {
+    console.log(reportData);
+    const { processedReportData, totalValue } = processReportData(reportData);
 
-  if (reportData != {})
     return (
       <Container>
         <Title>
@@ -168,6 +168,7 @@ const ReportComponent = ({ country, day, reportData, setDayState, toggleState })
         </DetailContainer>
       </Container>
     );
+  }
 };
 
 export default ReportComponent;
