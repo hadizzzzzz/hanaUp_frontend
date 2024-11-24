@@ -415,6 +415,10 @@ const NewAccount = () => {
           <SmallTitle>만기 설정</SmallTitle>
           <InputPage_Dropdown placeholder="만기 시 재예치 방식" onChange={setSettings} options={settingOptions} />
         </TextInputContainer>
+        <TextInputContainer>
+          <SmallTitle>만기 시 하나머니로 적립하기 </SmallTitle>
+          <InputPage_Dropdown placeholder="하나머니 적립 시, 혜택이 적용됩니다." type="selected" />
+        </TextInputContainer>
       </ContentContainer>
     );
   }

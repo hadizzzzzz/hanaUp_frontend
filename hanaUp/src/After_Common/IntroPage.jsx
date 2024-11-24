@@ -268,7 +268,7 @@ const IntroPage = () => {
         balance: 1500.0,
         country: 'Japan',
         interestRate: 3.5, // 일본 금리 (한국 금리는 3.25로 그냥 고정해서 사용하면 될 것 같아)
-        investmentType: '외화 예금', // "외화 예금" or 환테크
+        investmentType: '환테크', // "외화 예금" or 환테크
       };
       if (investMethodInfo.investmentType === '환테크')
         navigation(`/InvestIntro/exTech`, {

@@ -110,7 +110,7 @@ const InputPage_Dropdown = ({ type, options, placeholder, onChange, basisRate, c
         {/* 드롭다운 헤더 */}
         <DropdownHeader>
           {/* 텍스트 */}
-          <HeaderText>하나머니 사용하기</HeaderText>
+          <HeaderText>{placeholder}</HeaderText>
         </DropdownHeader>
       </Container>
     );
