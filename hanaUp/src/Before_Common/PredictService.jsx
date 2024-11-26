@@ -31,6 +31,9 @@ const MainContainer = styled.div`
 const TextContainer = styled.div`
   width: 100%;
   gap: 17px;
+
+  display: flex;
+  flex-direction: column;
 `;
 
 const SubText = styled.div`
