@@ -70,7 +70,7 @@ const CheckFund_Item = ({ index, countryFund, countryInfo, isClicked, onClick })
           <div style={{ ...font.caption.cap2M, color: color.grayscale.gray6 }}>{countryInfo.country_kr}</div>
         </CountryContainer>
         <div style={{ ...font.header.h2, color: '#2d2d2d' }}>
-          {countryFund.balance} {countryInfo.currency_symbol}
+          {countryFund.balance.toLocaleString()} {countryInfo.currency_symbol}
         </div>
       </TextContainer>
       <BtnContainer>

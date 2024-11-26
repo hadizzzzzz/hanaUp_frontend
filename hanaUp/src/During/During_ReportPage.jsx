@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import PrimaryHeader from '../common/PrimaryHeader';
 import ReportComponent from './ReportComponent';
-import { useRecoilValue } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import { travelInfo } from '../Recoil/travelState';
 import color from '../styles/color';
 import { useState } from 'react';
@@ -85,7 +85,7 @@ const SubText = styled.div`
 `;
 
 // 여행 상태가 during인데 최종 소비 레포트에 접근하는 경우
-const WrongDirection = () => {
+const WrongDirection = ({ setTravelState }) => {
   return (
     <>
       {' '}
@@ -97,7 +97,15 @@ const WrongDirection = () => {
         <img src={Loading} style={{ width: '100%', objectFit: 'cover' }} />
       </ContentContainer>
       <BtnContainer>
-        <PrimaryButton text="지금 시작하기" type="active" />
+        {/* 지금 시작하기 버튼을 누를 경우 프론트 내부적으로 여행 상태를 after로 바꿈 */}
+        <PrimaryButton
+          text="지금 시작하기"
+          type="active"
+          onClick={() => {
+            setTravelState('after');
+            fetchTravelFinalReportData();
+          }}
+        />
       </BtnContainer>
     </>
   );
@@ -106,7 +114,8 @@ const WrongDirection = () => {
 //  path: '/report/:travelState'
 // travelState에 따라 첫 토글의 상태가 달라야함.
 const During_ReportPage = () => {
-  const travelState = useRecoilValue(travelInfo);
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+  const [travelState, setTravelState] = useRecoilState(travelInfo);
   const userId = useRecoilValue(uid);
   const during_travel = useRecoilValue(during_travelDetail);
   const [day, setDay] = useState(1);
@@ -116,73 +125,28 @@ const During_ReportPage = () => {
 
   /* 여행 후 레포트 버튼 클릭하여 최종 레포트 접근시 최종 레포트를 보임 */
   useEffect(() => {
-    if (travelState === 'after') setToggle(1);
-    fetchTravelReportData();
+    if (travelState === 'after') {
+      setToggle(1);
+      fetchTravelFinalReportData();
+    }
+    // fetchTravelReportData();
     // axios 요청
   }, []);
 
   useEffect(() => {
-    fetchTravelReportData();
+    if (toggleState === 0 || travelState === 'during') fetchTravelDailyReportData();
+    // toggled이 1이거나 travelState가 after이면
+    else fetchTravelFinalReportData();
     console.log('새로운 여행 레포트 데이터 fetch');
-  }, [day, toggleState]);
+  }, [day, toggleState, travelState]);
 
-  // 토글 변경 혹은 일자 변경에 따라 다른 data를 요청
-  const fetchTravelReportData = async () => {
-    if (toggleState === 0) {
-      console.log();
-      // const res = await axios.get(`${BASE_URL}/api/after-travel/final-report`, {
-      //   userId: userId,
-      //   day: day, // 1일차, 2일차, 3일차,
-      //   country: during_travel.destination,
-      // });
-      // setReportData(res.data);
-
-      // 더미 데이터 세팅
-      setReportData([
-        {
-          day: 1,
-          totalSpent: 120,
-          breakdown: {
-            transport: 20, //교통비
-            food: 50, //식비
-            hotel: 5, //숙박비
-            shopping: 30, //쇼핑비
-            activities: 15, //활동비
-          },
-          feeSavings: 5, //절약한 수수료
-        },
-        {
-          day: 2,
-          totalSpent: 150,
-          breakdown: {
-            transport: 25, //교통비
-            food: 60, //식비
-            hotel: 10, //숙박비
-            shopping: 35, //쇼핑비
-            activities: 20, //활동비
-          },
-          feeSavings: 7, //절약한 수수료
-        },
-        {
-          day: 3,
-          totalSpent: 100,
-          breakdown: {
-            transport: 15, //교통비
-            food: 40, //식비
-            hotel: 8, //숙박비
-            shopping: 20, //쇼핑비
-            activities: 17, //활동비
-          },
-          feeSavings: 4, //절약한 수수료
-        },
-      ]);
-    } else {
-      // 전체 소비 리포트 요청
-      // const res = await axios.get(`${BASE_URL}/api/after-travel/final-report`, {
-      //   userId: uidState,
-      //   country: during_travel.destination,
-      // });
-      // setReportData(res.data);
+  const fetchTravelFinalReportData = async () => {
+    console.log('final  report 요청');
+    try {
+      console.log(userId, during_travel.destination);
+      const res = await axios.get(
+        `${BASE_URL}/api/during-travel/final-report?userId=${userId}&country=${during_travel.destination}`,
+      );
       // {
       //   "totalSpent": 120,
       //   "breakdown": {
@@ -194,20 +158,71 @@ const During_ReportPage = () => {
       //   },
       //   "feeSavings": 5 //절약한 수수료
       // }
+      console.log('final report 요청');
+      // 더미 데이터 세팅
+      setReportData(res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // 토글 변경 혹은 일자 변경에 따라 다른 data를 요청
+  const fetchTravelDailyReportData = async () => {
+    console.log('daily report 요청');
+    try {
+      console.log({
+        userId: userId,
+        country: during_travel.destination,
+      });
+      // console.log(`${BASE_URL}/api/during-travel/daily-report?userId=${userId}&country=${during_travel.destination}`);
+      const res = await axios.get(
+        `${BASE_URL}/api/during-travel/daily-report?userId=${userId}&country=${during_travel.destination}`,
+      );
+      console.log(res, 'dailyreport 요청');
+      setReportData(res.data);
 
       // 더미 데이터 세팅
-      if (travelState === 'after')
-        setReportData({
-          totalSpent: 120,
-          breakdown: {
-            transport: 20, //교통비
-            food: 50, //식비
-            shopping: 30, //쇼핑비
-            activities: 15, //활동비
-            hospital: 5, //병원비
-          },
-          feeSavings: 5, //절약한 수수료
-        });
+      // setReportData([
+      //   {
+      //     day: 1,
+      //     totalSpent: 120,
+      //     breakdown: {
+      //       transport: 20, //교통비
+      //       food: 50, //식비
+      //       hotel: 5, //숙박비
+      //       shopping: 30, //쇼핑비
+      //       activities: 15, //활동비
+      //     },
+      //     feeSavings: 5, //절약한 수수료
+      //   },
+      //   {
+      //     day: 2,
+      //     totalSpent: 150,
+      //     breakdown: {
+      //       transport: 25, //교통비
+      //       food: 60, //식비
+      //       hotel: 10, //숙박비
+      //       shopping: 35, //쇼핑비
+      //       activities: 20, //활동비
+      //     },
+      //     feeSavings: 7, //절약한 수수료
+      //   },
+      //   {
+      //     day: 3,
+      //     totalSpent: 100,
+      //     breakdown: {
+      //       transport: 15, //교통비
+      //       food: 40, //식비
+      //       hotel: 8, //숙박비
+      //       shopping: 20, //쇼핑비
+      //       activities: 17, //활동비
+      //     },
+      //     feeSavings: 4, //절약한 수수료
+      //   },
+      // ]);
+      // 전체 소비 리포트 요청
+    } catch (error) {
+      console.log(error);
     }
   };
 
@@ -245,7 +260,7 @@ const During_ReportPage = () => {
       </ToggleContainer>
       {/* travelState가 during인데 최종에 접근시 */}
       {travelState === 'during' && toggleState === 1 ? (
-        <WrongDirection travelState={travelState} />
+        <WrongDirection travelState={travelState} setTravelState={setTravelState} />
       ) : (
         <ReportComponent
           country={during_travel.destination}

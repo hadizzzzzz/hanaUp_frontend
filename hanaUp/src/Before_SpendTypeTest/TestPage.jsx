@@ -13,6 +13,7 @@ import countryInfo from '../common/arrays/countryInfo';
 import { useRecoilValue } from 'recoil';
 import { uid } from '../Recoil/uid';
 import calculateDateDiff from '../common/calculateDateDiff';
+import axios from 'axios';
 
 const RootContainer = styled.div`
   width: 100%;
@@ -85,6 +86,7 @@ const BtnContainer = styled.div`
 // props
 // api 호출 후 결과를 담아 navigation을 수행
 const TestPage = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const navigation = useNavigate();
   const location = useLocation();
   const userId = useRecoilValue(uid);
@@ -158,25 +160,35 @@ const TestPage = () => {
     ['J', 'P'],
   ];
 
-  const handleTestDone = updatedAnswers => {
+  const handleTestDone = async updatedAnswers => {
     // answers에서 마지막 답변이 저장되지 않는 이슈가 있으니 유의할 것
     // 인자로 넘기는 방식을 사용하여 해결함
     try {
       const currency = countryInfo.find(item => item.country_en === location.state.country).currency_code;
       const duration = calculateDateDiff(location.state.endDate, location.state.startDate) + 1;
-      const res = {
-        resultType: 'ETMEJ', // 최종 결과 유형
-        estimatedCost: 1500,
-        currency: 'USD',
-      };
 
-      // console.log({
-      //   userId: userId,
-      //   destination: location.state.country,
-      //   currency: `${currency}`,
-      //   duration: duration,
-      //   answers: updatedAnswers,
-      // });
+      console.log('test page post 임시 출력', {
+        userId: userId,
+        destination: location.state.country,
+        currency: `${currency}`,
+        duration: duration,
+        answers: updatedAnswers,
+      });
+      const res = await axios.post(`${BASE_URL}/api/before-travel/type-test`, {
+        userId: userId,
+        destination: location.state.country,
+        currency: `${currency}`,
+        duration: duration,
+        answers: updatedAnswers,
+      });
+      const data = res.data;
+      console.log('test done fetch', res);
+      // data를 state에 넣으면 됨
+      // const res = {
+      //   resultType: 'ETMEJ', // 최종 결과 유형
+      //   estimatedCost: 1500,
+      //   currency: 'USD',
+      // };
 
       navigation(
         '/predictService/spendTypeTest/result',
@@ -184,24 +196,16 @@ const TestPage = () => {
           state: {
             ...location.state,
             testDone: true,
-            res: res,
+            res: res.data,
           },
         },
         {
           replace: true,
         },
       );
-
-      // const res = axios.post(`${BASE_URL}/api/before-travel/type-test`, {
-      //   userId: userId,
-      //   destination: country.selectedCountry,
-      //   currency: currency,
-      //   duration: duration,
-      //   answers: updatedAnswers,
-      // });
-      // const data = res.data;
-      // // data를 state에 넣으면 됨
-    } catch (error) {}
+    } catch (error) {
+      console.log('test error', error);
+    }
   };
 
   const handleTestNext = () => {

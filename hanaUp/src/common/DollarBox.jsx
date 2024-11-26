@@ -53,7 +53,7 @@ const DollarBox = ({ type, isSwiper, startDate, endDate, currency, country, amou
   return (
     <Container isSwiper={isSwiper}>
       <MoneyAmountInteger>
-        {currency} {amount}
+        {currency} {Number(amount).toLocaleString()}
         <IcnContainer src={`/img/countryIcons/${country}.png`} />
       </MoneyAmountInteger>
       <SubText>

@@ -12,7 +12,7 @@ const Container = styled.div`
 
   &::placeholder {
     color: ${color.grayscale.gray5};
-    ${font.header.h4숫};
+    ${font.header.h4};
   }
 
   position: relative;

@@ -211,60 +211,62 @@ const FundInfoCard = ({ type, trend, country, currency, moneyAmount, exchangeRat
   const navigation = useNavigate();
 
   const handleDeleteSavings = e => {
+    console.log('hi');
     e.stopPropagation(); // 이벤트 전파 방지
     navigation('/deleteSavings');
   };
 
-  return (
-    <RootContainer type={type}>
-      <AbsoluteBannerTitle type={type}>{type === 'foreignSavings' ? '외화적금' : '보유통화'}</AbsoluteBannerTitle>
-      {/* column 방향 레이아웃*/}
-      <CountryContainer>
-        <CountryIconContainer src={`/img/countryIcons/${country}.png`} />
-        <CurrencyTitle>{currency}</CurrencyTitle>
-      </CountryContainer>
-      {/* 잔고와 충전 버튼 */}
-      <CurrencyContainer>
-        <CurrencyDetailContainer>
-          {countryInfo.find(item => item.country_en == country).currency_symbol}
-          <div>{moneyAmount}</div>
-          <IconContainer src={arrowRight}></IconContainer>
-        </CurrencyDetailContainer>
-        <AddMoneyBtn type={type}>충전</AddMoneyBtn>
-      </CurrencyContainer>
-      {/* 만기경과 or 계좌 연결 버튼*/}
-      {type === 'foreignSavings' ? (
-        <ExpireDate>만기경과 : 2024-12-04</ExpireDate>
-      ) : (
-        <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
-          <ConnectAccount>모든 은행 내 계좌 연결</ConnectAccount>
-        </LinearGradient>
-      )}
-      {/* 외화적금이라면 -> 버튼 컨테이너 */}
-      {type === 'foreignSavings' ? (
-        <BtnsContainer>
-          <BtnContainer type={type} onClick={handleDeleteSavings}>
-            해지하기
-          </BtnContainer>
-          <BtnContainer type={type}>거래 내역</BtnContainer>
-          <ImgContainer>
-            <MenuIcn src={menuIcn}></MenuIcn>
-          </ImgContainer>
-        </BtnsContainer>
-      ) : (
-        <BtnsContainer>
-          <BtnContainer type={type}>환급</BtnContainer>
-          <BtnContainer type={type} trend={trend}>
-            {currency} 100 = {exchangeRate.rate}원 {trend === 'up' ? '▲' : '▼'}
-          </BtnContainer>
-          <ImgContainer>
-            <MenuIcn src={menuIcn}></MenuIcn>
-          </ImgContainer>
-        </BtnsContainer>
-      )}
-      {/* 보유통화라면 환급 버튼과 환율 up down*/}
-    </RootContainer>
-  );
+  if (country)
+    return (
+      <RootContainer type={type}>
+        <AbsoluteBannerTitle type={type}>{type === 'foreignSavings' ? '외화적금' : '보유통화'}</AbsoluteBannerTitle>
+        {/* column 방향 레이아웃*/}
+        <CountryContainer>
+          <CountryIconContainer src={`/img/countryIcons/${country}.png`} />
+          <CurrencyTitle>{currency}</CurrencyTitle>
+        </CountryContainer>
+        {/* 잔고와 충전 버튼 */}
+        <CurrencyContainer>
+          <CurrencyDetailContainer>
+            {countryInfo.find(item => item.country_en == country).currency_symbol}
+            <div>{moneyAmount.toLocaleString()}</div>
+            <IconContainer src={arrowRight}></IconContainer>
+          </CurrencyDetailContainer>
+          <AddMoneyBtn type={type}>충전</AddMoneyBtn>
+        </CurrencyContainer>
+        {/* 만기경과 or 계좌 연결 버튼*/}
+        {type === 'foreignSavings' ? (
+          <ExpireDate>만기경과 : 2024-12-04</ExpireDate>
+        ) : (
+          <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
+            <ConnectAccount>모든 은행 내 계좌 연결</ConnectAccount>
+          </LinearGradient>
+        )}
+        {/* 외화적금이라면 -> 버튼 컨테이너 */}
+        {type === 'foreignSavings' ? (
+          <BtnsContainer>
+            <BtnContainer type={type} onClick={handleDeleteSavings}>
+              해지하기
+            </BtnContainer>
+            <BtnContainer type={type}>거래 내역</BtnContainer>
+            <ImgContainer>
+              <MenuIcn src={menuIcn}></MenuIcn>
+            </ImgContainer>
+          </BtnsContainer>
+        ) : (
+          <BtnsContainer>
+            <BtnContainer type={type}>환급</BtnContainer>
+            <BtnContainer type={type} trend={trend}>
+              {currency} {country !== 'Japan' ? '1' : '(100)'} = {exchangeRate.rate}원 {trend === 'up' ? '▲' : '▼'}
+            </BtnContainer>
+            <ImgContainer>
+              <MenuIcn src={menuIcn}></MenuIcn>
+            </ImgContainer>
+          </BtnsContainer>
+        )}
+        {/* 보유통화라면 환급 버튼과 환율 up down*/}
+      </RootContainer>
+    );
 };
 
 export default FundInfoCard;

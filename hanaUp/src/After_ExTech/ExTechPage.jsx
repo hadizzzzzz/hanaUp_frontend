@@ -84,6 +84,7 @@ const Overlay = styled.div`
 `;
 
 const ExTech = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const navigation = useNavigate();
   const location = useLocation();
   const { selectedFundInfo, investMethodInfo, countryInfo } = location.state;
@@ -106,19 +107,25 @@ const ExTech = () => {
   // POST: 환율 알림 설정
   const handleChargePost = async () => {
     try {
-      // const uid = 123;
-      // const res = axios.post(`${BASE_URL}/api/after-travel/forextech`, {
-      //   userId: uid,
-      //   country: countryInfo.country_en, // 나라 정보
-      //   amount: amount, // 충전하고 싶은 금액
-      // });
-      setExTechCharge({
-        countryInfo: countryInfo,
-        basisRate: basisRate,
-        duration: duration,
-        amount: amount,
-        // 다음 화면 ui에서 필요한 정보를 전역으로 관리
+      console.log({
+        userId: userId,
+        country: countryInfo.country_en, // 나라 정보
+        amount: Number(amount.replace(/[^0-9]/g, '')),
       });
+      const res = await axios.post(`${BASE_URL}/api/after-travel/forextech`, {
+        userId: userId,
+        country: countryInfo.country_en, // 나라 정보
+        amount: Number(amount.replace(/[^0-9]/g, '')), // 충전하고 싶은 금액
+      });
+      console.log('환율 알림 설정 결과', res.data);
+      // setExTechCharge({
+      //   countryInfo: countryInfo,
+      //   basisRate: basisRate,
+      //   duration: duration,
+      //   amount: amount,
+      //   // 다음 화면 ui에서 필요한 정보를 전역으로 관리
+      // });
+      setExTechCharge(res.data);
       setToast(true);
       setChargeDone(true);
     } catch (error) {
@@ -138,7 +145,7 @@ const ExTech = () => {
   // Toast 관리
   const [toast, setToast] = useState(false);
 
-  if (!chargeDone)
+  if (!chargeDone && exTechCharge.countryInfo != {})
     return (
       <Container className="exTech">
         <PrimaryHeader header_title="목표 환율 자동 충전" />

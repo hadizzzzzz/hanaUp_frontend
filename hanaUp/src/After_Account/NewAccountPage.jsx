@@ -222,6 +222,8 @@ const Overlay = styled.div`
 `;
 
 const NewAccount = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const [userId, setUserId] = useRecoilState(uid);
   const location = useLocation();
   const { selectedFundInfo, investMethodInfo, countryInfo } = location.state;
@@ -266,9 +268,11 @@ const NewAccount = () => {
   // axios GET: 선택한 나라에 대한 금리 정보
   const fetchInterestRate = async () => {
     try {
-      const id = 123;
-      // const res = axios.get(`${BASE_URL}/api/after-travel/interest-rate?userId=${userId}&country=${countryInfo.country_en}`);
-      setInterestRate({ country: 'Europe', '1개월': 2.27, '6개월': 3.79, '1년': 5 });
+      const res = await axios.get(
+        `${BASE_URL}/api/after-travel/interest-rate?userId=${userId}&country=${countryInfo.country_en}`,
+      );
+      console.log('금리 정보', res.data);
+      setInterestRate(res.data);
     } catch (error) {
       console.log(error);
     }
@@ -279,25 +283,26 @@ const NewAccount = () => {
     try {
       const numMonth = month === '1개월' ? 1 : month === '6개월' ? 6 : 12;
       console.log({
-        // "userId" : userId,
+        userId: userId,
         country: countryInfo.country_en, // 나라 정보
-        amount: amount, // 예금하고 싶은 금액,
+        amount: Number(amount), // 예금하고 싶은 금액,
         month: numMonth, // 6, 12 도 가능
       });
-      // const res = axios.post(`${BASE_URL}/api/after-travel/makesavings`,{
-      //   // "userId" : userId,
-      //   "country": countryInfo.country_en, // 나라 정보
-      //   "amount": amount, // 예금하고 싶은 금액,
-      //   "month" : numMonth, // 6, 12 도 가능
-      // });
+      const res = await axios.post(`${BASE_URL}/api/after-travel/makesavings`, {
+        userId: userId,
+        country: countryInfo.country_en, // 나라 정보
+        amount: Number(amount), // 예금하고 싶은 금액,
+        month: numMonth, // 6, 12 도 가능
+      });
+      console.log('ACCOUNT POST 결과', res.data);
+
+      const savingRes = await axios.get(
+        `${BASE_URL}/api/after-travel/savings-info?userId=${userId}&country=${countryInfo.country_en}`,
+      );
+      setNewAccountInfo(savingRes.data);
 
       // response를 받아 알맞게 set하여 fundinfocard 해지 버튼 클릭시 사용
-      setNewAccountInfo({
-        country: 'Europe',
-        originalAmount: 5000.0, // 예치한 금액
-        interestAmount: 175.0, // 이자 금액
-        finalAmount: 6675.0, // 예치한 돈 + 이자
-      });
+      // setNewAccountInfo(res.data);
     } catch (error) {
       console.log(error);
     }

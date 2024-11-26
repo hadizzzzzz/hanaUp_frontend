@@ -235,6 +235,7 @@ const CheckFunds = ({ countryFunds, radioClickedState, setRadioClickedState }) =
 
 // 1번 화면 -> 모달 -> 2번 화면 렌더링
 const IntroPage = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [countryFunds, setCountryFunds] = useState([]);
   const [radioClickedState, setRadioClickedState] = useState(0);
 
@@ -254,7 +255,7 @@ const IntroPage = () => {
   };
 
   // 투자 방식 추천으로 넘어가기 위한 함수
-  const handleCustomInvestment = () => {
+  const handleCustomInvestment = async () => {
     // radioClickedState에 맞는 countryFunds를 가져와서
     // countryInfo와 함께 navigate시 전달,
     // 환테크 시작하기 버튼을 누르면 바로 투자 방식 추천 api 요청
@@ -262,14 +263,19 @@ const IntroPage = () => {
 
     const clickedFund = countryFunds[radioClickedState];
     try {
-      // const res = await axios.get(`${BASE_URL}/api/after-travel/investment-info?userId=${userId}&country=${countryFunds[radioClickedState].country}`);
-      // const investMethodInfo= res.data;
-      const investMethodInfo = {
-        balance: 1500.0,
-        country: 'Japan',
-        interestRate: 3.5, // 일본 금리 (한국 금리는 3.25로 그냥 고정해서 사용하면 될 것 같아)
-        investmentType: '환테크', // "외화 예금" or 환테크
-      };
+      const res = await axios.get(
+        `${BASE_URL}/api/after-travel/investment-info?userId=${userId}&country=${countryFunds[radioClickedState].country}`,
+      );
+      const investMethodInfo = res.data;
+      console.log('투자 방식 추천 결과', res.data);
+      // 56.7, uk, interestRate: 5, 외화 예금
+
+      // const investMethodInfo = {
+      //   balance: 1500.0,
+      //   country: 'Japan',
+      //   interestRate: 3.5, // 일본 금리 (한국 금리는 3.25로 그냥 고정해서 사용하면 될 것 같아)
+      //   investmentType: '환테크', // "외화 예금" or 환테크
+      // };
       if (investMethodInfo.investmentType === '환테크')
         navigation(`/InvestIntro/exTech`, {
           state: {
@@ -294,41 +300,44 @@ const IntroPage = () => {
 
   // fund data를 새롭게 받아와 intro page에서 사용
   // addTravelDateToFund를 사용해 임의의 날짜를 추가함
-  const fetchFundData = () => {
-    // const {data} = axios.get(`${BASE_URL}/api/main/fund-info?userId={userId}`)
-    // const processedCountryFunds = addTravelDateToFund(res.data.countryFunds);
-
-    setCountryFunds(
-      AddTravelDateToFund([
-        {
-          country: 'Japan',
-          currency: 'JPY',
-          balance: 12000,
-          exchangeRate: {
-            rate: 901.28,
-            trend: 'up',
-          },
-        },
-        {
-          country: 'China',
-          currency: 'CNH',
-          balance: 500,
-          exchangeRate: {
-            rate: 194.34,
-            trend: 'down',
-          },
-        },
-        {
-          country: 'Europe',
-          currency: 'EUR',
-          balance: 1470,
-          exchangeRate: {
-            rate: 901.28,
-            trend: 'up',
-          },
-        },
-      ]),
-    );
+  const fetchFundData = async () => {
+    try {
+      const res = await axios.get(`${BASE_URL}/api/main/fund-info?userId=${userId}`);
+      setCountryFunds(AddTravelDateToFund(res.data.countryFunds));
+    } catch (error) {
+      console.log(error);
+    }
+    // setCountryFunds(
+    //   AddTravelDateToFund([
+    //     {
+    //       country: 'Japan',
+    //       currency: 'JPY',
+    //       balance: 12000,
+    //       exchangeRate: {
+    //         rate: 901.28,
+    //         trend: 'up',
+    //       },
+    //     },
+    //     {
+    //       country: 'China',
+    //       currency: 'CNH',
+    //       balance: 500,
+    //       exchangeRate: {
+    //         rate: 194.34,
+    //         trend: 'down',
+    //       },
+    //     },
+    //     {
+    //       country: 'Europe',
+    //       currency: 'EUR',
+    //       balance: 1470,
+    //       exchangeRate: {
+    //         rate: 901.28,
+    //         trend: 'up',
+    //       },
+    //     },
+    //   ]),
+    // );
   };
 
   useEffect(() => {

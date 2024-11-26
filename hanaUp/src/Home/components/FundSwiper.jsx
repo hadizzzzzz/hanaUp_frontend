@@ -17,55 +17,10 @@ import { uid } from '../../Recoil/uid';
 // swiper 내부에서 api 호출하여 전역으로 상태 관리
 
 const FundSwiper = () => {
-  const [fundInfo, setFundInfo] = useRecoilState(fundInfoState);
-  const [travelState, setTravelState] = useRecoilState(travelInfo);
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
+  const fundInfo = useRecoilValue(fundInfoState);
   const userId = useRecoilValue(uid);
-
-  const processFundData = async data => {
-    if (data.foreignSavings) {
-      var foreignSavings = { ...data.foreignSavings }; // 무조건 하나?
-      foreignSavings['moneyAmount'] = foreignSavings['totalAmount'];
-      foreignSavings = {
-        ...foreignSavings,
-        type: 'foreignSavings',
-      };
-    }
-
-    var countryFunds = data.countryFunds; // 무조건 배열로?
-    if (countryFunds.length != 0) {
-      countryFunds = countryFunds.map(item => {
-        var newItem = {
-          ...item,
-          type: 'countryFunds',
-        };
-        newItem['moneyAmount'] = item['balance'];
-        newItem['trend'] = item.exchangeRate.trend;
-        return newItem;
-      });
-    }
-
-    return [foreignSavings, ...countryFunds];
-  };
-
-  const fetchTravelandFundData = async () => {
-    console.log('fetch');
-
-    // const res= await axios.get(`${BASE_URL}/api/main/fund-info?userId=${uid}`);
-
-    const processedFundData = await processFundData(fundInfo);
-    console.log(processedFundData);
-    setFundInfo(processedFundData);
-    // }
-
-    // 더미데이터
-
-    // setFundInfo(res.data.countryFunds, res.data.foreignSavings);
-    // setTravelState(res.data.travelStatus);
-  };
-
-  useEffect(() => {
-    fetchTravelandFundData();
-  }, []);
 
   const swiperRef = useRef(null);
 
@@ -75,7 +30,7 @@ const FundSwiper = () => {
     }
   }, [fundInfo]);
 
-  if (fundInfo.length > 1) {
+  if (fundInfo.length != 0) {
     return (
       <Swiper
         onSwiper={swiper => (swiperRef.current = swiper)}
@@ -86,14 +41,18 @@ const FundSwiper = () => {
         className="mySwiper"
       >
         {fundInfo.map(item => {
-          return (
-            <SwiperSlide key={item.country}>
-              <FundInfoCard key={item.country} {...item}></FundInfoCard>
-            </SwiperSlide>
-          );
+          if (item && item.country)
+            // foreignSavings가 존재하지 않는 경우
+            return (
+              <SwiperSlide key={item.country}>
+                <FundInfoCard key={item.country} {...item}></FundInfoCard>
+              </SwiperSlide>
+            );
         })}
       </Swiper>
     );
+  } else {
+    console.log(fundInfo);
   }
 };
 

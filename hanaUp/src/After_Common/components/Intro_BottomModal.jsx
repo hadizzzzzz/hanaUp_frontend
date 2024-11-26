@@ -155,7 +155,7 @@ const Intro_BottomModal = ({ closeModal, changeToCheckFunds, countryFunds }) => 
               <>
                 <FundInfoDetail
                   country_info={countryInfo.find(info => info.country_en === item.country)}
-                  amount={item.balance}
+                  amount={item.balance.toLocaleString()}
                 />
                 <Horizon />
               </>

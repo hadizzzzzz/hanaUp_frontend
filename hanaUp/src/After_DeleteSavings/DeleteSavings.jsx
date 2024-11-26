@@ -113,6 +113,7 @@ const ImgAndAlertContainer = styled.div`
 // 해지할 외화 예금은 오직 하나라는 가정하에 처리
 // 외화 예금 정보는 after_newAccountInfo 전역으로 관리함
 const DeleteSavings = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   const [userId, setUserId] = useRecoilState(uid);
   const [savings, setSavings] = useRecoilState(after_newAccountInfo);
   const navigation = useNavigate();
@@ -120,22 +121,21 @@ const DeleteSavings = () => {
   const [deleteDone, setDeleteDone] = useState(false);
 
   // POST 외화 예금 해지
-  // const postDeleteSavings = async () => {
-  //   const uid = 123;
-  //   try {
-  //     const res = axios.post(`${BASE_URL}/api/after-travel/deletesavings`, {
-  //       userId: uid,
-  //       country: savings.country,
-  //     });
-  //     console.log('해지', res.data);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const postDeleteSavings = async () => {
+    try {
+      const res = await axios.post(`${BASE_URL}/api/after-travel/deletesavings`, {
+        userId: userId,
+        country: savings.country,
+      });
+      console.log('해지 결과', res.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleDeleteBtn = () => {
     if (!deleteDone) {
-      // postDeleteSavings();
+      postDeleteSavings();
       setDeleteDone(true);
     } else {
       setUserId(''); // uid 초기화

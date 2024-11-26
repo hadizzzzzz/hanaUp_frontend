@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
   // 최상위 페이지 컴포넌트에 대해 모바일 웹 환경 구축
 
   .Home, .predictService, .testInputPage, .spendTypeTest, .spendTypeTestPage, .atmPage, .reportPage, .investIntro, .investIntroResult, .newAccount, .exTech, .deleteSavings{
-    margin-left: auto;
+  margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-direction: column;
@@ -34,11 +34,6 @@ const GlobalStyle = createGlobalStyle`
   min-height: 100vh;
   background-color: white;
   }
-
-/* {
-  margin-left: auto;
-  margin-right: auto;
-}  */
 
 `;
 

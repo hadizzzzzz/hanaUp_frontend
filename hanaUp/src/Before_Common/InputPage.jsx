@@ -81,9 +81,10 @@ const InfoContainer = styled.div`
 
 // 두가지 종류의 예측 서비스에 공통으로 들어가는 페이지
 const Before_InputPage = () => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
   // 여행 정보를 받자마자 전역으로 관리하도록 함
   const [travelDetail, setTravelDetail] = useRecoilState(during_travelDetail);
-  const [userId, setUserId] = useRecoilValue(uid);
+  const userId = useRecoilValue(uid);
 
   // 사용자의 트래블로그 이용 여부
   const type = useParams().type;
@@ -140,62 +141,80 @@ const Before_InputPage = () => {
         // type:
       });
       try {
+        // 응답을 출력해봄 (디버깅용)
         console.log({
           userId: userId,
           destination: selectedCountry,
-          duration: (selectedDate.endDate - selectedDate.startDate) / (1000 * 60 * 60 * 24) + 1,
+          duration: String((selectedDate.endDate - selectedDate.startDate) / (1000 * 60 * 60 * 24) + 1),
           currency: `${countryInfo.find(item => item.country_en === selectedCountry).currency_code}`,
         });
 
-        var url;
         var res;
 
         // predict amount result일 때 => 바로 post하고 결과 페이지로 이동
         if (type === 'predictAmount') {
-          // url = `${BASE_URL}/api/before-travel/type-test`;
-
-          // const res = axios.post(url, {
+          // console.log({
           //   userId: userId,
-          //   destination: selectedCountry,
-          //   duration: (selectedDate.endDate - selectedDate.startDate) / (1000 * 60 * 60 * 24) + 1,
-          //   currency: `${countryInfo.find(item => item.country_en === selectedCountry).currency_code}`,
+          //   destination: 'Europe',
+          //   duration: '7',
+          //   currency: 'EUR',
           // });
+          const res = await axios.post(`${BASE_URL}/api/before-travel/estimate-cost`, {
+            userId: userId,
+            destination: 'Europe',
+            duration: '7',
+            currency: 'EUR',
+          });
           // 임시 res 객체
-          res = {
-            estimatedCost: 1500,
-            currency: 'USD',
-            breakdown: {
-              transport: 300, // 교통비
-              food: 400, // 식비
-              shopping: 300, // 쇼핑비
-              activities: 400, // 활동비
-              medical: 100, // 병원비
+          // res = {
+          //   estimatedCost: 1500,
+          //   currency: 'USD',
+          //   breakdown: {
+          //     transport: 300, // 교통비
+          //     food: 400, // 식비
+          //     shopping: 300, // 쇼핑비
+          //     activities: 400, // 활동비
+          //     medical: 100, // 병원비
+          //   },
+          //   averageBreakdown: {
+          //     transport: 280, // 평균 교통비
+          //     food: 450, // 평균 식비
+          //     shopping: 320, // 평균 쇼핑비
+          //     activities: 380, // 평균 활동비
+          //     medical: 120, // 평균 병원비
+          //   },
+          // };
+          console.log('post 결과', res.data);
+          navigation(
+            `/predictService/${type}/result`,
+            {
+              state: {
+                startDate: selectedDate.startDate,
+                endDate: selectedDate.endDate,
+                country: selectedCountry,
+                res: res.data,
+              },
             },
-            averageBreakdown: {
-              transport: 280, // 평균 교통비
-              food: 450, // 평균 식비
-              shopping: 320, // 평균 쇼핑비
-              activities: 380, // 평균 활동비
-              medical: 120, // 평균 병원비
+            {
+              replace: true,
             },
-          };
+          );
+        } else {
+          navigation(
+            `/predictService/${type}/result`,
+            {
+              state: {
+                startDate: selectedDate.startDate,
+                endDate: selectedDate.endDate,
+                country: selectedCountry,
+                testDone: false,
+              },
+            },
+            {
+              replace: true,
+            },
+          );
         }
-
-        navigation(
-          `/predictService/${type}/result`,
-          {
-            state: {
-              startDate: selectedDate.startDate,
-              endDate: selectedDate.endDate,
-              country: selectedCountry,
-              res: res,
-              testDone: false,
-            },
-          },
-          {
-            replace: true,
-          },
-        );
       } catch (error) {
         console.log(error);
       }

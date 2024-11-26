@@ -10,6 +10,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 import { uid } from '../Recoil/uid';
+import exchangeRates from '../common/arrays/exchangeRates';
 
 const Container = styled.div`
   background-color: ${color.grayscale.white};
@@ -104,6 +105,8 @@ const BtnContainer = styled.div`
 `;
 
 const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
+  const BASE_URL = import.meta.env.VITE_BASE_URL;
+
   const userId = useRecoilValue(uid);
 
   // 오늘을 기준으로 -5일 평일 날짜를 YYYYMMDD 형태로 저장한 배열
@@ -149,28 +152,27 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
         count++;
       }
     }
-    console.log('지난 5일', result);
     setLast5Days(result);
+    return result;
   }
 
   // 지난 5일의 환율 데이터를 배열에 저장하여 그래프 컴포넌트에 전달
-  const getLast5DaysRate = () => {
+  const getLast5DaysRate = data => {
     const result = [];
 
     for (const week in exRate) {
       const weekData = exRate[week];
       for (let i = 4; i >= 0; i--) {
-        if (last5Days.includes(last5Days[i]) && weekData[last5Days[i]]) {
-          result.push({ date: last5Days[i], rate: weekData[last5Days[i]] });
-        }
+        result.push({ date: last5Days[i], rate: weekData[last5Days[i]].rate });
       }
     }
 
+    console.log('5일 간의 데이터', result);
     set5DaysRate(result);
   };
 
   // GET: 환율 정보 get
-  const fetchExRate = async () => {
+  const fetchExRate = async weeknum => {
     try {
       // 대만과 필리핀의 경우
       if (country === 'Taiwan') {
@@ -200,45 +202,49 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
           },
         });
       } else {
-        // const res = axios.get(`${BASE_URL}api/after-travel/exchange-rate?userId=${userId}&country=${country}`);
-        // setExRateRate(res);
-        setExRate({
-          week1: {
-            20241104: 900.25,
-            20241105: 910.15,
-            20241106: 905.1,
-            20241107: 902.5,
-            20241108: 903.0,
-          },
-          week2: {
-            20241111: 905.25,
-            20241112: 912.15,
-            20241113: 908.1,
-            20241114: 902.3,
-            20241115: 904.0,
-          },
-          week3: {
-            20241118: 910.5,
-            20241119: 915.0,
-            20241120: 913.25,
-            20241121: 911.75,
-            20241122: 914.1,
-          },
-          week4: {
-            20241125: 920.0,
-            20241126: 922.5,
-            20241127: 918.75,
-            20241128: 917.3,
-            20241129: 919.45,
-          },
+        const res = await axios.get(`${BASE_URL}/api/after-travel/exchange-rate?userId=${userId}&country=${country}`);
+        const countryExchangeRates = exchangeRates(res.data.todayExchangeRate, weeknum, getLast5BusinessDays()).find(
+          item => item.country === country,
+        );
+        setExRate(countryExchangeRates.weeklyExchangeRates);
+        getLast5DaysRate(countryExchangeRates.weeklyExchangeRates);
+        // setExRate({
+        //   week1: {
+        //     20241104: 900.25,
+        //     20241105: 910.15,
+        //     20241106: 905.1,
+        //     20241107: 902.5,
+        //     20241108: 903.0,
+        //   },
+        //   week2: {
+        //     20241111: 905.25,
+        //     20241112: 912.15,
+        //     20241113: 908.1,
+        //     20241114: 902.3,
+        //     20241115: 904.0,
+        //   },
+        //   week3: {
+        //     20241118: 910.5,
+        //     20241119: 915.0,
+        //     20241120: 913.25,
+        //     20241121: 911.75,
+        //     20241122: 914.1,
+        //   },
+        //   week4: {
+        //     20241125: 920.0,
+        //     20241126: 922.5,
+        //     20241127: 918.75,
+        //     20241128: 917.3,
+        //     20241129: 919.45,
+        //   },
 
-          week5: {
-            // week5는 12월 1주
-            20241202: 920.0,
-            20241203: 922.5,
-            20241204: 918.75,
-          },
-        });
+        //   week5: {
+        //     // week5는 12월 1주
+        //     20241202: 920.0,
+        //     20241203: 922.5,
+        //     20241204: 918.75,
+        //   },
+        // });
       }
     } catch (error) {
       console.log(error);
@@ -247,8 +253,9 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
 
   useEffect(() => {
     setSelectedWeek(getThisWeek(new Date()));
-    fetchExRate();
     getLast5BusinessDays();
+    fetchExRate(getThisWeek(new Date()));
+
     getLast5DaysRate();
   }, []);
 
@@ -256,36 +263,41 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
     getLast5DaysRate();
   }, [exRate]);
 
-  return (
-    <Container>
-      <div>
-        <ContentContainer>
-          <div style={{ ...font.header.h3, color: '#2d2d2d' }}>환율 정보</div>
-          <GraphWrapper>
-            <GraphDropdownWrapper>
-              <DropDownWrapper>
-                <DateText>
-                  {new Date().getMonth() + 1}월 {getThisWeek(new Date())}주차
-                </DateText>
-                <Arrow src={ArrowDown} />
-              </DropDownWrapper>
-              <Difference>+32.3 (9%)</Difference>
-            </GraphDropdownWrapper>
-            <ExTech_RateGraph currency_symbol={currency_symbol} last5DaysRate={last5DaysRate} />
-          </GraphWrapper>
-          <BasisContainer>
-            {new Date().getFullYear()}. {new Date().getMonth() + 1}. {/* 11시 기준 */}
-            {new Date().getHours() >= 11
-              ? `${new Date().getDate()} 11:00 기준`
-              : `${new Date(new Date().getTime() - 24 * 60 * 60 * 1000).getDate()} 11:00 기준`}
-          </BasisContainer>
-        </ContentContainer>
-      </div>
-      <BtnContainer>
-        <PrimaryButton text="닫기" type="active" onClick={closeModal} />
-      </BtnContainer>
-    </Container>
-  );
+  useEffect(() => {
+    console.log(last5DaysRate);
+  }, [last5DaysRate]);
+
+  if (last5DaysRate != [])
+    return (
+      <Container>
+        <div>
+          <ContentContainer>
+            <div style={{ ...font.header.h3, color: '#2d2d2d' }}>환율 정보</div>
+            <GraphWrapper>
+              <GraphDropdownWrapper>
+                <DropDownWrapper>
+                  <DateText>
+                    {new Date().getMonth() + 1}월 {getThisWeek(new Date())}주차
+                  </DateText>
+                  <Arrow src={ArrowDown} />
+                </DropDownWrapper>
+                <Difference>+32.3 (9%)</Difference>
+              </GraphDropdownWrapper>
+              <ExTech_RateGraph currency_symbol={currency_symbol} last5DaysRate={last5DaysRate} />
+            </GraphWrapper>
+            <BasisContainer>
+              {new Date().getFullYear()}. {new Date().getMonth() + 1}. {/* 11시 기준 */}
+              {new Date().getHours() >= 11
+                ? `${new Date().getDate()} 11:00 기준`
+                : `${new Date(new Date().getTime() - 24 * 60 * 60 * 1000).getDate()} 11:00 기준`}
+            </BasisContainer>
+          </ContentContainer>
+        </div>
+        <BtnContainer>
+          <PrimaryButton text="닫기" type="active" onClick={closeModal} />
+        </BtnContainer>
+      </Container>
+    );
 };
 
 export default ExTech_RateModal;
