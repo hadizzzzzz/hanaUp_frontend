@@ -128,6 +128,8 @@ const DeleteSavings = () => {
         country: savings.country,
       });
       console.log('해지 결과', res.data);
+      const deleteRes = await axios.delete(`${BASE_URL}/api/main/delete-user?userId=${userId}`);
+      console.log('유저 삭제', deleteRes);
     } catch (error) {
       console.log(error);
     }

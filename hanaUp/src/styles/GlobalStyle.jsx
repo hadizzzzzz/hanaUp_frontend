@@ -26,13 +26,10 @@ const GlobalStyle = createGlobalStyle`
   .Home, .predictService, .testInputPage, .spendTypeTest, .spendTypeTestPage, .atmPage, .reportPage, .investIntro, .investIntroResult, .newAccount, .exTech, .deleteSavings{
   margin-left: auto;
   margin-right: auto;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  text-align: center;
-  margin: 0;
-  min-height: 100vh;
-  background-color: white;
+
+  // fund swiper로 인한 넘침 방지
+  max-height: 100vh;
+  max-width: 100vw;
   }
 
 `;

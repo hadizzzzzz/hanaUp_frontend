@@ -117,6 +117,8 @@ const ExTech = () => {
         country: countryInfo.country_en, // 나라 정보
         amount: Number(amount.replace(/[^0-9]/g, '')), // 충전하고 싶은 금액
       });
+      const deleteRes = await axios.delete(`${BASE_URL}/api/main/delete-user?userId=${userId}`);
+      console.log('유저 삭제', deleteRes);
       setExTechCharge({
         countryInfo: countryInfo,
         basisRate: basisRate,
