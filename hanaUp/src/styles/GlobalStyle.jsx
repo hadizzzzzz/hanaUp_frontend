@@ -2,9 +2,34 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'Pretendard';
+    font-family: 'Pretendard-Bold';
+    font-weight: normal;
+    src: url('/fonts/Pretendard-Bold.ttf');
+  }
+  @font-face {
+    font-family: 'Pretendard-ExtraBold';
+    font-weight: normal;
+    src: url('/fonts/Pretendard-ExtraBold.ttf');
+  }
+  @font-face {
+    font-family: 'Pretendard-Medium';
+    font-weight: normal;
+    src: url('/fonts/Pretendard-Medium.ttf');
+  }
+  @font-face {
+    font-family: 'Pretendard-Regular';
+    font-weight: normal;
+    src: url('/fonts/Pretendard-Regular.ttf');
+  }
+  @font-face {
+    font-family: 'Pretendard-SemiBold';
     font-weight: normal;
     src: url('/fonts/Pretendard-SemiBold.ttf');
+  }
+  @font-face {
+    font-family: 'Pretendard-Light';
+    font-weight: normal;
+    src: url('/fonts/Pretendard-Light.ttf');
   }
 
   *, *::before, *::after {
