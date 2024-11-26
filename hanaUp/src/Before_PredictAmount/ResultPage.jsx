@@ -132,11 +132,12 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
           currency={countryInfo.find(item => item.country_en === country).currency_symbol}
           country={country}
           amount={res.estimatedCost}
+          caption={'나의 지난 소비 내역을 분석했어요'}
         ></DollarBox>
         <SmallHorizon />
         <PrimaryBanner
-          caption="예상된 금액을 바로 환전해보세요"
-          text="하나머니와 함께하는 여행, 더 즐겁게 즐겨요!"
+          caption="이번 여행 얼마나 환전해야 하지?"
+          text="예상된 여행 경비를 바로 환전해보세요 "
           btnText="환전하기"
           onBtnClick={() => {
             navigation('/');

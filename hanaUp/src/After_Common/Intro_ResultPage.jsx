@@ -202,7 +202,6 @@ const Intro_ResultPage = () => {
   const navigation = useNavigate();
   const location = useLocation();
   const { selectedFundInfo, investMethodInfo, countryInfo } = location.state;
-  console.log(selectedFundInfo, investMethodInfo, countryInfo);
 
   const [isLoading, setIsLoading] = useState(true);
 

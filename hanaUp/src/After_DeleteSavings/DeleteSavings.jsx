@@ -156,7 +156,7 @@ const DeleteSavings = () => {
               해지 후 받으시는 금액 (세후)
             </div>
             <div style={{ ...font.header.h1, color: '#2d2d2d', width: '100%' }}>
-              {currencySymbol} {Number(savings.finalAmount) * 0.8}
+              {currencySymbol} {(Number(savings.finalAmount) * 0.8).toLocaleString()}
             </div>
           </TextMainContainer>
           <Horizon />

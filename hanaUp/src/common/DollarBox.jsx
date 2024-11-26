@@ -49,7 +49,7 @@ const SubText = styled.div`
 // type: single, entire (여행 날짜가 단일인지, duration인지)
 // startDate, endDate, currency(화폐 단위), country(나라명), amount(예상치)
 // country 영어로 받아야
-const DollarBox = ({ type, isSwiper, startDate, endDate, currency, country, amount }) => {
+const DollarBox = ({ type, isSwiper, startDate, endDate, currency, country, amount, caption }) => {
   return (
     <Container isSwiper={isSwiper}>
       <MoneyAmountInteger>
@@ -57,9 +57,12 @@ const DollarBox = ({ type, isSwiper, startDate, endDate, currency, country, amou
         <IcnContainer src={`/img/countryIcons/${country}.png`} />
       </MoneyAmountInteger>
       <SubText>
-        {type == 'single'
+        {caption
+          ? caption
+          : type == 'single'
           ? `${startDate.getFullYear()}년 ${startDate.getMonth() + 1}월 ${startDate.getDate() + 1}일`
           : `${startDate.toLocaleDateString()}~${endDate.toLocaleDateString()}의 여행`}
+        {/* 일단 주석 처리 */}
       </SubText>
     </Container>
   );

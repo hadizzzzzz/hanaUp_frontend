@@ -16,6 +16,8 @@ import { during_travelDetail } from '../Recoil/during_travelDetail';
 import { useRecoilState } from 'recoil';
 import countryInfo from '../common/arrays/countryInfo';
 import ReportComponent_Detail from './ReportComponent_Detail';
+import { useRecoilValue } from 'recoil';
+import { travelInfo } from '../Recoil/travelState';
 const Container = styled.div`
   display: flex;
   padding: 20px;
@@ -116,58 +118,68 @@ const processReportData = reportData => {
 //   "feeSavings": 5 //절약한 수수료
 // }
 const ReportComponent = ({ country, day, reportData, setDayState, toggleState }) => {
-  const during_travelDetailInfo = useRecoilState(during_travelDetail);
+  const during_travelDetailInfo = useRecoilValue(during_travelDetail);
   const countryInfoSelected = countryInfo.find(item => item.country_en === country);
+  const travelState = useRecoilValue(travelInfo);
 
-  // var processedData;
-  // if (reportData) processedData = mapExpenses(reportData.breakdown, totalValue);
-  // console.log(processedData);
+  function addDaysToDate(baseDate, daysToAdd) {
+    console.log(baseDate, daysToAdd);
+    const newDate = new Date(baseDate); // 원본 객체를 복사
+    newDate.setDate(newDate.getDate() + daysToAdd);
+    console.log(newDate);
+    return newDate;
+  }
 
   if (reportData) {
-    console.log(reportData);
     const { processedReportData, totalValue } = processReportData(reportData);
 
-    return (
-      <Container>
-        <Title>
-          <TitleText>
-            <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
-              {toggleState === 0 ? countryInfoSelected.country_kr : '2박3일'}
-              {/* 2박 3일 고정 */}
-            </LinearGradient>
-            {toggleState === 0 ? '에서 ' : '의 '}
-            <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
-              {toggleState === 0 ? `${day}일 차` : `${countryInfoSelected.country_kr}`}
-            </LinearGradient>
-            {toggleState === 1 && '여행'}, <br />내 소비는 어땠나요 ?
-          </TitleText>
-          {toggleState === 0 ? (
-            <ArrowsContainer>
-              <ArrowIcon src={arrowLeft} onClick={() => setDayState({ type: 'subtract' })} />
-              <ArrowIcon src={arrowRight} onClick={() => setDayState({ type: 'add' })} />
-            </ArrowsContainer>
-          ) : (
-            <></>
-          )}
-        </Title>
-        <GraphContainer>
-          <ReportComponent_Graph totalValue={totalValue} processedReportData={processedReportData} />
-        </GraphContainer>
-        <DollarBox
-          type="single"
-          startDate={new Date()}
-          currency={countryInfoSelected.currency_symbol}
-          country={country}
-          amount={reportData.totalSpent}
-        />
-        <Msg type="positive" text={`트래블로그와 함께 수수료 ${reportData.feeSavings}원 절약했어요`} />
-        <DetailContainer>
-          {processedReportData.map(item => (
-            <ReportComponent_Detail {...item} colorIndp={item.color} />
-          ))}
-        </DetailContainer>
-      </Container>
-    );
+    if (during_travelDetailInfo)
+      return (
+        <Container>
+          <Title>
+            <TitleText>
+              <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
+                {toggleState === 0 ? countryInfoSelected.country_kr : '2박3일'}
+                {/* 2박 3일 고정 */}
+              </LinearGradient>
+              {toggleState === 0 ? '에서 ' : '의 '}
+              <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
+                {toggleState === 0 ? `${day}일 차` : `${countryInfoSelected.country_kr}`}
+              </LinearGradient>
+              {toggleState === 1 && '여행'}, <br />내 소비는 어땠나요 ?
+            </TitleText>
+            {toggleState === 0 ? (
+              <ArrowsContainer>
+                <ArrowIcon src={arrowLeft} onClick={() => setDayState({ type: 'subtract' })} />
+                <ArrowIcon src={arrowRight} onClick={() => setDayState({ type: 'add' })} />
+              </ArrowsContainer>
+            ) : (
+              <></>
+            )}
+          </Title>
+          <GraphContainer>
+            <ReportComponent_Graph totalValue={totalValue} processedReportData={processedReportData} />
+          </GraphContainer>
+          <DollarBox
+            type={toggleState === 0 ? 'single' : 'entire'}
+            startDate={
+              travelState === 'during'
+                ? addDaysToDate(during_travelDetailInfo.startDate, day)
+                : new Date(during_travelDetailInfo.startDate)
+            }
+            endDate={new Date(during_travelDetailInfo.endDate)}
+            currency={countryInfoSelected.currency_symbol}
+            country={country}
+            amount={reportData.totalSpent}
+          />
+          <Msg type="positive" text={`트래블로그와 함께 수수료 ${reportData.feeSavings}원 절약했어요`} />
+          <DetailContainer>
+            {processedReportData.map(item => (
+              <ReportComponent_Detail {...item} colorIndp={item.color} />
+            ))}
+          </DetailContainer>
+        </Container>
+      );
   }
 };
 

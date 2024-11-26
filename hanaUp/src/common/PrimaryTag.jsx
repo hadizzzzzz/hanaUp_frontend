@@ -6,16 +6,19 @@ import { LinearGradient } from 'react-text-gradients';
 
 const Container = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   gap: 3px;
 
   border-radius: 10px;
+
+  width: 100%;
 `;
 
 const Text = styled.div`
   color: ${color.brand.grad};
-  ${font.caption.cap3B};
+  font-family: 'Pretendard-Semibold';
+  font-size: 15px;
 `;
 
 const Icn = styled.img`

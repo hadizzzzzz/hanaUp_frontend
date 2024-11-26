@@ -11,6 +11,7 @@ import Msg from '../common/Msg';
 import { typeInfo } from '../common/arrays/typeInfo';
 import { useEffect } from 'react';
 import countryInfo from '../common/arrays/countryInfo';
+import PrimaryTag from '../common/PrimaryTag';
 
 // 버튼 컨테이너를 제외한 content만의 컨테이너
 const RootContainer = styled.div`
@@ -179,8 +180,11 @@ const ResultPage = () => {
     <>
       <RootContainer>
         <ContentContainer>
-          <MainText>
-            <span style={{ color: color.brand.primary }}>{calculateDateDiff(new Date(), travelInfo.startDate)}일</span>{' '}
+          <MainText style={{ width: '100%' }}>
+            <PrimaryTag text="맞춤형 예측 서비스" />
+            <span style={{ color: color.brand.primary }}>
+              {calculateDateDiff(new Date(), travelInfo.startDate)}일
+            </span>{' '}
             뒤{' '}
             <span style={{ color: color.brand.primary }}>
               {countryInfo.find(item => item.country_en === travelInfo.country).country_kr}
@@ -201,8 +205,8 @@ const ResultPage = () => {
         <Horizon />
         <ContentContainer>
           <MainText>
-            <span style={{ color: color.brand.primary }}>{typeInfoSelected.type_kr}</span>
-            의 사람들의 <br /> 평균 지출 금액이에요
+            <span style={{ color: color.brand.primary }}>{typeInfoSelected.type_kr}</span> 유형의 <br /> 평균 지출
+            금액이에요
           </MainText>
           <DollarBox
             startDate={travelInfo.startDate}
@@ -210,6 +214,7 @@ const ResultPage = () => {
             currency={countryInfo.find(item => item.country_en === travelInfo.country).currency_symbol}
             country={travelInfo.country}
             amount={testResult.estimatedCost}
+            caption={'나와 같은 유형의 소비 내역을 분석했어요'}
           />
           <Msg type="positive" text="트래블로그와 함께 수수료 15,230원 절약했어요" />
         </ContentContainer>

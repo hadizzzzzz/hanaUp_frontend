@@ -175,77 +175,49 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
   const fetchExRate = async weeknum => {
     try {
       // 대만과 필리핀의 경우
-      if (country === 'Taiwan') {
-        setExRate({
-          TodayExchangeRate: 42.2, // 오늘 환율
-          weeklyExchangeRates: {
-            [`week${selectedWeek}`]: {
-              [last5Days[4]]: { value: 43 },
-              [last5Days[3]]: { value: 42.7 },
-              [last5Days[2]]: { value: 42.9 },
-              [last5Days[1]]: { value: 42.5 },
-              [last5Days[0]]: { value: 42.8 },
-            },
-          },
-        });
-      } else if (country === 'Philippines') {
-        setExRate({
-          TodayExchangeRate: 23.73, // 오늘 환율
-          weeklyExchangeRates: {
-            [`week${selectedWeek}`]: {
-              [last5Days[4]]: { value: 23.7 },
-              [last5Days[3]]: { value: 23.71 },
-              [last5Days[2]]: { value: 23.79 },
-              [last5Days[1]]: { value: 23.68 },
-              [last5Days[0]]: { value: 23.72 },
-            },
-          },
-        });
-      } else {
-        const res = await axios.get(`${BASE_URL}/api/after-travel/exchange-rate?userId=${userId}&country=${country}`);
-        const countryExchangeRates = exchangeRates(res.data.todayExchangeRate, weeknum, getLast5BusinessDays()).find(
-          item => item.country === country,
-        );
-        setExRate(countryExchangeRates.weeklyExchangeRates);
-        getLast5DaysRate(countryExchangeRates.weeklyExchangeRates);
-        // setExRate({
-        //   week1: {
-        //     20241104: 900.25,
-        //     20241105: 910.15,
-        //     20241106: 905.1,
-        //     20241107: 902.5,
-        //     20241108: 903.0,
-        //   },
-        //   week2: {
-        //     20241111: 905.25,
-        //     20241112: 912.15,
-        //     20241113: 908.1,
-        //     20241114: 902.3,
-        //     20241115: 904.0,
-        //   },
-        //   week3: {
-        //     20241118: 910.5,
-        //     20241119: 915.0,
-        //     20241120: 913.25,
-        //     20241121: 911.75,
-        //     20241122: 914.1,
-        //   },
-        //   week4: {
-        //     20241125: 920.0,
-        //     20241126: 922.5,
-        //     20241127: 918.75,
-        //     20241128: 917.3,
-        //     20241129: 919.45,
-        //   },
+      const res = await axios.get(`${BASE_URL}/api/after-travel/exchange-rate?userId=${userId}&country=${country}`);
+      const countryExchangeRates = exchangeRates(res.data.todayExchangeRate, weeknum, getLast5BusinessDays()).find(
+        item => item.country === country,
+      );
+      setExRate(countryExchangeRates.weeklyExchangeRates);
+      getLast5DaysRate(countryExchangeRates.weeklyExchangeRates);
+      // setExRate({
+      //   week1: {
+      //     20241104: 900.25,
+      //     20241105: 910.15,
+      //     20241106: 905.1,
+      //     20241107: 902.5,
+      //     20241108: 903.0,
+      //   },
+      //   week2: {
+      //     20241111: 905.25,
+      //     20241112: 912.15,
+      //     20241113: 908.1,
+      //     20241114: 902.3,
+      //     20241115: 904.0,
+      //   },
+      //   week3: {
+      //     20241118: 910.5,
+      //     20241119: 915.0,
+      //     20241120: 913.25,
+      //     20241121: 911.75,
+      //     20241122: 914.1,
+      //   },
+      //   week4: {
+      //     20241125: 920.0,
+      //     20241126: 922.5,
+      //     20241127: 918.75,
+      //     20241128: 917.3,
+      //     20241129: 919.45,
+      //   },
 
-        //   week5: {
-        //     // week5는 12월 1주
-        //     20241202: 920.0,
-        //     20241203: 922.5,
-        //     20241204: 918.75,
-        //   },
-        // });
-      }
+      //   week5: {
+      //     // week5는 12월 1주
+      //     20241202: 920.0,
+      //     20241203: 922.5,
+      //     20241204: 918.75,
+      //   },
+      // });
     } catch (error) {
       console.log(error);
     }
