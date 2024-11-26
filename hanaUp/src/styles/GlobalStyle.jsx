@@ -30,6 +30,13 @@ const GlobalStyle = createGlobalStyle`
   min-height: 100vh;
   max-width: 100vw;
   max-height: 100vh;
+
+   /* 스크롤바 숨기기 */
+   &::-webkit-scrollbar {
+    display: none;
+  }
+
+  overflow-y: scroll;
   }
 
 `;
