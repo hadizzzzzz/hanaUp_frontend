@@ -219,7 +219,7 @@ const FundInfoCard = ({ type, trend, country, currency, moneyAmount, exchangeRat
   if (country)
     return (
       <RootContainer type={type}>
-        <AbsoluteBannerTitle type={type}>{type === 'foreignSavings' ? '외화적금' : '보유통화'}</AbsoluteBannerTitle>
+        <AbsoluteBannerTitle type={type}>{type === 'foreignSavings' ? '외화예금' : '보유통화'}</AbsoluteBannerTitle>
         {/* column 방향 레이아웃*/}
         <CountryContainer>
           <CountryIconContainer src={`/img/countryIcons/${country}.png`} />

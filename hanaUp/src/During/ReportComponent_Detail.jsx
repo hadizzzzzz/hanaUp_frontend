@@ -58,7 +58,7 @@ const ReportComponent_Detail = ({ name, value, colorIndp, ratio }) => {
         <TitleText>{name}</TitleText>
       </TitleContainer>
       <ExpenseContainer>
-        <ExpenseText style={{}}>{value.toLocaleString()}원</ExpenseText>
+        <ExpenseText style={{}}>{value && value.toLocaleString()}원</ExpenseText>
         <div style={{ ...font.caption.cap2R, color: color.grayscale.gray8 }}>{ratio}%</div>
       </ExpenseContainer>
     </ReportDetailContainer>

@@ -161,9 +161,9 @@ const Before_InputPage = () => {
           // });
           const res = await axios.post(`${BASE_URL}/api/before-travel/estimate-cost`, {
             userId: userId,
-            destination: 'Europe',
-            duration: '7',
-            currency: 'EUR',
+            destination: selectedCountry,
+            duration: String((selectedDate.endDate - selectedDate.startDate) / (1000 * 60 * 60 * 24) + 1),
+            currency: 'AUD',
           });
           // 임시 res 객체
           // res = {

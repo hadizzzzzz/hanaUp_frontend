@@ -117,17 +117,17 @@ const ExTech = () => {
         country: countryInfo.country_en, // 나라 정보
         amount: Number(amount.replace(/[^0-9]/g, '')), // 충전하고 싶은 금액
       });
-      console.log('환율 알림 설정 결과', res.data);
-      // setExTechCharge({
-      //   countryInfo: countryInfo,
-      //   basisRate: basisRate,
-      //   duration: duration,
-      //   amount: amount,
-      //   // 다음 화면 ui에서 필요한 정보를 전역으로 관리
-      // });
-      setExTechCharge(res.data);
+      setExTechCharge({
+        countryInfo: countryInfo,
+        basisRate: basisRate,
+        duration: duration,
+        amount: amount,
+        // 다음 화면 ui에서 필요한 정보를 전역으로 관리
+      });
+      // setExTechCharge(res.data);
       setToast(true);
       setChargeDone(true);
+      setUserId('');
     } catch (error) {
       console.log(error);
     }
@@ -153,7 +153,7 @@ const ExTech = () => {
           <TextInputContainer>
             <SmallTitle>
               {countryInfo.currency_code}
-              {countryInfo.country_en !== 'Japan' ? '1' : ''} 기준 환율(매매기준율)
+              {countryInfo.country_en !== 'Japan' ? '1' : '(100)'} 기준 환율(매매기준율)
             </SmallTitle>
             <InputPage_Dropdown
               placeholder={`${countryExchangeInfo[countryInfo.country_en][0].value}원 이하일 때`}
@@ -231,7 +231,7 @@ const ExTech = () => {
             type="active"
             onClick={() => {
               // uid 초기화
-              setUserId('');
+
               navigation(
                 '/',
                 {

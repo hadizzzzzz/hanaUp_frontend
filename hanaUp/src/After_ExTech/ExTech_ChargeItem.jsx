@@ -62,10 +62,7 @@ const ExTech_ChargeItem = ({ countryInfo, basisRate, duration, amount }) => {
         <ChargeContentWrapper>
           {basisRate}원 이하가 되면
           <br /> {duration === '한 번만 충전' ? '한 번만' : '도달할 때마다'}{' '}
-          <span style={{ color: color.brand.primary }}>
-            {countryInfo.currency_code} {amount}
-          </span>{' '}
-          충전
+          <span style={{ color: color.brand.primary }}>{amount}</span> 충전
         </ChargeContentWrapper>
         <ChangeWrapper>
           <LinearGradient

@@ -282,16 +282,16 @@ const NewAccount = () => {
   const postNewSavings = async () => {
     try {
       const numMonth = month === '1개월' ? 1 : month === '6개월' ? 6 : 12;
-      console.log({
-        userId: userId,
-        country: countryInfo.country_en, // 나라 정보
-        amount: Number(amount), // 예금하고 싶은 금액,
-        month: numMonth, // 6, 12 도 가능
-      });
+      // console.log({
+      //   userId: userId,
+      //   country: countryInfo.country_en, // 나라 정보
+      //   amount: parseInt(amount.replace(/,/g, ''), ''), // 예금하고 싶은 금액,
+      //   month: numMonth, // 6, 12 도 가능
+      // });
       const res = await axios.post(`${BASE_URL}/api/after-travel/makesavings`, {
         userId: userId,
         country: countryInfo.country_en, // 나라 정보
-        amount: Number(amount), // 예금하고 싶은 금액,
+        amount: parseInt(amount.replace(/,/g, ''), ''), // 예금하고 싶은 금액,
         month: numMonth, // 6, 12 도 가능
       });
       console.log('ACCOUNT POST 결과', res.data);
@@ -299,6 +299,7 @@ const NewAccount = () => {
       const savingRes = await axios.get(
         `${BASE_URL}/api/after-travel/savings-info?userId=${userId}&country=${countryInfo.country_en}`,
       );
+      console.log('ACCOUNT 외화 적금 ');
       setNewAccountInfo(savingRes.data);
 
       // response를 받아 알맞게 set하여 fundinfocard 해지 버튼 클릭시 사용

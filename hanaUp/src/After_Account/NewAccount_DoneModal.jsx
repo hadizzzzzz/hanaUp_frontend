@@ -110,7 +110,7 @@ const NewAccount_DoneModal = ({ closeModal, month, interestRate }) => {
       '/',
       {
         state: {
-          toastMessage: '다통화 외화적금에 가입되었습니다.\n이자로 추가 수익을 노려보세요.',
+          toastMessage: '다통화 외화예금에 가입되었습니다.\n이자로 추가 수익을 노려보세요.',
         },
       },
       { replace: true },

@@ -137,8 +137,8 @@ const DeleteSavings = () => {
     if (!deleteDone) {
       postDeleteSavings();
       setDeleteDone(true);
-    } else {
       setUserId(''); // uid 초기화
+    } else {
       navigation('/', { replace: true });
     }
   };
@@ -164,13 +164,13 @@ const DeleteSavings = () => {
             <TextSubDetailContainer>
               <DetailBold style={{ color: '#000000' }}>이자 금액</DetailBold>
               <DetailBold style={{ color: '#009591' }}>
-                {currencySymbol} {savings.interestAmount}
+                {currencySymbol} {savings.interestAmount && savings.interestAmount.toLocaleString()}
               </DetailBold>
             </TextSubDetailContainer>
             <TextSubDetailContainer>
               <DetailRegular>해지 원금</DetailRegular>
               <DetailRegular>
-                {currencySymbol} {savings.finalAmount}
+                {currencySymbol} {savings.finalAmount && savings.finalAmount.toLocaleString()}
               </DetailRegular>
             </TextSubDetailContainer>
             <TextSubDetailContainer>
@@ -203,7 +203,7 @@ const DeleteSavings = () => {
           </TextSubDetailContainer>
           <TextSubDetailContainer>
             <DetailRegular>상품명</DetailRegular>
-            <DetailRegular>다통화 외화 적금</DetailRegular>
+            <DetailRegular>다통화 외화 예금</DetailRegular>
           </TextSubDetailContainer>
           <TextSubDetailContainer>
             <DetailBold style={{ color: '#000' }}>이자 금액</DetailBold>
@@ -215,7 +215,7 @@ const DeleteSavings = () => {
             <DetailRegular>환급 금액</DetailRegular>
             <DetailRegular>
               {' '}
-              {currencySymbol} {savings.finalAmount}
+              {currencySymbol} {savings.finalAmount && savings.finalAmount.toLocaleString()}
             </DetailRegular>
           </TextSubDetailContainer>
           <Horizon />

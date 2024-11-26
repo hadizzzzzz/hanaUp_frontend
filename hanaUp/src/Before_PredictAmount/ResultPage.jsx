@@ -93,7 +93,8 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
   // console.log(startDate);
   // console.log(endDate);
   // console.log(country);
-  console.log(res.estimatedCost);
+  const navigation = useNavigate();
+
   const averageBreakdown = [
     res.estimatedCost * 0.25, // 교통비
     res.estimatedCost * 0.25, // 식비
@@ -137,6 +138,9 @@ const ResultPage = ({ startDate, endDate, country, res }) => {
           caption="예상된 금액을 바로 환전해보세요"
           text="하나머니와 함께하는 여행, 더 즐겁게 즐겨요!"
           btnText="환전하기"
+          onBtnClick={() => {
+            navigation('/');
+          }}
         />
       </ExpenseResultContainer>
       <Horizon />
