@@ -81,7 +81,7 @@ const Home = () => {
   }, []);
 
   const processFundData = async data => {
-    if (data.foreignSavings) {
+    if (data.foreignSavings !== null) {
       var foreignSavings = { ...data.foreignSavings }; // 무조건 하나?
       foreignSavings['moneyAmount'] = foreignSavings['totalAmount'];
       foreignSavings = {
@@ -92,7 +92,7 @@ const Home = () => {
 
     var countryFunds = data.countryFunds; // 무조건 배열로?
     if (countryFunds.length != 0) {
-      countryFunds = countryFunds.map(item => {
+      countryFunds = countryFunds.reverse().map(item => {
         var newItem = {
           ...item,
           type: 'countryFunds',
