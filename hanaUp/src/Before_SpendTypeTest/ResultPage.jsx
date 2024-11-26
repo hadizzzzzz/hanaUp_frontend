@@ -211,7 +211,7 @@ const ResultPage = () => {
           <DollarBox
             startDate={travelInfo.startDate}
             endDate={travelInfo.endDate}
-            currency={countryInfo.find(item => item.country_en === travelInfo.country).currency_symbol}
+            currency={'₩'}
             country={travelInfo.country}
             amount={testResult.estimatedCost}
             caption={'나와 같은 유형의 소비 내역을 분석했어요'}

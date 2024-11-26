@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import font from '../styles/font';
 import HighLightText from '../common/HighLightText';
-import Loading from './assets/atm.jpg';
+import Loading from './assets/loading.jpg';
 import PrimaryButton from '../common/PrimaryButton';
 import axios from 'axios';
 import { uid } from '../Recoil/uid';
@@ -99,7 +99,7 @@ const WrongDirection = ({ setTravelState }) => {
       <BtnContainer>
         {/* 지금 시작하기 버튼을 누를 경우 프론트 내부적으로 여행 상태를 after로 바꿈 */}
         <PrimaryButton
-          text="지금 시작하기"
+          text="여행 종료하기"
           type="active"
           onClick={() => {
             setTravelState('after');

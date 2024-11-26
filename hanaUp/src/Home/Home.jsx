@@ -42,7 +42,7 @@ const DummyBanner = styled.img`
 `;
 
 const TravelBannerContainer = styled.div`
-  flex-grow: 1;
+  /* flex-grow: 1; */
   width: 100%;
 `;
 
