@@ -7,16 +7,6 @@ const GlobalStyle = createGlobalStyle`
     src: url('/fonts/Pretendard-Bold.ttf');
   }
   @font-face {
-    font-family: 'Pretendard-ExtraBold';
-    font-weight: normal;
-    src: url('/fonts/Pretendard-ExtraBold.ttf');
-  }
-  @font-face {
-    font-family: 'Pretendard-Medium';
-    font-weight: normal;
-    src: url('/fonts/Pretendard-Medium.ttf');
-  }
-  @font-face {
     font-family: 'Pretendard-Regular';
     font-weight: normal;
     src: url('/fonts/Pretendard-Regular.ttf');
@@ -51,10 +41,15 @@ const GlobalStyle = createGlobalStyle`
   .Home, .predictService, .testInputPage, .spendTypeTest, .spendTypeTestPage, .atmPage, .reportPage, .investIntro, .investIntroResult, .newAccount, .exTech, .deleteSavings{
   margin-left: auto;
   margin-right: auto;
+
+  // 레이아웃
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  text-align: center;
   margin: 0;
   min-height: 100vh;
-  max-width: 100vw;
-  max-height: 100vh;
+  background-color: white;
 
    /* 스크롤바 숨기기 */
    &::-webkit-scrollbar {

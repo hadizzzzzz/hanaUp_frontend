@@ -22,6 +22,13 @@ const Container = styled.div`
   }
 
   position: relative;
+
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  overflow-y: scroll;
 `;
 
 const FundSwiperContainer = styled.div`
