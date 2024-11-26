@@ -8,8 +8,6 @@ import { useNavigate } from 'react-router-dom';
 import HighLightText from '../common/HighLightText';
 
 const Container = styled.div`
-  border: 1px solid black;
-
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;

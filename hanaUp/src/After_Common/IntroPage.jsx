@@ -22,7 +22,6 @@ import AddTravelDateToFund from './AddTravelDateToFund';
 import { uid } from '../Recoil/uid';
 
 const Container = styled.div`
-  border: 1px solid black;
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;

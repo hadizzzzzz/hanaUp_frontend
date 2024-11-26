@@ -16,8 +16,6 @@ import { travelInfo } from '../Recoil/travelState';
 import { fundInfoState } from '../Recoil/fundInfo';
 
 const Container = styled.div`
-  border: 1px solid black;
-
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;
@@ -112,7 +110,6 @@ const Home = () => {
   useEffect(() => {
     const fetchTravelStatus = async () => {
       try {
-        setUserId('');
         //  userId 초기화 필요시 사용
         console.log(`${BASE_URL}/api/main/travel-status?userId=${userId}`);
         const res = await axios.get(`${BASE_URL}/api/main/travel-status?userId=${userId}`);

@@ -15,8 +15,6 @@ import { uid } from '../Recoil/uid';
 import { during_travelDetail } from '../Recoil/during_travelDetail';
 
 const Container = styled.div`
-  border: 1px solid black;
-
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;

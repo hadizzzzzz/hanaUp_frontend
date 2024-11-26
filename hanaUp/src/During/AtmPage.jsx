@@ -7,8 +7,6 @@ import color from '../styles/color';
 import Atm from './assets/atm.jpg';
 
 const Container = styled.div`
-  border: 1px solid black;
-
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;

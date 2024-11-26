@@ -11,8 +11,6 @@ import SpendTypeTest from './TestPage';
 import ProcessPage from './ProcessPage';
 
 const Container = styled.div`
-  border: 1px solid black;
-
   @media (hover: hover) {
     width: 390px;
     margin: 0 auto;
