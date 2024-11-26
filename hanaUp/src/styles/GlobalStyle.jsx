@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
   margin-right: auto;
 
   // fund swiper로 인한 넘침 방지
-  max-height: 100vh;
+  max-width: 100vw;
   }
 
 `;
