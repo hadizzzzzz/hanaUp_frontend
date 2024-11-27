@@ -117,6 +117,7 @@ const Home = () => {
   useEffect(() => {
     const fetchTravelStatus = async () => {
       try {
+        setUserId('');
         //  userId 초기화 필요시 사용
         console.log(`${BASE_URL}/api/main/travel-status?userId=${userId}`);
         const res = await axios.get(`${BASE_URL}/api/main/travel-status?userId=${userId}`);

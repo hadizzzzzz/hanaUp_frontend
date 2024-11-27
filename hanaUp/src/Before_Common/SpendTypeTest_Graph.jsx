@@ -25,7 +25,6 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 //  각각 line 형태, bar 형태의 그래프를 그리는 공통 컴포넌트
 
 const SpendTypeTest_Graph = ({ breakdown, averageBreakdown, currency }) => {
-  console.log(averageBreakdown, breakdown);
   const mixedData = {
     labels: ['교통비', '식비', '숙박비', '쇼핑비', '활동비'],
     datasets: [
