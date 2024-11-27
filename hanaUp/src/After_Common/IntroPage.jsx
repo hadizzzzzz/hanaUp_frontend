@@ -358,7 +358,7 @@ const IntroPage = () => {
       <BtnContainer>
         <PrimaryButton
           type="active"
-          text={checkFundsState ? '환테크 시작하기' : '보유 금액 자세히 확인하기'}
+          text={checkFundsState ? '맞춤형 투자 시작하기' : '보유 금액 자세히 확인하기'}
           onClick={checkFundsState ? () => handleCustomInvestment() : () => setModal(true)}
         />
       </BtnContainer>
