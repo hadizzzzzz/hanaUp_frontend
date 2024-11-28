@@ -182,7 +182,7 @@ const Home = () => {
 
   if (fundInfo.length !== 0 && !loading)
     return (
-      <Container className="Home">
+      <Container className="Home" style={{ width: '390px' }}>
         <PrimaryHeader header_title="하나 트래블로그"></PrimaryHeader>
         {/* 초기 띄우는 모달 */}
         <FundSwiperContainer>
