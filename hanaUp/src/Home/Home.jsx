@@ -71,11 +71,13 @@ const Home = () => {
   const showToast = message => {
     const id = Date.now(); // 고유 ID 생성
     setToasts(prevToasts => [...prevToasts, { id, message }]);
+    console.log('toast 보여줌');
 
     setTimeout(() => {
+      console.log('3.3초 끝남');
       setToasts(prevToasts => prevToasts.filter(toast => toast.id !== id));
       navigation(location.pathname, { replace: true, state: null });
-    }, 3300); // Toast의 총 지속 시간 + 애니메이션 시간
+    }, 5000); // Toast의 총 지속 시간 + 애니메이션 시간
   };
 
   // 최초 렌더링시 모달
