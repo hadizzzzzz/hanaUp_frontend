@@ -119,6 +119,8 @@ const DeleteSavings = () => {
 
   const [deleteDone, setDeleteDone] = useState(false);
 
+  console.log(savings);
+
   // POST 외화 예금 해지
   const postDeleteSavings = async () => {
     try {
@@ -157,7 +159,7 @@ const DeleteSavings = () => {
               해지 후 받으시는 금액 (세후)
             </div>
             <div style={{ ...font.header.h1, color: '#2d2d2d', width: '100%' }}>
-              {currencySymbol} {(Number(savings.finalAmount) * 0.8).toLocaleString()}
+              {currencySymbol} {parseInt(Number(savings.finalAmount)).toLocaleString()}
             </div>
           </TextMainContainer>
           <Horizon />
@@ -165,13 +167,13 @@ const DeleteSavings = () => {
             <TextSubDetailContainer>
               <DetailBold style={{ color: '#000000' }}>이자 금액</DetailBold>
               <DetailBold style={{ color: '#009591' }}>
-                {currencySymbol} {savings.interestAmount && savings.interestAmount.toLocaleString()}
+                {currencySymbol} {savings.interestAmount && parseInt(Number(savings.interestAmount)).toLocaleString()}
               </DetailBold>
             </TextSubDetailContainer>
             <TextSubDetailContainer>
               <DetailRegular>해지 원금</DetailRegular>
               <DetailRegular>
-                {currencySymbol} {savings.finalAmount && savings.finalAmount.toLocaleString()}
+                {currencySymbol} {savings.finalAmount && parseInt(Number(savings.originalAmount)).toLocaleString()}
               </DetailRegular>
             </TextSubDetailContainer>
             <TextSubDetailContainer>
