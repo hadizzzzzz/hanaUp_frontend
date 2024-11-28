@@ -293,7 +293,6 @@ const NewAccount = () => {
         amount: parseInt(amount.replace(/,/g, ''), ''), // 예금하고 싶은 금액,
         month: numMonth, // 6, 12 도 가능
       });
-      console.log('ACCOUNT POST 결과', res.data);
 
       const savingRes = await axios.get(
         `${BASE_URL}/api/after-travel/savings-info?userId=${userId}&country=${countryInfo.country_en}`,
