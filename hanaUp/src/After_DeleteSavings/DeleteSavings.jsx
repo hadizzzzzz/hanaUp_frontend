@@ -171,7 +171,7 @@ const DeleteSavings = () => {
             <TextSubDetailContainer>
               <DetailRegular>해지 원금</DetailRegular>
               <DetailRegular>
-                {currencySymbol} {savings.originalAmount && savings.originalAmount.toLocaleString()}
+                {currencySymbol} {savings.finalAmount && savings.finalAmount.toLocaleString()}
               </DetailRegular>
             </TextSubDetailContainer>
             <TextSubDetailContainer>
