@@ -134,7 +134,8 @@ const FundInfoDetail = ({ country_info, amount }) => {
 
 // 총 얼마의 돈이 방치되어 있는지 필요
 // fundInfo 전부
-const Intro_BottomModal = ({ closeModal, changeToCheckFunds, countryFunds }) => {
+const Intro_BottomModal = ({ closeModal, changeToCheckFunds, countryFunds, remainMoney }) => {
+  console.log(remainMoney);
   return (
     <EntireContainer>
       <NoneContainer onClick={closeModal}>
@@ -164,7 +165,7 @@ const Intro_BottomModal = ({ closeModal, changeToCheckFunds, countryFunds }) => 
             <FundInfoDetail />
             <FundInfoDetail />
           </FundInfoDetailContainer>
-          <Msg type="negative" text="총 $ 8,483의 돈이 방치되어 있어요" />
+          <Msg type="negative" text={`총 ${Math.floor(Number(remainMoney)).toLocaleString()}원이 방치되어 있어요`} />
         </FundInfoContainer>
         <PrimaryButton type="active" text="다음" onClick={changeToCheckFunds} />
       </Container>

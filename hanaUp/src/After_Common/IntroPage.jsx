@@ -241,6 +241,7 @@ const IntroPage = () => {
   const navigation = useNavigate();
   const [modalState, setModal] = useState(false);
   const [checkFundsState, setCheckFundsState] = useState(false);
+  const [remainMoney, setRemainMoney] = useState(0);
 
   const userId = useRecoilValue(uid);
 
@@ -303,6 +304,7 @@ const IntroPage = () => {
     try {
       const res = await axios.get(`${BASE_URL}/api/main/fund-info?userId=${userId}`);
       setCountryFunds(AddTravelDateToFund(res.data.countryFunds));
+      setRemainMoney(res.data.remainMoney);
     } catch (error) {
       console.log(error);
     }
@@ -374,6 +376,7 @@ const IntroPage = () => {
           closeModal={closeModal}
           changeToCheckFunds={changeToCheckFunds}
           countryFunds={countryFunds}
+          remainMoney={remainMoney}
         />
       )}
     </Container>
