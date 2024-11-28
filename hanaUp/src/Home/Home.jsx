@@ -16,6 +16,7 @@ import { travelInfo } from '../Recoil/travelState';
 import { fundInfoState } from '../Recoil/fundInfo';
 import { TailSpin } from 'react-loader-spinner';
 import color from '../styles/color';
+import HomeMainModal from './components/HomeMainModal';
 
 const Container = styled.div`
   @media (hover: hover) {
@@ -65,6 +66,7 @@ const Home = () => {
   const [toasts, setToasts] = useState([]);
   const navigation = useNavigate();
   const [loading, setLoading] = useState(true); // 로딩
+  const [modal, setModal] = useState(false);
 
   const [userId, setUserId] = useRecoilState(uid);
   const [travelState, setTravelState] = useRecoilState(travelInfo);
@@ -73,13 +75,15 @@ const Home = () => {
   const showToast = message => {
     const id = Date.now(); // 고유 ID 생성
     setToasts(prevToasts => [...prevToasts, { id, message }]);
-    console.log('toast 보여줌');
 
     setTimeout(() => {
-      console.log('3.3초 끝남');
       setToasts(prevToasts => prevToasts.filter(toast => toast.id !== id));
       navigation(location.pathname, { replace: true, state: null });
     }, 5000); // Toast의 총 지속 시간 + 애니메이션 시간
+  };
+
+  const showModal = () => {
+    setModal(false);
   };
 
   // 최초 렌더링시 모달
@@ -180,9 +184,14 @@ const Home = () => {
     console.log(loading, 'loading값이 바뀜');
   }, [loading]);
 
+  useEffect(() => {
+    if (travelState === 'before') setModal(true);
+  }, [travelState]);
+
   if (fundInfo.length !== 0 && !loading)
     return (
       <Container className="Home" style={{ width: '390px' }}>
+        {modal === true && travelState === 'before' ? <HomeMainModal showModal={showModal} /> : <></>}
         <PrimaryHeader header_title="하나 트래블로그"></PrimaryHeader>
         {/* 초기 띄우는 모달 */}
         <FundSwiperContainer>
