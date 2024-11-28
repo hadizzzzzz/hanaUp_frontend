@@ -259,15 +259,18 @@ const During_ReportPage = () => {
       {travelState === 'during' && toggleState === 1 ? (
         <WrongDirection travelState={travelState} setTravelState={setTravelState} />
       ) : (
-        <ContentContainer>
-          <ReportComponent
-            country={during_travel.destination}
-            day={day}
-            setDayState={setDayState}
-            reportData={travelState === 'during' || toggleState === 0 ? reportData[day - 1] : reportData}
-            toggleState={toggleState}
-          />
-        </ContentContainer>
+        <>
+          <ContentContainer>
+            <ReportComponent
+              country={during_travel.destination}
+              day={day}
+              setDayState={setDayState}
+              reportData={travelState === 'during' || toggleState === 0 ? reportData[day - 1] : reportData}
+              toggleState={toggleState}
+            />
+          </ContentContainer>
+          <BtnContainer />
+        </>
       )}
     </Container>
   );

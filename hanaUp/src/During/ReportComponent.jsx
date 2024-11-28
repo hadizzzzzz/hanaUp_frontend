@@ -26,6 +26,8 @@ const Container = styled.div`
   align-items: center;
   gap: 40px;
   align-self: stretch;
+
+  width: 100%;
 `;
 
 const Title = styled.div`
