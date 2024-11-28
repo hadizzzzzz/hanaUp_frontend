@@ -119,6 +119,10 @@ const Home = () => {
       try {
         // setUserId('');
         //  userId 초기화 필요시 사용
+        setTimeout(() => {
+          console.log('3초 로딩 종료');
+          setLoading(false);
+        }, 3000);
         console.log(`${BASE_URL}/api/main/travel-status?userId=${userId}`);
         const res = await axios.get(`${BASE_URL}/api/main/travel-status?userId=${userId}`);
         // userId가 만료됐으면 이 결과가 error가 날 수 있음...? 이 부분 처리 필요
@@ -139,7 +143,6 @@ const Home = () => {
         const res = await axios.get(`${BASE_URL}/api/main/fund-info?userId=${uid}`);
         console.log('fundInfo 결과', res.data);
         processFundData(res.data);
-        setLoading(false);
       } catch (error) {
         console.log(error);
       }
