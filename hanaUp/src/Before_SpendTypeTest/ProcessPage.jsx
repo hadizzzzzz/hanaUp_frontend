@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import color from '../styles/color';
 import font from '../styles/font';
 import HighLightText from '../common/HighLightText';
-import loading from './assets/loading.jpg';
+import loading from '../../public/img/loading.jpg';
 
 const ContentContainer = styled.div`
   width: 100%;

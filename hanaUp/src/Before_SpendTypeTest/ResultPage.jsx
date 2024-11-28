@@ -12,6 +12,7 @@ import { typeInfo } from '../common/arrays/typeInfo';
 import { useEffect } from 'react';
 import countryInfo from '../common/arrays/countryInfo';
 import PrimaryTag from '../common/PrimaryTag';
+import banner from '../../public/img/banner.jpg';
 
 // 버튼 컨테이너를 제외한 content만의 컨테이너
 const RootContainer = styled.div`
@@ -179,6 +180,7 @@ const ResultPage = () => {
   return (
     <>
       <RootContainer>
+        <img src={banner} style={{ width: '100%' }}></img>
         <ContentContainer>
           <MainText style={{ width: '100%' }}>
             <PrimaryTag text="맞춤형 예측 서비스" />

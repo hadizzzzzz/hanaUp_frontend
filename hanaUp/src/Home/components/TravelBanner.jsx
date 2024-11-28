@@ -1,7 +1,7 @@
 import { useRecoilValue } from 'recoil';
-import after from '../assets/after.jpg';
-import before from '../assets/before.jpg';
-import during from '../assets/during.jpg';
+import after from '../../../public/img/afterBanner.jpg';
+import before from '../../../public/img/beforeBanner.jpg';
+import during from '../../../public/img/duringBanner.jpg';
 import styled from 'styled-components';
 import { travelInfo } from '../../Recoil/travelState';
 import BannerBtn from './BannerBtn';

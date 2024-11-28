@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import PrimaryHeader from '../common/PrimaryHeader';
 import font from '../styles/font';
 import color from '../styles/color';
-import PredictMainImg from './assets/predictMain.jpg';
+import PredictMainImg from '../../public/img/predictMain.jpg';
 import PrimaryButton from '../common/PrimaryButton';
 import { useNavigate } from 'react-router-dom';
 import HighLightText from '../common/HighLightText';

@@ -4,7 +4,7 @@ import PrimaryButton from '../common/PrimaryButton';
 import HighLightText from '../common/HighLightText';
 import font from '../styles/font';
 import color from '../styles/color';
-import Atm from './assets/atm.jpg';
+import Atm from '../../public/img/atm.jpg';
 
 const Container = styled.div`
   @media (hover: hover) {

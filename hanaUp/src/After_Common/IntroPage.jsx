@@ -6,7 +6,7 @@ import { useState } from 'react';
 import color from '../styles/color';
 import { Title } from 'chart.js';
 import PrimaryTag from '../common/PrimaryTag';
-import Coin from './assets/investIntro_coin.jpg';
+import Coin from '../../public/img/investIntro_coin.jpg';
 import font from '../styles/font';
 import DollarBox from '../common/DollarBox';
 import Intro_BottomModal from './components/Intro_BottomModal';

@@ -4,7 +4,7 @@ import PrimaryHeader from '../common/PrimaryHeader';
 import HighLightText from '../common/HighLightText';
 import font from '../styles/font';
 import color from '../styles/color';
-import loading from './assets/loading.jpg';
+import loading from '../../public/img/loadingTicket.jpg';
 import { useLocation } from 'react-router-dom';
 import ResultPage from './ResultPage';
 
