@@ -86,7 +86,6 @@ const SubText = styled.div`
 const WrongDirection = ({ setTravelState }) => {
   return (
     <>
-      {' '}
       <ContentContainer>
         <HighLightText text="아직 여행중이에요" type="long" />
         <SubText>
@@ -260,13 +259,15 @@ const During_ReportPage = () => {
       {travelState === 'during' && toggleState === 1 ? (
         <WrongDirection travelState={travelState} setTravelState={setTravelState} />
       ) : (
-        <ReportComponent
-          country={during_travel.destination}
-          day={day}
-          setDayState={setDayState}
-          reportData={travelState === 'during' || toggleState === 0 ? reportData[day - 1] : reportData}
-          toggleState={toggleState}
-        />
+        <ContentContainer>
+          <ReportComponent
+            country={during_travel.destination}
+            day={day}
+            setDayState={setDayState}
+            reportData={travelState === 'during' || toggleState === 0 ? reportData[day - 1] : reportData}
+            toggleState={toggleState}
+          />
+        </ContentContainer>
       )}
     </Container>
   );
