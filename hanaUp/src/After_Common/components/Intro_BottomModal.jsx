@@ -14,9 +14,11 @@ const EntireContainer = styled.div`
   z-index: 4;
 
   position: absolute;
+  bottom: 0px;
 
   display: flex;
   flex-direction: column;
+  align-self: stretch;
 
   @media (hover: hover) {
     width: 390px;
@@ -135,7 +137,6 @@ const FundInfoDetail = ({ country_info, amount }) => {
 // 총 얼마의 돈이 방치되어 있는지 필요
 // fundInfo 전부
 const Intro_BottomModal = ({ closeModal, changeToCheckFunds, countryFunds, remainMoney }) => {
-  console.log(remainMoney);
   return (
     <EntireContainer>
       <NoneContainer onClick={closeModal}>

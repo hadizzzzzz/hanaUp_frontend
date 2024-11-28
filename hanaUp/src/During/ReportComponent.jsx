@@ -28,6 +28,7 @@ const Container = styled.div`
   align-self: stretch;
 
   width: 100%;
+  flex: 1 0 0;
 `;
 
 const Title = styled.div`
