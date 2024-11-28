@@ -107,18 +107,17 @@ const ExTech = () => {
   // POST: 환율 알림 설정
   const handleChargePost = async () => {
     try {
-      console.log({
-        userId: userId,
-        country: countryInfo.country_en, // 나라 정보
-        amount: Number(amount.replace(/[^0-9]/g, '')),
-      });
+      // console.log({
+      //   userId: userId,
+      //   country: countryInfo.country_en, // 나라 정보
+      //   amount: Number(amount.replace(/[^0-9]/g, '')),
+      // });
       const res = await axios.post(`${BASE_URL}/api/after-travel/forextech`, {
         userId: userId,
         country: countryInfo.country_en, // 나라 정보
         amount: Number(amount.replace(/[^0-9]/g, '')), // 충전하고 싶은 금액
       });
-      const deleteRes = await axios.delete(`${BASE_URL}/api/main/delete-user?userId=${userId}`);
-      console.log('유저 삭제', deleteRes);
+      console.log('환율 알림 설정 결과', res.data);
       setExTechCharge({
         countryInfo: countryInfo,
         basisRate: basisRate,
@@ -126,10 +125,8 @@ const ExTech = () => {
         amount: amount,
         // 다음 화면 ui에서 필요한 정보를 전역으로 관리
       });
-      // setExTechCharge(res.data);
       setToast(true);
       setChargeDone(true);
-      setUserId('');
     } catch (error) {
       console.log(error);
     }
@@ -239,6 +236,7 @@ const ExTech = () => {
                 {
                   state: {
                     toastMessage: '설정한 환율에 맞추어 자동환전이 완료되었습니다.',
+                    type: 'exTech',
                   },
                 },
                 { replace: true },

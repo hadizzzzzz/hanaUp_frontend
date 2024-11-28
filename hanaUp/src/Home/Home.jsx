@@ -80,8 +80,26 @@ const Home = () => {
 
   // 최초 렌더링시 모달
   useEffect(() => {
-    if (location.state) {
+    if (location.state && location.state.toastMessage) {
       showToast(location.state.toastMessage);
+    }
+
+    const deleteUser = async userId => {
+      const res = await axios.delete(`${BASE_URL}/api/main/delete-user?userId=${userId}`);
+      console.log('유저 삭제', userId, res.data);
+    };
+
+    if (location.state) console.log(location.state.type);
+    if (location.state && location.state.type) {
+      // 환테크에서 Home으로 navigate 된 경우 20초 후 자동 새로고침
+      if (location.state.type === 'exTech') {
+        setTimeout(() => {
+          deleteUser(userId);
+          setUserId('');
+          console.log('20초 로딩 종료');
+          window.location.reload();
+        }, 20000); //20초
+      }
     }
   }, []);
 
@@ -119,13 +137,8 @@ const Home = () => {
       try {
         // setUserId('');
         //  userId 초기화 필요시 사용
-        setTimeout(() => {
-          console.log('3초 로딩 종료');
-          setLoading(false);
-        }, 3000);
         console.log(`${BASE_URL}/api/main/travel-status?userId=${userId}`);
         const res = await axios.get(`${BASE_URL}/api/main/travel-status?userId=${userId}`);
-        // userId가 만료됐으면 이 결과가 error가 날 수 있음...? 이 부분 처리 필요
         console.log('travelStatus 결과', res.data);
         if (!userId) {
           setUserId(res.data.uid);
@@ -150,14 +163,20 @@ const Home = () => {
 
     setLoading(true);
     fetchTravelStatus(); // fetchTravelStatus에서 userId를 받아서 바로 fundData도 fetch하도록 변경
+    setTimeout(() => {
+      console.log('3초 로딩 종료');
+      setLoading(false);
+    }, 3000);
   }, []);
 
   // loading 값이 바뀌면 리렌더링하도록
+  useEffect(() => {}, [loading, userId, fundInfo, travelState]);
+
   useEffect(() => {
     console.log(loading, 'loading값이 바뀜');
   }, [loading]);
 
-  if (userId !== '' && fundInfo.length !== 0 && !loading)
+  if (fundInfo.length !== 0 && !loading)
     return (
       <Container className="Home">
         <PrimaryHeader header_title="하나 트래블로그"></PrimaryHeader>
