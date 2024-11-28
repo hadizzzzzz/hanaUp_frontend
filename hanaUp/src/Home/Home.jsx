@@ -14,6 +14,8 @@ import { useRecoilState } from 'recoil';
 import { uid } from '../Recoil/uid';
 import { travelInfo } from '../Recoil/travelState';
 import { fundInfoState } from '../Recoil/fundInfo';
+import { TailSpin } from 'react-loader-spinner';
+import color from '../styles/color';
 
 const Container = styled.div`
   @media (hover: hover) {
@@ -202,7 +204,20 @@ const Home = () => {
       </Container>
     );
   else {
-    return <div>loading...</div>;
+    return (
+      <Container style={{ display: 'flex', height: '100vh', justifyContent: 'center', alignItems: 'center' }}>
+        <TailSpin
+          visible={true}
+          height="80"
+          width="80"
+          color={color.brand.primary}
+          ariaLabel="tail-spin-loading"
+          radius="3"
+          wrapperStyle={{}}
+          wrapperClass=""
+        />
+      </Container>
+    );
   }
 };
 export default Home;
