@@ -90,8 +90,8 @@ const Before_InputPage = () => {
 
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedDate, setSelectedDate] = useState({
-    startDate: '',
-    endDate: '',
+    startDate: new Date(),
+    endDate: new Date(),
   });
   const [selectedType, setSelectedType] = useState('');
 
@@ -115,10 +115,11 @@ const Before_InputPage = () => {
     { value: '혼자', label: '혼자' },
   ];
 
-  const handleDateSelect = range => {
+  const handleDateSelect = ({ newStartDate, newEndDate }) => {
+    console.log(newStartDate, newEndDate);
     setSelectedDate({
-      startDate: range[0].startDate,
-      endDate: range[0].endDate,
+      startDate: newStartDate,
+      endDate: newEndDate,
     });
   };
 

@@ -50,6 +50,7 @@ const SubText = styled.div`
 // startDate, endDate, currency(화폐 단위), country(나라명), amount(예상치)
 // country 영어로 받아야
 const DollarBox = ({ type, isSwiper, startDate, endDate, currency, country, amount, caption }) => {
+  console.log(startDate);
   return (
     <Container isSwiper={isSwiper}>
       <MoneyAmountInteger>
@@ -60,7 +61,7 @@ const DollarBox = ({ type, isSwiper, startDate, endDate, currency, country, amou
         {caption
           ? caption
           : type == 'single'
-          ? `${startDate.getFullYear()}년 ${startDate.getMonth() + 1}월 ${startDate.getDate() + 1}일`
+          ? `${startDate.getFullYear()}년 ${startDate.getMonth() + 1}월 ${startDate.getDate()}일`
           : `${startDate.toLocaleDateString()}~${endDate.toLocaleDateString()}의 여행`}
         {/* 일단 주석 처리 */}
       </SubText>

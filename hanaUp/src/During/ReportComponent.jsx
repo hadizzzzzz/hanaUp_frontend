@@ -123,10 +123,10 @@ const ReportComponent = ({ country, day, reportData, setDayState, toggleState })
   const travelState = useRecoilValue(travelInfo);
 
   function addDaysToDate(baseDate, daysToAdd) {
-    console.log(baseDate, daysToAdd);
+    console.log('baseDate', baseDate, 'Days', daysToAdd);
     const newDate = new Date(baseDate); // 원본 객체를 복사
-    newDate.setDate(newDate.getDate() + daysToAdd);
-    console.log(newDate);
+    console.log(newDate.getDate());
+    newDate.setDate(newDate.getDate() + (daysToAdd - 1));
     return newDate;
   }
 

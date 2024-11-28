@@ -88,10 +88,11 @@ const InputPage_DatePicker = ({ onChange }) => {
   };
 
   const handleDateClick = item => {
+    console.log(item);
     if (isFirst) setIsFirst(!isFirst);
     setRange([item.selection]);
 
-    if (onChange) onChange([item.selection]);
+    if (onChange) onChange({ newStartDate: item.selection.startDate, newEndDate: item.selection.endDate });
   };
 
   const renderContent = () => {
