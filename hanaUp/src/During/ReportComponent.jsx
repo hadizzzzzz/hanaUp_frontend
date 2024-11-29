@@ -202,11 +202,15 @@ const ReportComponent = ({ country, day, reportData, setDayState, toggleState })
           ) : (
             <></>
           )}
-          <PrimaryBanner
-            caption="여행자 보험에 가입했다면?"
-            text="영수증 자동 제출로 보험비 청구하기"
-            btnText="청구하기"
-          />
+          {toggleState === 1 && travelState === 'after' ? (
+            <PrimaryBanner
+              caption="여행자 보험에 가입했다면?"
+              text="영수증 자동 제출로 보험비 청구하기"
+              btnText="청구하기"
+            />
+          ) : (
+            <></>
+          )}
         </Container>
       );
   }
