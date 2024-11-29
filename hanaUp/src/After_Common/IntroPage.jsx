@@ -22,10 +22,8 @@ import AddTravelDateToFund from './AddTravelDateToFund';
 import { uid } from '../Recoil/uid';
 
 const Container = styled.div`
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
@@ -150,10 +148,8 @@ const RadioFundsContainer = styled.div`
 `;
 
 const Overlay = styled.div`
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   height: 100vh;
   width: 100%;

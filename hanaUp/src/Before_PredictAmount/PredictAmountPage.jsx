@@ -9,10 +9,8 @@ import { useLocation } from 'react-router-dom';
 import ResultPage from './ResultPage';
 
 const Container = styled.div`
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;

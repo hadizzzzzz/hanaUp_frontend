@@ -7,10 +7,8 @@ import color from '../styles/color';
 import Atm from '../../public/img/atm.jpg';
 
 const Container = styled.div`
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;

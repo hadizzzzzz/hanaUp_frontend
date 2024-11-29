@@ -19,10 +19,8 @@ import BoltIcn from './assets/Icn_3_bolt.png';
 import SackDollarIcn from './assets/Icn_4_sackDollar.png';
 
 const Container = styled.div`
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;

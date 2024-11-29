@@ -18,10 +18,8 @@ const Container = styled.div`
   z-index: 5;
   transform: bottom 1s ease-in-out;
 
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   position: absolute;
   bottom: 0px;
@@ -129,7 +127,7 @@ const NewAccount_DoneModal = ({ closeModal, month, interestRate }) => {
           </EachContentContainer>
           <EachContentContainer>
             <Icn src={Icn_GetCoin} />
-            <IcnText>중도 해제 시, 이율 감소</IcnText>
+            <IcnText>중도 해지 시, 이율 감소</IcnText>
           </EachContentContainer>
           <EachContentContainer>
             <Icn src={Icn_Bolt} />

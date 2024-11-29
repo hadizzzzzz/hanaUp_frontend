@@ -22,10 +22,8 @@ const EntireContainer = styled.div`
   justify-content: center;
   align-self: stretch;
 
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 `;
 
 const NoneContainer = styled.div`
@@ -47,10 +45,8 @@ const Container = styled.div`
   z-index: 5;
   transform: bottom 1s ease-in-out;
 
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   bottom: 0px;
 

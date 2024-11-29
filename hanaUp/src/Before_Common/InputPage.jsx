@@ -18,10 +18,8 @@ import { uid } from '../Recoil/uid';
 import countryInfo from '../common/arrays/countryInfo';
 
 const Container = styled.div`
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;

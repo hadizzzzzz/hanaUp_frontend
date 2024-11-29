@@ -20,10 +20,8 @@ import { uid } from '../Recoil/uid';
 import { useEffect } from 'react';
 
 const Container = styled.div`
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   display: flex;
   flex-direction: column;
@@ -68,10 +66,8 @@ const BtnContainer = styled.div`
 
 // 모달
 const Overlay = styled.div`
-  @media (hover: hover) {
-    width: 390px;
-    margin: 0 auto;
-  }
+  width: 390px;
+  margin: 0 auto;
 
   height: 100vh;
   width: 100%;
