@@ -93,7 +93,7 @@ const Horizon = styled.div`
 `;
 
 // reportData를 받아 알맞게 그래프와 결과를 띄우기 위한 함수
-const processReportData = reportData => {
+const processReportData = (reportData, toggleState) => {
   const rawReportData = [
     { name: '교통비', name_en: 'transport', value: '', color: '#01BABD', ratio: '' },
     { name: '식비', name_en: 'food', value: '', color: '#46D7C2', ratio: '' },
@@ -106,9 +106,25 @@ const processReportData = reportData => {
   // breakdown 값들을 배열로 변형
   const valuesArray = [];
   let totalValue = 0;
+
   for (let key in breakdown) {
     valuesArray.push(breakdown[key]);
     totalValue += breakdown[key];
+  }
+
+  // toggleState가 1일 때 병원비를 추가
+  if (toggleState === 1) {
+    const hospitalValue = Math.round(totalValue * 0.1); // 병원비는 전체의 10%
+    rawReportData.push({
+      name: '병원비',
+      name_en: 'hospital',
+      value: hospitalValue,
+      color: '#ffe6fe',
+      ratio: '',
+    });
+
+    totalValue += hospitalValue; // 총합 업데이트
+    valuesArray.push(hospitalValue);
   }
 
   const processedReportData = rawReportData.map((item, index) => {
@@ -151,7 +167,7 @@ const ReportComponent = ({ country, day, reportData, setDayState, toggleState })
   }
 
   if (reportData) {
-    const { processedReportData, totalValue } = processReportData(reportData);
+    const { processedReportData, totalValue } = processReportData(reportData, toggleState);
 
     if (during_travelDetailInfo)
       return (
@@ -197,11 +213,6 @@ const ReportComponent = ({ country, day, reportData, setDayState, toggleState })
             {processedReportData.map(item => (
               <ReportComponent_Detail {...item} colorIndp={item.color} />
             ))}
-            {travelState === 'after' && toggleState === 1 ? (
-              <ReportComponent_Detail name="병원비" value="12,642" ratio="5" colorIndp={'#ffe6fe'} />
-            ) : (
-              <></>
-            )}
           </DetailContainer>
           {toggleState === 1 && travelState === 'after' ? (
             <>

@@ -411,9 +411,9 @@ const NewAccount = () => {
         <TextInputContainer>
           <SmallTitle>저축 금액</SmallTitle>
           <Input_Text
-            placeholder={`하나머니 잔액: ${Number(investMethodInfo.balance).toFixed(0)} ${countryInfo.currency_code}${
-              countryInfo.country_en !== 'Japan' ? '' : '(100)'
-            }`}
+            placeholder={`하나머니 잔액: ${parseInt(investMethodInfo.balance).toLocaleString()} ${
+              countryInfo.currency_code
+            }${countryInfo.country_en !== 'Japan' ? '' : '(100)'}`}
             currency_code={countryInfo.currency_code}
             onInput={setAmount}
           />

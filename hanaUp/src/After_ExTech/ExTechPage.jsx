@@ -172,9 +172,9 @@ const ExTech = () => {
           <TextInputContainer>
             <SmallTitle>자동으로</SmallTitle>
             <InputPage_Dropdown
-              placeholder={`하나머니 잔액: ${Number(investMethodInfo.balance).toFixed(0)} ${countryInfo.currency_code}${
-                countryInfo.country_en !== 'Japan' ? '' : '(100)'
-              }`}
+              placeholder={`하나머니 잔액: ${parseInt(investMethodInfo.balance).toLocaleString()} ${
+                countryInfo.currency_code
+              }${countryInfo.country_en !== 'Japan' ? '' : '(100)'}`}
               options={countryChargeOptions[countryInfo.country_en]}
               onChange={setAmount}
               basisRate={
