@@ -87,7 +87,10 @@ const InputPage_Dropdown = ({ type, options, placeholder, onChange, basisRate, c
   const handleOptionClick = value => {
     setSelectedValue(value); // 선택된 값 업데이트
     setIsOpen(false); // 드롭다운 닫기
-    if (onChange) onChange(value); // 부모 컴포넌트로 값 전달
+    if (onChange) {
+      console.log('전달', value);
+      onChange(value);
+    } // 부모 컴포넌트로 값 전달
   };
 
   // 드롭다운 외부 클릭 시 닫기

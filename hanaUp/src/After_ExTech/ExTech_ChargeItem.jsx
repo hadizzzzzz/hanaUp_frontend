@@ -22,6 +22,8 @@ const RowContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
+
+  gap: 10px;
 `;
 
 const Icn = styled.img`
@@ -41,7 +43,7 @@ const ChangeWrapper = styled.div`
   justify-content: flex-end;
   height: 100%;
 
-  padding-right: 10px;
+  padding: 8px;
   word-break: keep-all;
 `;
 
@@ -61,7 +63,12 @@ const ExTech_ChargeItem = ({ countryInfo, basisRate, duration, amount }) => {
       <RowContainer>
         <ChargeContentWrapper>
           {basisRate}원 이하가 되면
-          <br /> {duration === '한 번만 충전' ? '한 번만' : '도달할 때마다'}{' '}
+          <br />{' '}
+          {duration === '한번만 충전'
+            ? '한 번만'
+            : `도달할 때마다
+          `}{' '}
+          <br />
           <span style={{ color: color.brand.primary }}>{amount}</span> 충전
         </ChargeContentWrapper>
         <ChangeWrapper>

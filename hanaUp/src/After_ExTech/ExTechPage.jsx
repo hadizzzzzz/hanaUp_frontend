@@ -17,6 +17,7 @@ import ExTech_ChargeItem from './ExTech_ChargeItem';
 import Toast from '../common/Toast';
 import countryChargeOptions from '../common/arrays/countryChargeOptions';
 import { uid } from '../Recoil/uid';
+import { useEffect } from 'react';
 
 const Container = styled.div`
   @media (hover: hover) {
@@ -100,6 +101,14 @@ const ExTech = () => {
     { label: '한 번만 충전', value: '한번만 충전' },
     { label: '도달할 때마다 충전', sublabel: '(하루 한번)', value: '도달할 때마다 충전(하루 한번)' },
   ];
+  const setDurationChange = value => {
+    console.log('변경', value);
+    setDuration(value);
+  };
+
+  useEffect(() => {
+    console.log(duration);
+  }, [duration]);
 
   // 환율 알림 설정 관리
   const [exTechCharge, setExTechCharge] = useRecoilState(after_exTechCharges);
@@ -178,7 +187,11 @@ const ExTech = () => {
           </TextInputContainer>
           <TextInputContainer>
             <SmallTitle>기간 선택</SmallTitle>
-            <InputPage_Dropdown placeholder="만기 시 재예치 방식" options={durationOptions} onChange={setDuration} />
+            <InputPage_Dropdown
+              placeholder="만기 시 재예치 방식"
+              options={durationOptions}
+              onChange={setDurationChange}
+            />
           </TextInputContainer>
           <TextInputContainer>
             <SmallTitle>충전 방식</SmallTitle>
@@ -222,7 +235,7 @@ const ExTech = () => {
           <ExTech_ChargeItem
             countryInfo={exTechCharge.countryInfo}
             basisRate={exTechCharge.basisRate}
-            duration={exTechCharge.duration}
+            duration={duration}
             amount={exTechCharge.amount}
           />
         </ContentContainer>
