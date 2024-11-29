@@ -39,9 +39,9 @@ const ChargeContentWrapper = styled.div`
 
 const ChangeWrapper = styled.div`
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: flex-end;
+  flex-direction: row;
+  justify-content: end;
+  align-items: end;
   height: 100%;
 
   word-break: keep-all;
@@ -73,7 +73,12 @@ const ExTech_ChargeItem = ({ countryInfo, basisRate, duration, amount }) => {
         </ChargeContentWrapper>
         <ChangeWrapper>
           <LinearGradient
-            style={{ ...font.button.b1, wordBreak: 'keep-all', cursor: 'pointer' }}
+            style={{
+              ...font.button.b1,
+              wordBreak: 'keep-all',
+              cursor: 'pointer',
+              height: 'auto',
+            }}
             gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}
           >
             변경
