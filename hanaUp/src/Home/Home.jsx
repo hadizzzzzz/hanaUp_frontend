@@ -65,6 +65,7 @@ const Home = () => {
   const navigation = useNavigate();
   const [loading, setLoading] = useState(true); // 로딩
   const [modal, setModal] = useState(false);
+  const [firstCountry, setFirstCountry] = useState(''); // fund info에서 가장 먼저 띄워야 하는 나라 정보
 
   const [userId, setUserId] = useRecoilState(uid);
   const [travelState, setTravelState] = useRecoilState(travelInfo);
@@ -84,6 +85,33 @@ const Home = () => {
     setModal(false);
   };
 
+  // 이미지 미리 로드
+  const preloadImages = () => {
+    const imagePaths = [
+      '/img/travelTypes/EFMEJ.jpg',
+      '/img/travelTypes/EFMEP.jpg',
+      '/img/travelTypes/EFPHJ.jpg',
+      '/img/travelTypes/ETPHP.jpg',
+      '/img/travelTypes/ETMEJ.jpg',
+      '/img/travelTypes/ETMEP.jpg',
+      '/img/travelTypes/ETPHJ.jpg',
+      '/img/travelTypes/ETPHP.jpg',
+      '/img/travelTypes/IFMEJ.jpg',
+      '/img/travelTypes/IFMEP.jpg',
+      '/img/travelTypes/IFPHJ.jpg',
+      '/img/travelTypes/IFPHP.jpg',
+      '/img/travelTypes/ITMEJ.jpg',
+      '/img/travelTypes/ITMEP.jpg',
+      '/img/travelTypes/ITPHJ.jpg',
+      '/img/travelTypes/ITPHP.jpg',
+    ];
+
+    imagePaths.forEach(path => {
+      const img = new Image();
+      img.src = path;
+    });
+  };
+
   // 최초 렌더링시 모달
   useEffect(() => {
     if (location.state && location.state.toastMessage) {
@@ -95,7 +123,6 @@ const Home = () => {
       console.log('유저 삭제', userId, res.data);
     };
 
-    if (location.state) console.log(location.state.type);
     if (location.state && location.state.type) {
       // 환테크에서 Home으로 navigate 된 경우 20초 후 자동 새로고침
       if (location.state.type === 'exTech') {
@@ -106,6 +133,9 @@ const Home = () => {
           window.location.reload();
         }, 20000); //20초
       }
+    }
+    if (location.state && location.state.firstSortCountry) {
+      setFirstCountry(location.state.firstSortCountry);
     }
   }, []);
 
@@ -169,6 +199,7 @@ const Home = () => {
 
     setLoading(true);
     fetchTravelStatus(); // fetchTravelStatus에서 userId를 받아서 바로 fundData도 fetch하도록 변경
+    preloadImages(); // PUBLIC 파일을 미리 로드
     setTimeout(() => {
       console.log('3초 로딩 종료');
       setLoading(false);
@@ -194,7 +225,9 @@ const Home = () => {
         {/* 초기 띄우는 모달 */}
         <FundSwiperContainer>
           {/* fundSwiper에서 초기 여행 상태값 */}
-          <FundSwiper />
+          <FundSwiper
+            firstCountry={location.state && location.state.firstSortCountry && location.state.firstSortCountry}
+          />
         </FundSwiperContainer>
         <DummyBanner src={banner} />
         <TravelBannerContainer>

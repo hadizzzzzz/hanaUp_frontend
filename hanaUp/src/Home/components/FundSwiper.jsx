@@ -16,11 +16,8 @@ import { uid } from '../../Recoil/uid';
 
 // swiper 내부에서 api 호출하여 전역으로 상태 관리
 
-const FundSwiper = () => {
-  const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-  const fundInfo = useRecoilValue(fundInfoState);
-  const userId = useRecoilValue(uid);
+const FundSwiper = ({ firstCountry }) => {
+  const [fundInfo, setFundInfo] = useRecoilState(fundInfoState);
 
   const swiperRef = useRef(null);
 
@@ -29,6 +26,16 @@ const FundSwiper = () => {
       swiperRef.current.update(); // Swiper 상태 업데이트
     }
   }, [fundInfo]);
+
+  const getProcessedFundInfo = () => {
+    if (firstCountry) {
+      console.log(firstCountry);
+      const matchedInfo = fundInfo.filter(item => item && item.country === firstCountry);
+      const others = fundInfo.filter(item => item && item.country !== firstCountry);
+      console.log([...matchedInfo, ...others]);
+      return [...matchedInfo, ...others];
+    } else return fundInfo;
+  };
 
   if (fundInfo.length != 0) {
     return (
@@ -40,7 +47,7 @@ const FundSwiper = () => {
         centeredSlides={false}
         className="mySwiper"
       >
-        {fundInfo.map(item => {
+        {getProcessedFundInfo().map(item => {
           if (item && item.country)
             // foreignSavings가 존재하지 않는 경우
             return (

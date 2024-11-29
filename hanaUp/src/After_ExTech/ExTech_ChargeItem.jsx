@@ -20,7 +20,6 @@ const Container = styled.div`
 const RowContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  align-items: center;
   align-self: stretch;
 
   gap: 10px;
@@ -35,15 +34,16 @@ const ChargeContentWrapper = styled.div`
   text-align: left;
   ${font.header.h2};
   color: ${color.grayscale.gray8};
+  height: 100%;
 `;
 
 const ChangeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  align-items: center;
   height: 100%;
 
-  padding: 8px;
   word-break: keep-all;
 `;
 

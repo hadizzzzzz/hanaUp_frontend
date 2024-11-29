@@ -437,7 +437,14 @@ const NewAccount = () => {
           }}
         />
       )}
-      {modalState && <NewAccount_DoneModal closeModal={closeModal} month={month} interestRate={interestRate[month]} />}
+      {modalState && (
+        <NewAccount_DoneModal
+          closeModal={closeModal}
+          month={month}
+          interestRate={interestRate[month]}
+          country={countryInfo.country_en}
+        />
+      )}
       <BtnContainer>
         <PrimaryButton
           type={process != 2 || (month != '' && amount != '' && settings != '') ? 'active' : 'inactive'} // input 관리에 따라 달라져야 함

@@ -89,7 +89,7 @@ const BtnContainer = styled.div`
 
 // 가입 기간
 // 선택한 기간에 대한 금리 정보
-const NewAccount_DoneModal = ({ closeModal, month, interestRate }) => {
+const NewAccount_DoneModal = ({ closeModal, month, interestRate, country }) => {
   const navigation = useNavigate();
   const [toasts, setToasts] = useState([]);
 
@@ -109,6 +109,7 @@ const NewAccount_DoneModal = ({ closeModal, month, interestRate }) => {
       {
         state: {
           toastMessage: '다통화 외화예금에 가입되었습니다.\n이자로 추가 수익을 노려보세요.',
+          firstSortCountry: country,
         },
       },
       { replace: true },

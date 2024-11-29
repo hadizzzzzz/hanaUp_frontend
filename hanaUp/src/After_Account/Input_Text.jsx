@@ -23,6 +23,7 @@ const Container = styled.div`
 `;
 
 const InnerInput = styled.input`
+  width: 100%;
   height: 100%;
   text-decoration: none;
   border: none;
@@ -51,8 +52,6 @@ const Input_Text = ({ placeholder, currency_code, onInput }) => {
     input = Number(input).toLocaleString();
     spanRef.current.textContent = `${input}${currency_code}`;
     setValue(`${input} ${currency_code}`);
-    const spanWidth = spanRef.current.offsetWidth;
-    inputRef.current.style.width = `${spanWidth + 10}px`;
 
     // 부모에 전달
     onInput(input);

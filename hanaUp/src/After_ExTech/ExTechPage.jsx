@@ -248,6 +248,7 @@ const ExTech = () => {
                   state: {
                     toastMessage: '설정한 환율에 맞추어 자동환전이 완료되었습니다.',
                     type: 'exTech',
+                    firstSortCountry: exTechCharge.countryInfo.country_en,
                   },
                 },
                 { replace: true },
