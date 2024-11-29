@@ -41,7 +41,7 @@ const ChangeWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
+  align-items: flex-end;
   height: 100%;
 
   word-break: keep-all;
