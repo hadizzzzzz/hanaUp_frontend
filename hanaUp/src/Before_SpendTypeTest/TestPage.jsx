@@ -255,7 +255,7 @@ const TestPage = () => {
             <TitleHeaderContainer>
               <CustomProgressBar percent={(answerCount / 12) * 100} />
               <TitleContainer>
-                <Chip type="color" text="chip" />
+                <Chip type="color" text="나의 여행 스타일은?" />
                 {testQuestions[questionType][questionTypeIndex]}
               </TitleContainer>
             </TitleHeaderContainer>

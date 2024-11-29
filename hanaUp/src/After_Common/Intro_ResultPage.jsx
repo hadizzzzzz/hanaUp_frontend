@@ -29,6 +29,11 @@ const Container = styled.div`
   align-items: flex-start;
 
   overflow: scroll;
+
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const LoadingContentContainer = styled.div`
@@ -54,6 +59,11 @@ const ContentContainer = styled.div`
   gap: 30px;
 
   overflow: scroll;
+
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const MainText = styled.div`
@@ -109,6 +119,11 @@ const ResultContentContainer = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 40px;
+
+  /* 스크롤바 숨기기 */
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const SingleContentContainer = styled.div`

@@ -227,6 +227,7 @@ const NewAccount = () => {
   const location = useLocation();
   const { selectedFundInfo, investMethodInfo, countryInfo } = location.state;
 
+  console.log(investMethodInfo);
   // 예금 상품 가입시 받은 res를 저장하여 전역 관리
   const [newAccountInfo, setNewAccountInfo] = useRecoilState(after_newAccountInfo);
 
@@ -410,7 +411,9 @@ const NewAccount = () => {
         <TextInputContainer>
           <SmallTitle>저축 금액</SmallTitle>
           <Input_Text
-            placeholder={`1 ${countryInfo.currency_code}`}
+            placeholder={`하나머니 잔액: ${Number(investMethodInfo.balance).toFixed(0)} ${countryInfo.currency_code}${
+              countryInfo.country_en !== 'Japan' ? '' : '(100)'
+            }`}
             currency_code={countryInfo.currency_code}
             onInput={setAmount}
           />

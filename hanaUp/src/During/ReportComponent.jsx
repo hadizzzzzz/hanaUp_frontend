@@ -18,6 +18,9 @@ import countryInfo from '../common/arrays/countryInfo';
 import ReportComponent_Detail from './ReportComponent_Detail';
 import { useRecoilValue } from 'recoil';
 import { travelInfo } from '../Recoil/travelState';
+import PrimaryTag from '../common/PrimaryTag';
+import PrimaryBanner from '../common/PrimaryBanner';
+
 const Container = styled.div`
   display: flex;
   padding: 20px;
@@ -75,14 +78,20 @@ const DetailContainer = styled.div`
   align-self: stretch;
 `;
 
+const Horizon = styled.div`
+  width: 100%;
+  height: 1px;
+  background-color: #ededed;
+`;
+
 // reportData를 받아 알맞게 그래프와 결과를 띄우기 위한 함수
 const processReportData = reportData => {
   const rawReportData = [
     { name: '교통비', name_en: 'transport', value: '', color: '#01BABD', ratio: '' },
     { name: '식비', name_en: 'food', value: '', color: '#46D7C2', ratio: '' },
-    { name: '쇼핑비', name_en: 'shopping', value: '', color: '#FFD200', ratio: '' },
-    { name: '활동비', name_en: 'activities', value: '', color: '#E0E0E0', ratio: '' },
-    { name: '병원비', name_en: 'hospital', value: '', color: '#40A0C9', ratio: '' },
+    { name: '숙박비', name_en: 'hotel', value: '', color: '#FFD200', ratio: '' },
+    { name: '쇼핑비', name_en: 'shopping', value: '', color: '#E0E0E0', ratio: '' },
+    { name: '활동비', name_en: 'activities', value: '', color: '#40A0C9', ratio: '' },
   ];
 
   const breakdown = reportData.breakdown;
@@ -180,7 +189,24 @@ const ReportComponent = ({ country, day, reportData, setDayState, toggleState })
             {processedReportData.map(item => (
               <ReportComponent_Detail {...item} colorIndp={item.color} />
             ))}
+            {travelState === 'after' && toggleState === 1 ? (
+              <ReportComponent_Detail name="병원비" value="12,642" ratio="5" colorIndp={'#ffe6fe'} />
+            ) : (
+              <></>
+            )}
           </DetailContainer>
+          {toggleState === 1 && travelState === 'after' ? (
+            <>
+              <Horizon></Horizon>
+            </>
+          ) : (
+            <></>
+          )}
+          <PrimaryBanner
+            caption="여행자 보험에 가입했다면?"
+            text="영수증 자동 제출로 보험비 청구하기"
+            btnText="청구하기"
+          />
         </Container>
       );
   }

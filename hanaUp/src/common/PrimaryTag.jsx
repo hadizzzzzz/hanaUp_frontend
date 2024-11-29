@@ -19,6 +19,7 @@ const Text = styled.div`
   color: ${color.brand.grad};
   font-family: 'Pretendard-Semibold';
   font-size: 15px;
+  ${font.caption.cap3B};
 `;
 
 const Icn = styled.img`

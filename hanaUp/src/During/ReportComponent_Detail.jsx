@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import font from '../styles/font';
 import color from '../styles/color';
+import PrimaryTag from '../common/PrimaryTag';
 
 const ReportDetailContainer = styled.div`
   display: flex;
@@ -9,6 +10,14 @@ const ReportDetailContainer = styled.div`
   align-self: stretch;
 
   width: 100%;
+`;
+
+const TitleWithTag = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4px;
 `;
 
 const TitleContainer = styled.div`
@@ -50,18 +59,24 @@ const ExpenseText = styled.div`
   line-height: 28px; /* 175% */
 `;
 
-const ReportComponent_Detail = ({ name, value, colorIndp, ratio }) => {
+const ReportComponent_Detail = ({ type, name, value, colorIndp, ratio }) => {
   return (
-    <ReportDetailContainer>
-      <TitleContainer>
-        <TitleColorIcn color={colorIndp} />
-        <TitleText>{name}</TitleText>
-      </TitleContainer>
-      <ExpenseContainer>
-        <ExpenseText style={{}}>{value && value.toLocaleString()}원</ExpenseText>
-        <div style={{ ...font.caption.cap2R, color: color.grayscale.gray8 }}>{ratio}%</div>
-      </ExpenseContainer>
-    </ReportDetailContainer>
+    <>
+      <ReportDetailContainer>
+        <TitleWithTag>
+          {name === '병원비' ? <PrimaryTag text="원클릭 보험비 청구하기" /> : <></>}
+          <TitleContainer>
+            <TitleColorIcn color={colorIndp} />
+            <TitleText>{name}</TitleText>
+          </TitleContainer>
+        </TitleWithTag>
+
+        <ExpenseContainer>
+          <ExpenseText style={{}}>{value && value.toLocaleString()}원</ExpenseText>
+          <div style={{ ...font.caption.cap2R, color: color.grayscale.gray8 }}>{ratio}%</div>
+        </ExpenseContainer>
+      </ReportDetailContainer>
+    </>
   );
 };
 
