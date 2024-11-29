@@ -26,7 +26,7 @@ const CustomTooltip = ({ active, payload, total }) => {
 
 const ReportComponent_Graph = ({ totalValue, processedReportData }) => {
   return (
-    <PieChart width={200} height={200} margin={0}>
+    <PieChart width={390} height={200} margin={0}>
       <Pie
         data={processedReportData}
         dataKey="value"
