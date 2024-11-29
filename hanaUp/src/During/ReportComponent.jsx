@@ -33,7 +33,7 @@ const Container = styled.div`
   width: 100%;
   flex: 1 0 0;
 
-  border: 1px solid black;
+  border: 1px solid transparent;
 `;
 
 const Title = styled.div`
@@ -79,7 +79,7 @@ const DetailContainer = styled.div`
   gap: 10px;
   align-self: stretch;
 
-  border: 1px solid yellow;
+  border: 1px solid transparent;
 `;
 
 const Horizon = styled.div`
