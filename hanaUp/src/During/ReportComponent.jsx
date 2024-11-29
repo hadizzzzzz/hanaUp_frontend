@@ -23,7 +23,8 @@ import PrimaryBanner from '../common/PrimaryBanner';
 
 const Container = styled.div`
   display: flex;
-  padding: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -41,6 +42,9 @@ const Title = styled.div`
   justify-content: space-between;
   align-items: flex-end;
   align-self: stretch;
+
+  padding-top: 20px;
+  padding-left: 10px;
 `;
 
 const TitleText = styled.div`
