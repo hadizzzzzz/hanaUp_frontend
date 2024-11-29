@@ -119,8 +119,6 @@ const DeleteSavings = () => {
 
   const [deleteDone, setDeleteDone] = useState(false);
 
-  console.log(savings);
-
   // POST 외화 예금 해지
   const postDeleteSavings = async () => {
     try {
@@ -167,7 +165,7 @@ const DeleteSavings = () => {
             <TextSubDetailContainer>
               <DetailBold style={{ color: '#000000' }}>이자 금액</DetailBold>
               <DetailBold style={{ color: '#009591' }}>
-                {currencySymbol} {savings.interestAmount && parseInt(Number(savings.interestAmount)).toLocaleString()}
+                {currencySymbol} {savings.interestAmount}
               </DetailBold>
             </TextSubDetailContainer>
             <TextSubDetailContainer>
