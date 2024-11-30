@@ -58,6 +58,7 @@ const BtnContainer = styled.div`
   padding: 20px;
   padding-top: 10px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;

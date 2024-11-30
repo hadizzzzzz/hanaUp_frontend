@@ -95,14 +95,14 @@ const FixedHeaderContainer = styled.div`
 `;
 
 const FixedBtnContainer = styled.div`
-  width: 385px;
+  width: 388px;
   display: flex;
   padding: 20px;
+  padding-top: 10px;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   gap: 20px;
-  align-self: stretch;
 
   position: fixed;
   bottom: 0px;
