@@ -14,17 +14,14 @@ import exchangeRates from '../common/arrays/exchangeRates';
 
 const Container = styled.div`
   background-color: ${color.grayscale.white};
-  margin: 0 auto;
   height: auto;
   overflow: hidden;
   bottom: 0px;
   z-index: 5;
   transform: bottom 1s ease-in-out;
 
-  @media (hover: hover) {
-    width: 389.5px;
-    margin: 0 auto;
-  }
+  width: 389.5px;
+  margin: 0 auto;
 
   position: absolute;
   bottom: 0px;
