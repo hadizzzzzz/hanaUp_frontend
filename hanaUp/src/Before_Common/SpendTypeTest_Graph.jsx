@@ -81,7 +81,7 @@ const SpendTypeTest_Graph = ({ breakdown, averageBreakdown, currency }) => {
       y: {
         ticks: {
           callback: function (value) {
-            return `${currency} ` + value; // 결과: "1000 원"
+            return `${currency} ` + Number(value).toLocaleString(); // 결과: "1000 원"
           },
         },
         display: true,
@@ -101,10 +101,30 @@ const SpendTypeTest_Graph = ({ breakdown, averageBreakdown, currency }) => {
           borderRadius: 5,
           padding: 15,
         },
-        title: {
-          display: true,
-          color: '#757575',
-          padding: 0,
+      },
+      tooltip: {
+        enabled: true,
+        backgroundColor: '#fff',
+        borderColor: '#46D7C2',
+        borderWidth: 1,
+        titleColor: '#333',
+        bodyColor: color.grayscale.gray8,
+        bodyFont: {
+          size: 11,
+        },
+        titleFont: {
+          size: 13,
+        },
+        titleMarginBottom: 8,
+        cornerRadius: 8,
+        padding: 10,
+        boxPadding: 5,
+        displayColors: false, // 툴팁 아이콘 비활성화
+        callbacks: {
+          label: function (context) {
+            const value = context.raw;
+            return `${context.dataset.label}: ${Number(value).toLocaleString()} ${currency}`;
+          },
         },
       },
     },

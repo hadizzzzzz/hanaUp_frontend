@@ -30,6 +30,8 @@ const MoneyAmountInteger = styled.div`
   ${font.header.h1};
   letter-spacing: -1.08px;
   position: relative;
+
+  z-index: 0;
 `;
 
 const IcnContainer = styled.img`

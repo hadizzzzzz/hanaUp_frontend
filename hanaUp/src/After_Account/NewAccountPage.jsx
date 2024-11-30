@@ -45,11 +45,12 @@ const ContentContainer = styled.div`
       : props.process === 0
       ? css`
           padding: 20px;
+          padding-top: 5px;
           gap: 10px;
         `
       : css`
           gap: 40px;
-          padding: 40px;
+          padding: 20px;
         `}
 `;
 
@@ -81,13 +82,14 @@ const ImgsContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: center;
+  align-items: center;
   gap: 10px;
   padding: 5px;
 `;
 
 const Imgs = styled.img`
-  width: 100%;
+  width: 90%;
   object-fit: cover;
 `;
 
@@ -98,7 +100,7 @@ const RegisterContentContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: flex-start;
   gap: 15px;
 `;

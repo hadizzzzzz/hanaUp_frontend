@@ -29,7 +29,6 @@ const FundSwiper = ({ firstCountry }) => {
 
   const getProcessedFundInfo = () => {
     if (firstCountry) {
-      console.log(firstCountry);
       const matchedInfo = fundInfo.filter(item => item && item.country === firstCountry);
       const others = fundInfo.filter(item => item && item.country !== firstCountry);
       console.log([...matchedInfo, ...others]);

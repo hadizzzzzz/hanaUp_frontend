@@ -229,7 +229,7 @@ const Intro_ResultPage = () => {
       {isLoading ? (
         <PrimaryHeader header_title={'맞춤형 진단'} />
       ) : (
-        <FixedHeaderContainer>
+        <FixedHeaderContainer style={{ zIndex: 3 }}>
           <PrimaryHeader style={{}} header_title={'맞춤형 투자 분석'} />
         </FixedHeaderContainer>
       )}

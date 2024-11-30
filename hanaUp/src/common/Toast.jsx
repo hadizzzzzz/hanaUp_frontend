@@ -20,7 +20,7 @@ function Toast({ message, onClose }) {
         width: '335px',
         height: '53px',
         position: 'absolute',
-        bottom: '80px',
+        bottom: '100px',
         right: '29px',
         padding: '9px 19px',
         display: 'flex',
@@ -35,6 +35,7 @@ function Toast({ message, onClose }) {
         transition: 'opacity 0.3s, transform 0.3s',
         ...font.caption.cap2R,
         whiteSpace: 'pre-wrap', // 줄바꿈 문자 렌더링
+        wordBreak: 'keep-all',
       }}
     >
       {message}

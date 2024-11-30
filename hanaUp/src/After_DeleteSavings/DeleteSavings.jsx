@@ -33,7 +33,7 @@ const ContentContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   flex: 1 0 0;
-  padding: 40px 20px;
+  padding: 20px 20px;
   gap: 20px;
 `;
 
@@ -221,7 +221,7 @@ const DeleteSavings = () => {
         </TextSubContainer>
         <img
           src={BackCard}
-          style={{ cursor: 'pointer', width: '100%', objectFit: 'cover' }}
+          style={{ cursor: 'pointer', width: '95%', objectFit: 'cover' }}
           onClick={() => {
             navigation('/predictService/predictAmount');
           }}

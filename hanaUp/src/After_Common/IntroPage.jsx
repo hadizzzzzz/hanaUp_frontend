@@ -27,7 +27,8 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: center;
 `;
 
 const ContentContainer = styled.div`
@@ -48,7 +49,7 @@ const TitleContainer = styled.div`
   align-items: flex-start;
   gap: 20px;
 
-  padding-top: 30px;
+  padding-top: 10px;
   padding-left: 20px;
 `;
 
@@ -76,9 +77,9 @@ const TitleText = styled.div`
 const BtnContainer = styled.div`
   display: flex;
   padding: 20px;
+  padding-top: 0px;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
   align-self: stretch;
   z-index: 1;
 `;
@@ -193,7 +194,7 @@ const CheckFunds = ({ countryFunds, radioClickedState, setRadioClickedState }) =
   };
 
   return (
-    <CheckFund_ContentContainer style={{ gap: '40px' }}>
+    <CheckFund_ContentContainer style={{ gap: '20px' }}>
       <SmallTitleContainer>
         <div style={{ ...font.header.h2, color: color.grayscale.black, textAlign: 'left' }}>
           <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>하디즈님</LinearGradient>은

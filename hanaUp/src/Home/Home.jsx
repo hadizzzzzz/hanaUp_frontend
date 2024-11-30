@@ -50,6 +50,9 @@ const DummyBanner = styled.img`
 const TravelBannerContainer = styled.div`
   /* flex-grow: 1; */
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
 `;
 
 const DummyBottom = styled.img`
@@ -227,7 +230,9 @@ const Home = () => {
         <FundSwiperContainer>
           {/* fundSwiper에서 초기 여행 상태값 */}
           <FundSwiper
-            firstCountry={location.state && location.state.firstSortCountry && location.state.firstSortCountry}
+            firstCountry={
+              (location.state && location.state.firstSortCountry && location.state.firstSortCountry) || firstCountry
+            }
           />
         </FundSwiperContainer>
         <DummyBanner src={banner} />

@@ -6,7 +6,7 @@ import font from '../styles/font';
 import StatusBarImg from '../../public/img/statusBar.jpg';
 
 const Root = styled.div`
-  width: 100%;
+  width: 390px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -15,7 +15,7 @@ const Root = styled.div`
 
 const Container = styled.div`
   display: flex;
-  padding: 12px 24px 0px 24px;
+  padding: 0px 24px 0px 24px;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
@@ -46,6 +46,7 @@ const Title = styled.div`
   text-align: center;
 
   ${font.header.h3};
+  background-color: white;
 `;
 
 const PrimaryHeader = ({ header_title }) => {

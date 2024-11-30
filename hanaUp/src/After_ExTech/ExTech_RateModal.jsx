@@ -30,6 +30,7 @@ const Container = styled.div`
 
   display: flex;
   padding: 15px;
+  padding-bottom: 0px;
   flex-direction: column;
   align-items: center;
   gap: 15px;
@@ -95,6 +96,7 @@ const BtnContainer = styled.div`
   display: flex;
   padding: 20px 0px;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   align-self: stretch;
 
