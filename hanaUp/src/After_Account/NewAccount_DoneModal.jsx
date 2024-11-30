@@ -28,7 +28,9 @@ const Container = styled.div`
 
   display: flex;
   padding: 20px;
+  padding-bottom: 0px;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
   gap: 15px;
   align-self: stretch;
@@ -80,7 +82,10 @@ const IcnText = styled.div`
 const BtnContainer = styled.div`
   display: flex;
   padding: 20px 0px;
+  padding-top: 10px;
+
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   align-self: stretch;
 

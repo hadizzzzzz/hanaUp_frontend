@@ -46,7 +46,7 @@ const LoadingContentContainer = styled.div`
 `;
 
 const ContentContainer = styled.div`
-  padding-top: 54px; // 상단 영역
+  padding-top: 100px; // 상단 영역
   padding-bottom: 110px; // 하단 영역
   width: 100%;
   display: flex;

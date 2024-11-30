@@ -104,6 +104,7 @@ const Home = () => {
       '/img/travelTypes/ITMEP.jpg',
       '/img/travelTypes/ITPHJ.jpg',
       '/img/travelTypes/ITPHP.jpg',
+      '/img/statusBar.jpg',
     ];
 
     imagePaths.forEach(path => {
