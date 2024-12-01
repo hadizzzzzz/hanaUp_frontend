@@ -21,6 +21,9 @@ const RootContainer = styled.div`
   flex-direction: column;
   align-items: flex-start;
   flex: 1 0 0;
+
+  width: 390px;
+  margin: 0 auto;
 `;
 
 const ContentWrapContainer = styled.div`

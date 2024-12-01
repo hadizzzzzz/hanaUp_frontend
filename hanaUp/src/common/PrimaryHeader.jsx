@@ -6,7 +6,7 @@ import font from '../styles/font';
 import StatusBarImg from '../../public/img/statusBar.jpg';
 
 const Root = styled.div`
-  width: 390px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

@@ -196,7 +196,7 @@ const ExTech = () => {
           </TextInputContainer>
           <PrimaryBanner
             caption="최근 환율 흐름이 궁금하다면"
-            text="JPY의 최근 환율 확인하고 더 높은 수익얻기"
+            text={`${countryInfo.currency_code}의 최근 환율 확인하고 더 높은 수익얻기`}
             btnText="환율 정보"
             onBtnClick={openModal}
           />
