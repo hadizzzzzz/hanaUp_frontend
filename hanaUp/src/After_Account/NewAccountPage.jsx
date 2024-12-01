@@ -367,7 +367,7 @@ const NewAccount = () => {
                 <Icn src={Icn_Calendar} />
               </IcnContainer>
               <RegisterTextContainer>
-                <div style={{ ...font.header.h5M, color: color.grayscale.gray7 }}>예치 가능 통화</div>
+                <div style={{ ...font.header.h5M, color: color.grayscale.gray7 }}>가입 기간</div>
                 <div style={{ ...font.caption.cap2R, color: color.grayscale.gray7 }}>1개월, 6개월, 1년</div>
               </RegisterTextContainer>
             </EachRegisterContent>
