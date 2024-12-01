@@ -118,10 +118,14 @@ const ExTech = () => {
       //   country: countryInfo.country_en, // 나라 정보
       //   amount: Number(amount.replace(/[^0-9]/g, '')),
       // });
+      var realAmount;
+      if (amount === '하나머니 금액만큼') realAmount = parseInt(investMethodInfo.balance);
+      else realAmount = Number(amount.replace(/[^0-9]/g, ''));
+      console.log(realAmount);
       const res = await axios.post(`${BASE_URL}/api/after-travel/forextech`, {
         userId: userId,
         country: countryInfo.country_en, // 나라 정보
-        amount: Number(amount.replace(/[^0-9]/g, '')), // 충전하고 싶은 금액
+        amount: realAmount,
       });
       console.log('환율 알림 설정 결과', res.data);
       setExTechCharge({
