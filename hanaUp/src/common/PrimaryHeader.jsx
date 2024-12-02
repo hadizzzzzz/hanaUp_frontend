@@ -15,7 +15,7 @@ const Root = styled.div`
 
 const Container = styled.div`
   display: flex;
-  padding: 0px 24px 0px 24px;
+  padding: 12px 24px 12px 24px;
   justify-content: space-between;
   align-items: center;
   align-self: stretch;
@@ -54,7 +54,6 @@ const PrimaryHeader = ({ header_title }) => {
 
   return (
     <Root>
-      <StatusBar src={StatusBarImg} />
       <Container>
         <BackBtnWrapper onClick={() => navigate(-1)}>
           <BackBtn src={arrow_left}></BackBtn>
