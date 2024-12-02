@@ -91,23 +91,6 @@ const Home = () => {
   // 이미지 미리 로드
   const preloadImages = () => {
     const imagePaths = [
-      '/img/travelTypes/EFMEJ.jpg',
-      '/img/travelTypes/EFMEP.jpg',
-      '/img/travelTypes/EFPHJ.jpg',
-      '/img/travelTypes/ETPHP.jpg',
-      '/img/travelTypes/ETMEJ.jpg',
-      '/img/travelTypes/ETMEP.jpg',
-      '/img/travelTypes/ETPHJ.jpg',
-      '/img/travelTypes/ETPHP.jpg',
-      '/img/travelTypes/IFMEJ.jpg',
-      '/img/travelTypes/IFMEP.jpg',
-      '/img/travelTypes/IFPHJ.jpg',
-      '/img/travelTypes/IFPHP.jpg',
-      '/img/travelTypes/ITMEJ.jpg',
-      '/img/travelTypes/ITMEP.jpg',
-      '/img/travelTypes/ITPHJ.jpg',
-      '/img/travelTypes/ITPHP.jpg',
-      '/img/statusBar.jpg',
       '/img/travelTypes/afterBanner.jpg',
       '/img/travelTypes/atm.jpg',
       '/img/travelTypes/banner.jpg',

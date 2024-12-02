@@ -218,6 +218,36 @@ const Before_InputPage = () => {
     }
   };
 
+  const preloadImages = () => {
+    const imagePaths = [
+      '/img/travelTypes/EFMEJ.jpg',
+      '/img/travelTypes/EFMEP.jpg',
+      '/img/travelTypes/EFPHJ.jpg',
+      '/img/travelTypes/ETPHP.jpg',
+      '/img/travelTypes/ETMEJ.jpg',
+      '/img/travelTypes/ETMEP.jpg',
+      '/img/travelTypes/ETPHJ.jpg',
+      '/img/travelTypes/ETPHP.jpg',
+      '/img/travelTypes/IFMEJ.jpg',
+      '/img/travelTypes/IFMEP.jpg',
+      '/img/travelTypes/IFPHJ.jpg',
+      '/img/travelTypes/IFPHP.jpg',
+      '/img/travelTypes/ITMEJ.jpg',
+      '/img/travelTypes/ITMEP.jpg',
+      '/img/travelTypes/ITPHJ.jpg',
+      '/img/travelTypes/ITPHP.jpg',
+    ];
+
+    imagePaths.forEach(path => {
+      const img = new Image();
+      img.src = path;
+    });
+  };
+
+  useEffect(() => {
+    preloadImages();
+  }, []);
+
   return (
     <Container className="testInputPage">
       <PrimaryHeader header_title="여행 기본 정보 입력하기" />
