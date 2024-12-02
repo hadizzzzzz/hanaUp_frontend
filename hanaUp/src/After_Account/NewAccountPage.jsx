@@ -4,7 +4,7 @@ import PrimaryHeader from '../common/PrimaryHeader';
 import styled, { css } from 'styled-components';
 import font from '../styles/font';
 import Chip from '../common/Chip';
-import ImgSrc from '../../public/img/newAccountImg.jpg';
+import ImgSrc from '/img/newAccountImg.jpg';
 import InputPage_Dropdown from '../Before_Common/InputPage_Dropdown';
 import Icn_Coins from './assets/icn_coins.png';
 import Icn_Calendar from './assets/icn_calendar.png';

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import arrow_left from '../common/assets/arrow-left.png';
 import font from '../styles/font';
-import StatusBarImg from '../../public/img/statusBar.jpg';
 
 const Root = styled.div`
   width: 100%;

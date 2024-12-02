@@ -3,7 +3,7 @@ import x from '../assets/x.png';
 import font from '../../styles/font';
 import color from '../../styles/color';
 import PrimaryButton from '../../common/PrimaryButton';
-import ModalImg from '../../../public/img/mainModal.png';
+import ModalImg from '/img/mainModal.png';
 import { useNavigate } from 'react-router-dom';
 
 const OverlayContainer = styled.div`

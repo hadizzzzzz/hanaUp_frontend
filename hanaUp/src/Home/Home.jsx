@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import PrimaryHeader from '../common/PrimaryHeader';
 import FundInfoCard from './components/FundInfoCard';
 import FundSwiper from './components/FundSwiper';
-import banner from '../../public/img/mainBanner.jpg';
+import banner from '/img/mainBanner.jpg';
 import bottomDummy from './assets/bottomDummy.jpg';
 import TravelBanner from './components/TravelBanner';
 import { useLocation, useNavigate } from 'react-router-dom';

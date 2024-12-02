@@ -5,7 +5,7 @@ import { useRecoilValue } from 'recoil';
 import { useRecoilState } from 'recoil';
 import { after_newAccountInfo } from '../Recoil/after_newAccountInfo';
 import { useState } from 'react';
-import GiveCoin from '../../public/img/giveCoin.jpg';
+import GiveCoin from '/img/giveCoin.jpg';
 import Msg from '../common/Msg';
 import font from '../styles/font';
 import color from '../styles/color';

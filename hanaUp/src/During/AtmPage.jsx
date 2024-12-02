@@ -4,7 +4,7 @@ import PrimaryButton from '../common/PrimaryButton';
 import HighLightText from '../common/HighLightText';
 import font from '../styles/font';
 import color from '../styles/color';
-import Atm from '../../public/img/atm.jpg';
+import Atm from '/img/atm.jpg';
 
 const Container = styled.div`
   width: 390px;

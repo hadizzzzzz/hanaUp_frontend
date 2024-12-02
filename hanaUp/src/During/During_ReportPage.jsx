@@ -8,7 +8,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import font from '../styles/font';
 import HighLightText from '../common/HighLightText';
-import Loading from '../../public/img/loading.jpg';
+import Loading from '/img/loading.jpg';
 import PrimaryButton from '../common/PrimaryButton';
 import axios from 'axios';
 import { uid } from '../Recoil/uid';

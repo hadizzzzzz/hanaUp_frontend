@@ -12,7 +12,7 @@ import { typeInfo } from '../common/arrays/typeInfo';
 import { useEffect } from 'react';
 import countryInfo from '../common/arrays/countryInfo';
 import PrimaryTag from '../common/PrimaryTag';
-import banner from '../../public/img/banner.jpg';
+import banner from '/img/banner.jpg';
 
 // 버튼 컨테이너를 제외한 content만의 컨테이너
 const RootContainer = styled.div`

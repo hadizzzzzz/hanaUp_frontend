@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import banner from '../../public/img/banner.jpg';
+import banner from '/img/banner.jpg';
 import PrimaryTag from '../common/PrimaryTag';
 import color from '../styles/color';
 import calculateDateDiff from '../common/calculateDateDiff';
