@@ -108,6 +108,20 @@ const Home = () => {
       '/img/travelTypes/ITPHJ.jpg',
       '/img/travelTypes/ITPHP.jpg',
       '/img/statusBar.jpg',
+      '/img/travelTypes/afterBanner.jpg',
+      '/img/travelTypes/atm.jpg',
+      '/img/travelTypes/banner.jpg',
+      '/img/travelTypes/beforeBanner.jpg',
+      '/img/travelTypes/duringBanner.jpg',
+      '/img/travelTypes/giveCoin.jpg',
+      '/img/travelTypes/investIntro_coin.jpg',
+      '/img/travelTypes/investIntro_Splash.jpg',
+      '/img/travelTypes/loading.jpg',
+      '/img/travelTypes/loadingTicket.jpg',
+      '/img/travelTypes/mainBanner.jpg',
+      '/img/travelTypes/mainModal.png',
+      '/img/travelTypes/newAccountImg.jpg',
+      '/img/travelTypes/predictMain.jpg',
     ];
 
     imagePaths.forEach(path => {
