@@ -128,21 +128,20 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
   // 이전 5일에 대한 날짜를 YYYYMMDD 형식 배열로 반환하는 함수
   function getLast5BusinessDays() {
     const result = [];
-    const today = new Date();
+    const today = new Date(new Date().getTime() + 9 * 60 * 60 * 1000); // UTC + 9시간
+    today.setDate(4);
 
     const dayInMillisec = 24 * 60 * 60 * 1000; // 하루를 밀리초로 계산
-    const todayEleven = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 11);
-    // console.log((today.getTime() - todayEleven) / 60 / 60 / 1000); // 디버깅용;
 
+    console.log(today.toISOString());
     let count = 0; // 5일 계산용
     let currentDate = today;
-    // console.log(eleven, today.);
-    if (today.getTime() < todayEleven) currentDate = new Date(currentDate.getTime() - dayInMillisec); // 11시 이전이면 어제 날짜부터 가져옴;
     result.push(currentDate.toISOString().slice(0, 10).replace(/-/g, ''));
 
     while (count < 4) {
       currentDate = new Date(currentDate.getTime() - dayInMillisec); // 하루씩 이전으로 이동
       const day = currentDate.getDay(); // 요일 확인 (0: 일요일, 6: 토요일)
+      console.log(currentDate);
 
       if (day !== 0 && day !== 6) {
         // 주말 제외
@@ -152,6 +151,7 @@ const ExTech_RateModal = ({ closeModal, country, currency_symbol }) => {
       }
     }
     setLast5Days(result);
+    console.log(result);
     return result;
   }
 

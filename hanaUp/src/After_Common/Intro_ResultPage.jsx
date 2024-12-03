@@ -283,8 +283,13 @@ const Intro_ResultPage = () => {
                   </AnalyzeTextContainer>
                   <AnalyzeTextContainer>
                     <AnalyzeIcnContainer src={DollarReceiveIcn} />
-                    {countryInfo.country_kr}의 금리가 한국의 금리보다{' '}
-                    {investMethodInfo.investmentType === '환테크' ? '낮아요' : '높아요'}
+                    {countryInfo.country_kr}의 금리가 한국의 금리
+                    {countryInfo.country_en === 'China' || countryInfo.country_en === 'Malaysia' ? '와' : '보다'}{' '}
+                    {investMethodInfo.investmentType === '환테크'
+                      ? countryInfo.country_en === 'China' || countryInfo.country_en === 'Malaysia'
+                        ? '비슷해요'
+                        : '작아요'
+                      : '높아요'}
                   </AnalyzeTextContainer>
                   <AnalyzeTextContainer>
                     <AnalyzeIcnContainer src={BoltIcn} />
@@ -312,7 +317,12 @@ const Intro_ResultPage = () => {
                   </div>
                   {investMethodInfo.investmentType === '환테크' ? (
                     <div style={{ ...font.caption.cap2M, color: '#2d2d2d', textAlign: 'left' }}>
-                      금리가 우리나라보다 낮기 때문에 <br />
+                      금리가 우리나라
+                      {countryInfo.country_en === 'China' || countryInfo.country_en === 'Malaysia' ? '와' : '보다'}{' '}
+                      {countryInfo.country_en === 'China' || countryInfo.country_en === 'Malaysia'
+                        ? '비슷하기'
+                        : '작기'}{' '}
+                      때문에 <br />
                       외화 예금에 투자하는 것보다{' '}
                       <LinearGradient gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}>
                         환율 변동을 예측한 환테크
@@ -358,7 +368,7 @@ const Intro_ResultPage = () => {
                       {investMethodInfo.investmentType === '환테크' ? (
                         <div>{investMethodInfo.interestRate}%</div>
                       ) : (
-                        <div>3.25%</div>
+                        <div>3%</div>
                       )}
                     </CountryIcnContainer>
                   </div>
@@ -392,7 +402,7 @@ const Intro_ResultPage = () => {
                         gradient={['to right', '#46D7C2 0%, #24C9BF 50%, #01BABD 100%']}
                         style={{ ...font.header.h3 }}
                       >
-                        {investMethodInfo.investmentType === '환테크' ? '3.25%' : `${investMethodInfo.interestRate}%`}
+                        {investMethodInfo.investmentType === '환테크' ? '3%' : `${investMethodInfo.interestRate}%`}
                       </LinearGradient>
                     </CountryIcnContainer>
                   </div>
